@@ -1,0 +1,15 @@
+@import "../src/mixins.scss";
+
+$black: #000000;
+$white: white;
+$bg-color: #eceefe;
+$light-purple: #adb0d9;
+$purple-bg-reaction: #444df2;
+$purple-bg-message: #797ef3;
+$purple-text: #535af1;
+$text-gray: #686868;
+$online-green: #92c83e;
+$error-rosa: #ed1e79;
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
