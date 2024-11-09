@@ -9,17 +9,21 @@ export class CloudService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
   unsubChannels;
   unsubMembers;
+  unsubIds;
   channels: any = [];
   members: any = [];
+  ids: any = [];
 
   constructor() {
     this.unsubChannels = this.subList('channels');
     this.unsubMembers = this.subList("members");
+    this.unsubIds = this.subList("userId_memberid");
   }
 
   ngOnDestroy(): void {
     this.unsubChannels();
     this.unsubMembers();
+    this.unsubIds();
   }
 
   subList(ref: string) {
@@ -28,6 +32,8 @@ export class CloudService implements OnDestroy {
         this.channels = querySnapshot.docs.map((doc) => doc.data());
       } else if (ref === 'members') {
         this.members = querySnapshot.docs.map((doc) => doc.data());
+      } else if (ref === 'userId_memberid') {
+        this.ids = querySnapshot.docs.map((doc) => doc.data());
       }
     });
   }

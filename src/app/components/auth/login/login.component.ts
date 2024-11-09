@@ -14,5 +14,6 @@ export class LoginComponent {
   showData() {
     console.log(this.cloudService.channels);
     console.log(this.cloudService.members);
+    console.log(this.cloudService.ids);
   }
 }
