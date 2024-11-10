@@ -1,0 +1,83 @@
+
+.sidebar-container-class {
+    width: 366px;
+    height: 940px;
+    top: 115px;
+    left: 20px;
+    border-radius: 30px;
+    padding: 32px 30px 32px 30px;
+    gap: 25px; 
+    background-color: white;
+}
+
+.devspace-container-class { 
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    width: 100%;
+    justify-content: space-between;
+
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: black; 
+        width: 100%;
+        margin-left: 20px;
+        margin-bottom: 0; 
+    }
+}
+
+.channels-container-class {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.channels-header-class {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: black;
+    gap: 10px;
+}
+h2 {
+    align-self:first baseline;
+    font-size: 24px;
+    font-weight: 700; 
+    color: black; 
+}
+li {
+    list-style: none;
+}
+
+.add-channel-btn    {  
+    cursor: pointer;
+    background-color: white;
+    border: unset;
+}
+.submenu-profile-container-class {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.submenu-profile-picture-class {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.submenu-profile-name-class {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24.55px;
+    color: black;
+}

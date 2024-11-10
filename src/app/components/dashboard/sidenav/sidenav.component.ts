@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
-  selector: 'app-sidenav',
   standalone: true,
-  imports: [],
+  selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.scss'
+  styleUrls: ['./sidenav.component.scss'],
+  imports: [CommonModule]  
 })
 export class SidenavComponent {
+  isChannelsExpanded = true;
+  isDirectMessagesExpanded = true;
 
+  // Methode zum Umschalten des Channels-Menüs
+ 
+
+  // Methode zum Umschalten des Direktnachrichten-Menüs
+ 
 }
