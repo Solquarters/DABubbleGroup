@@ -1,3 +1,14 @@
+$black: #000000;
+$white: white;
+$bg-color: #eceefe;
+$light-purple: #adb0d9;
+$purple-bg-reaction: #444df2;
+$purple-bg-message: #797ef3;
+$purple-text: #535af1;
+$text-gray: #686868;
+$online-green: #92c83e;
+$error-rosa: #ed1e79;
+
 @mixin dFlex($jc:center, $ai:center, $fd: column, $g: 0px) {
     display: flex;
     justify-content: $jc;

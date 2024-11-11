@@ -7,6 +7,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 export const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'forgotPasswort', component: ForgotPasswordComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'dashboard', component: DashboardComponent },
 ];
