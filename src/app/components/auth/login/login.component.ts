@@ -6,13 +6,15 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule
+  
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   constructor(public cloudService: CloudService) {}
-
+  imageUrl = 'assets/logos/google-icon.svg';
   showData() {
     console.log(this.cloudService.channels);
     console.log(this.cloudService.members);
