@@ -10,10 +10,10 @@
 html,
 body {
   height: 100%;
+  font-family: "Nunito";
 }
 body {
   margin: 0;
-  font-family: "Nunito";
   font-weight: 400;
 }
 
@@ -28,7 +28,7 @@ body {
   font-family: 'Nunito';
   font-weight: 600;
   font-style: normal;
-  src: url('/src/assets/fonts/NunitoSans_10pt-SemiBold.ttf') format('truetype');
+  src: url('/src/assets/fonts/Nunito-BlackItalic.ttf') format('truetype');
 }
 
 @font-face {
