@@ -6,7 +6,10 @@
         </div>
     </header>
     <div class="login-card">
-        <img class="back-arrow" src="assets/icons/arrow-back.svg" alt="arrow back">
+        <a (mouseover)="authService.backArrowPurple()" (mouseleave)="authService.backArrowBlack()"
+            (click)="authService.backArrowBlack()" [routerLink]="['']" class="back-arrow">
+            <img [src]="authService.backArrowSvg" alt="arrow back">
+        </a>
         <h2>Konto erstellen</h2>
         <p>
             Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.
@@ -30,17 +33,19 @@
                 <input (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput()" type="password"
                     id="password" [placeholder]="authService.placeholderPw" />
             </div>
-            <div>
-                <input type="checkbox"> <span> ich stimmt der <span>Datenschutzerklärung</span> zu.</span>
+            <div class="privacy-container" (click)="authService.toggleCheckbox(checkbox)">
+                <input #checkbox type="checkbox"> <span> ich stimmt der <span class="privacy-span"
+                        [routerLink]="['/privacy-policy']">Datenschutzerklärung</span>
+                    zu.</span>
             </div>
             <div class="button-container">
-                <button type="submit" class="next-btn">Anmelden</button>
+                <button type="submit" class="next-btn">Weiter</button>
             </div>
         </form>
 
     </div>
     <footer>
-        <a [routerLink]="['imprint']" class="footer-anker">Impressum</a>
-        <a [routerLink]="['privacy-policy']" class="footer-anker">Datenschutz</a>
+        <a [routerLink]="['/imprint']" class="footer-anker">Impressum</a>
+        <a [routerLink]="['/privacy-policy']" class="footer-anker">Datenschutz</a>
     </footer>
 </div>

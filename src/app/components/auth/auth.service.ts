@@ -10,6 +10,7 @@ export class AuthService {
   placeholderName = 'Name und Nachname';
   placeholderMail = 'beispielname@email.com';
   placeholderPw = 'Passwort';
+  backArrowSvg = 'assets/icons/back-arrow.svg';
 
   constructor() {}
 
@@ -40,5 +41,20 @@ export class AuthService {
   blurPwInput() {
     this.passwordSvg = 'assets/icons/password.svg';
     this.placeholderPw = 'Passwort';
+  }
+
+  backArrowBlack() {
+    setTimeout(() => {
+      this.backArrowSvg = 'assets/icons/back-arrow.svg';
+    }, 75);
+  }
+
+  backArrowPurple() {
+    setTimeout(() => {
+      this.backArrowSvg = 'assets/icons/back-arrow-purple.svg';
+    }, 75);
+  }
+  toggleCheckbox(checkbox: HTMLInputElement): void {
+    checkbox.checked = !checkbox.checked; // Toggle den Status der Checkbox
   }
 }
