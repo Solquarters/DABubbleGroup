@@ -1,0 +1,25 @@
+<div class="popup-overlay" *ngIf="isPopupVisible">
+    <div class="popup-content">
+      <img src="assets/icons/close.svg" class="close-btn" (click)="closePopup()"> 
+      <h2>Channel erstellen</h2>
+      <p class="popup-description">
+        Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezogen sein, wie z.B. #marketing.
+      </p>
+      
+      <div class="input-group">
+        <label for="channel-name">Channel-Name</label>
+        <input type="text" id="channel-name" placeholder="# z.B. Kooperationsprojekte">
+    </div>
+    
+    <div class="input-group">
+        <label for="description">Beschreibung (optional)</label>
+        <textarea #description id="description" placeholder="Dein Text hier" rows="1"></textarea>
+    </div>
+    
+      
+      <div class="button-container">
+        <button class="button-primary">Erstellen</button>
+    </div>
+    </div>
+  </div>
+  

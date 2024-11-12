@@ -20,4 +20,16 @@ import { ThreadBarComponent } from './thread-bar/thread-bar.component';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {}
+export class DashboardComponent { 
+  isSidebarVisible = true;
+  isHovered = false;
+
+  // Method to toggle sidebar visibility
+  toggleSidebar() {
+    this.isSidebarVisible = !this.isSidebarVisible;
+  }
+  // Method to set hover state
+  onHover(isHovered: boolean) {
+    this.isHovered = isHovered;
+  } 
+}

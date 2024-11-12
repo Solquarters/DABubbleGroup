@@ -13,3 +13,23 @@ $error-rosa: #ed1e79;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.button-primary {
+  width: 150px;
+  height: 50px;
+  background-color: $purple-bg-reaction;
+  color: $white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24.55px;
+  transition: background-color 0.3s ease-in-out;
+  
+  &:hover {
+    background-color: $purple-bg-message;
+  }
+}
