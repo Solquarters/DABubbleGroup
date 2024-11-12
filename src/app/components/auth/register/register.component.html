@@ -1,1 +1,46 @@
-<p>register works!</p>
+<div class="main-container">
+    <header>
+        <div class="logo">
+            <img src="assets/logos/logo.svg" alt="DABubble Logo" />
+            <span>DABubble</span>
+        </div>
+    </header>
+    <div class="login-card">
+        <img class="back-arrow" src="assets/icons/arrow-back.svg" alt="arrow back">
+        <h2>Konto erstellen</h2>
+        <p>
+            Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.
+        </p>
+        <form>
+            <div class="input-group">
+                <img [src]="authService.nameSvg" alt="mail-icon">
+                <label for="email"></label>
+                <input (focus)="authService.focusNameInput()" (blur)="authService.blurNameInput()" type="text" id="name"
+                    [placeholder]="authService.placeholderName" />
+            </div>
+            <div class="input-group">
+                <img [src]="authService.mailSvg" alt="mail-icon">
+                <label for="email"></label>
+                <input (focus)="authService.focusMailInput()" (blur)="authService.blurMailInput()" type="email"
+                    id="email" [placeholder]="authService.placeholderMail" />
+            </div>
+            <div class="input-group">
+                <img [src]="authService.passwordSvg" alt="mail-icon">
+                <label for="password"><i class="fas fa-lock"></i></label>
+                <input (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput()" type="password"
+                    id="password" [placeholder]="authService.placeholderPw" />
+            </div>
+            <div>
+                <input type="checkbox"> <span> ich stimmt der <span>Datenschutzerklärung</span> zu.</span>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="next-btn">Anmelden</button>
+            </div>
+        </form>
+
+    </div>
+    <footer>
+        <a [routerLink]="['imprint']" class="footer-anker">Impressum</a>
+        <a [routerLink]="['privacy-policy']" class="footer-anker">Datenschutz</a>
+    </footer>
+</div>

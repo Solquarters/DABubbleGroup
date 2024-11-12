@@ -3,6 +3,7 @@ import { CloudService } from '../../../core/services/cloud.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,28 +13,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  constructor(public cloudService: CloudService) {}
-  mailSvg = 'assets/icons/mail.svg';
-  passwordSvg = 'assets/icons/password.svg';
-  placeholderMail = 'beispielname@email.com';
-  placeholderPw = 'Passwort';
-  focusMailInput() {
-    this.mailSvg = 'assets/icons/mail-bold.svg';
-    this.placeholderMail = '';
-  }
-
-  blurMailInput() {
-    this.mailSvg = 'assets/icons/mail.svg';
-    this.placeholderMail = 'beispielname@email.com';
-  }
-
-  focusPwInput() {
-    this.passwordSvg = 'assets/icons/password-bold.svg';
-    this.placeholderPw = '';
-  }
-
-  blurPwInput() {
-    this.passwordSvg = 'assets/icons/password.svg';
-    this.placeholderPw = 'Passwort';
-  }
+  constructor(public authService: AuthService) {}
 }
