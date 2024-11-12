@@ -1,10 +1,10 @@
 @import "../../../../mixins.scss";
 
-.container {
-  background-color: $bg-color;
-  @include dFlex();
+.main-container {
   width: 100%;
   height: 100vh;
+  background-color: $bg-color;
+  @include dFlex();
 }
 
 header {
@@ -13,18 +13,20 @@ header {
   position: absolute;
   top: 75px;
   left: 0;
+  padding: 0px 75px;
 }
 
 .logo {
-  @include dFlex($fd: row);
+  @include dFlex($fd: row, $g: 16px);
   img {
     width: 70px;
     height: 70px;
   }
-  h1 {
-    font-size: 34px;
+  span {
+    font-size: 38px;
     color: #000000;
     font-weight: 500;
+    letter-spacing: -2px;
   }
 }
 
@@ -39,7 +41,7 @@ header {
 .login-card {
   background-color: white;
   border-radius: 30px;
-  padding: 2rem;
+  padding: 50px 60px;
   max-width: 606px;
   width: 100%;
   box-shadow: 0px 2px 10px 0px #00000014;
@@ -49,6 +51,7 @@ header {
     font-size: 46px;
     color: $purple-text;
     font-weight: 700;
+    margin-bottom: 30px;
   }
 
   p {
@@ -61,6 +64,15 @@ header {
   .input-group {
     position: relative;
     margin-bottom: 1rem;
+    width: 100%;
+    max-width: 500px;
+    height: 60px;
+    border-radius: 100px;
+    background-color: $bg-color;
+    padding: 0px 32px;
+    @include dFlex($fd: row, $g: 16px);
+    outline: none;
+    border: 1px solid transparent;
 
     label {
       position: absolute;
@@ -72,13 +84,17 @@ header {
 
     input {
       width: 100%;
-      padding: 10px 10px 10px 40px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
+      border-radius: 100px;
+      padding: 18px 0px;
+      background-color: $bg-color;
+      border: 0;
       outline: none;
-
       &:focus {
-        border-color: $purple-text;
+        .input-group {
+    border-color: $purple-text;
+          outline: none;
+
+        }
       }
     }
   }
