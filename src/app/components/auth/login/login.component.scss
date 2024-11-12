@@ -1,10 +1,15 @@
 @import "../../../../mixins.scss";
 
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 10, "wght" 400, "GRAD" 0, "opsz" 14;
+}
+
 .main-container {
   width: 100%;
   height: 100vh;
   background-color: $bg-color;
   @include dFlex();
+  font-size: 18px;
 }
 
 header {
@@ -34,7 +39,7 @@ header {
   @include dFlex($ai: flex-end, $g: 20px);
   a {
     text-decoration: none;
-    color: $purple-text;
+    color: $purple1;
   }
 }
 
@@ -49,7 +54,7 @@ header {
 
   h2 {
     font-size: 46px;
-    color: $purple-text;
+    color: $purple1;
     font-weight: 700;
     margin-bottom: 30px;
   }
@@ -58,21 +63,30 @@ header {
     font-size: 20px;
     font-weight: 400;
     color: black;
-    margin-bottom: 1.5rem;
+    margin-bottom: 30px;
   }
 
   .input-group {
     position: relative;
-    margin-bottom: 1rem;
     width: 100%;
     max-width: 500px;
     height: 60px;
     border-radius: 100px;
     background-color: $bg-color;
-    padding: 0px 32px;
+    padding: 0px 0px 0px 32px;
     @include dFlex($fd: row, $g: 16px);
     outline: none;
-    border: 1px solid transparent;
+    border: 1px solid white;
+    margin-bottom: 30px;
+    cursor: pointer;
+    transition: all 125ms ease-in-out;
+    &:focus-within {
+      border-color: $purple1 !important;
+    }
+
+    &:hover {
+      border-color: $text-gray;
+    }
 
     label {
       position: absolute;
@@ -84,18 +98,16 @@ header {
 
     input {
       width: 100%;
+      font-size: 18px;
+      height: 100%;
+      padding: 0px 8px;
+      font-weight: 500;
       border-radius: 100px;
-      padding: 18px 0px;
       background-color: $bg-color;
-      border: 0;
+      border: 1px solid transparent;
       outline: none;
-      &:focus {
-        .input-group {
-    border-color: $purple-text;
-          outline: none;
-
-        }
-      }
+      cursor: pointer;
+      transition: all 125ms ease-in-out;
     }
   }
 
@@ -107,16 +119,23 @@ header {
 
   .forgot-password {
     display: block;
-    color: $purple-text;
-    font-size: 0.9rem;
+    color: $purple1;
+    font-size: 18px;
     text-decoration: none;
     max-width: max-content;
+    padding: 5px 15px;
+    border-radius: 25px;
+    transition: all 125ms ease-in-out;
+    &:hover {
+      background-color: $bg-color;
+      transform: scale(1.0115);
+    }
   }
 
   .separator {
     display: flex;
     align-items: center;
-    margin: 1rem 0;
+    margin: 30px 0;
 
     span {
       margin: 0 10px;
@@ -134,69 +153,85 @@ header {
   }
 
   .google-login {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 18px;
+    color: $purple1;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 1rem;
-    background-color: #f5f5f5;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    color: #666;
+    max-width: 500px;
+    height: 60px;
+    border-radius: 100px;
+    background-color: $bg-color;
+    padding: 0px 32px;
+    @include dFlex($fd: row, $g: 16px);
+    outline: none;
+    border: 1px solid transparent;
+    margin-bottom: 40px;
+    font-weight: 400;
     cursor: pointer;
+    transition: all 125ms ease-in-out;
+
+    &:hover {
+      border-color: $purple1;
+      transform: scale(1.0115);
+    }
 
     img {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
+      width: 38px;
+      height: 38px;
     }
+  }
+
+  .button-container {
+    @include dFlex($fd: row, $g: 30px);
   }
 
   .login-btn {
-    width: 100%;
-    padding: 10px;
-    background-color: #4a4ae5;
+    padding: 12px 25px;
+    height: 49px;
+    background-color: $purple1;
     border: none;
-    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 25px;
     color: #fff;
-    font-size: 1rem;
     cursor: pointer;
-    margin-bottom: 0.5rem;
-  }
-
-  .guest-login {
-    width: 100%;
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #4a4ae5;
-    border-radius: 5px;
-    color: #4a4ae5;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  .footer {
-    display: flex;
-    justify-content: center;
-    margin-top: 1.5rem;
-
-    a {
-      color: #666;
-      font-size: 0.8rem;
-      text-decoration: none;
-      margin: 0 5px;
+    transition: all 125ms ease-in-out;
+    &:hover {
+      background-color: #444df2bd;
     }
   }
 
-  .new-account {
-    margin-top: 1rem;
-    color: #666;
-    font-size: 0.9rem;
+  .guest-login {
+    height: 49px;
+    padding: 12px 25px;
+    background-color: #fff;
+    border: 1px solid $purple2;
+    border-radius: 25px;
+    color: $purple1;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 125ms ease-in-out;
+    &:hover {
+      background-color: $purple1;
+      color: white;
+    }
+  }
+}
 
-    a {
-      color: #4a4ae5;
-      text-decoration: none;
+footer {
+  @include dFlex($fd: row, $g: 16px);
+  position: absolute;
+  bottom: 50px;
+  .footer-anker {
+    padding: 10px 15px;
+    color: $purple1;
+    font-size: 18px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 25px;
+    transition: all 125ms ease-in-out;
+    &:hover {
+      border-color: grey;
     }
   }
 }
