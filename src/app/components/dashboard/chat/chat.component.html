@@ -9,14 +9,23 @@
             
         </div>
 
-        <div class="head-avatars-class">
-            @for (user of channelMembers; track user.userId) {
-                <img [src]="user.avatarUrl" alt="{{ user.displayName }}">
-              }
-              <p>{{channelMembers.length}}</p>
+        <div class="avatars-and-add-users-class">
+
+            <div class="head-avatars-class">
+                @for (user of channelMembers; track user.userId) {
+                    <img [src]="user.avatarUrl" alt="{{ user.displayName }}">
+                  }
+                  <p>{{channelMembers.length}}</p>
+            </div>
+    
+           <div class="add-avatar-button-class">
+    
+            
+           </div>
+
         </div>
 
-       
+        
 
     </div>
 
