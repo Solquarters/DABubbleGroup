@@ -10,6 +10,7 @@ export class AuthService {
   placeholderName = 'Name und Nachname';
   placeholderMail = 'beispielname@email.com';
   placeholderPw = 'Passwort';
+  placeholderPwConfirm = 'Neues Kennwort bestätigen';
   backArrowSvg = 'assets/icons/back-arrow.svg';
 
   constructor() {}
@@ -56,5 +57,13 @@ export class AuthService {
   }
   toggleCheckbox(checkbox: HTMLInputElement): void {
     checkbox.checked = !checkbox.checked; // Toggle den Status der Checkbox
+  }
+
+  focusPwConfirmInput() {
+    this.placeholderPwConfirm = '';
+  }
+
+  blurPwConfirmInput() {
+    this.placeholderPwConfirm = 'Neues Kennwort bestätigen';
   }
 }
