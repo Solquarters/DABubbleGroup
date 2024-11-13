@@ -103,6 +103,20 @@ export class ChatComponent {
       avatarUrl: '../../../../assets/basic-avatars/avatar3.png',
       joinedAt: new Date('2024-01-06T10:00:00Z'),
       role: 'member',
+    },
+    {
+      userId: "user45655",
+      displayName: "Noah",
+      avatarUrl: '../../../../assets/basic-avatars/avatar3.png',
+      joinedAt: new Date('2024-01-06T10:00:00Z'),
+      role: 'member',
+    },
+    {
+      userId: "user45655",
+      displayName: "Noah",
+      avatarUrl: '../../../../assets/basic-avatars/avatar3.png',
+      joinedAt: new Date('2024-01-06T10:00:00Z'),
+      role: 'member',
     }
   ];
 

@@ -114,3 +114,38 @@
     align-items: center;
     gap: 8px;
 }
+
+
+
+
+
+
+.chat-date-separator {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 1rem 0;
+  }
+  
+  .chat-date-separator::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #B2B5DB; /* Separator line color */
+  }
+  
+  .date-container {
+    padding: 0.25rem 0.5rem;
+    background-color: #ffffff; /* Background color of date container */
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #666666; /* Text color */
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    border: 1px solid #B2B5DB;
+  }
