@@ -33,3 +33,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: $purple-bg-message;
   }
 }
+
+.close-btn {
+  position: absolute;
+  top: 40px;
+  right: 40px; 
+  cursor: pointer;
+  transition: color 0.3s ease-in-out; 
+
+  &:hover {
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: $bg-color;  
+    box-sizing: border-box; 
+    content: url('/assets/icons/close-hover.svg');  
+    }
+  }
+  
