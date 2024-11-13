@@ -1,1 +1,23 @@
-<p>chat works!</p>
+<div class="main-chat-div">
+
+    <div class="channel-head-class">
+        <div class="head-name-class">
+
+            <img src="../../../../assets/hashtag.svg" alt="">
+            {{ currentChannel.name }}
+            <img src="../../../../assets/keyboard_arrow_down.svg" alt="">
+            
+        </div>
+
+        <div class="head-avatars-class">
+            @for (user of channelMembers; track user.userId) {
+                <img [src]="user.avatarUrl" alt="{{ user.displayName }}">
+              }
+              <p>{{channelMembers.length}}</p>
+        </div>
+
+       
+
+    </div>
+
+</div>
