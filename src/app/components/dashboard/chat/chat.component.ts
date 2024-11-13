@@ -165,4 +165,11 @@ export class ChatComponent {
   ];
 
 
+
+
+
+  returnTodayStringOrDate(){
+    
+  }
+
 }
