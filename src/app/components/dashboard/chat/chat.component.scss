@@ -82,6 +82,21 @@
     border-radius: 50%;
     border: 2px solid white;
     background-color: #eceefe;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        transition: transform 0.1s ease, fill 0.1s ease;
+        fill: #000; /* Default color */
+    }
+
+    &:hover svg {
+        transform: scale(1.1);
+        fill: #535af1; /* Change to purple on hover */
+    }
 }
 
 .avatars-and-add-users-class{
