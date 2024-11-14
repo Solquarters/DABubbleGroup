@@ -24,7 +24,6 @@
                   }
                   <p>{{channelMembers.length}}</p>
                 }
-                  
             </div>
             <div class="mobile-head-avatars-class">
                       
@@ -77,12 +76,10 @@
 
                       <div class="reactions-div-class">
                         
-
                         @for(reaction of message.reactions; track reaction.reactionId){
                           <div class="single-reaction-div-class">
                             {{reaction.emoji}}{{reaction.userIds}}
-                          </div>
-                          
+                          </div>   
                         }
                    
                       </div>
@@ -94,9 +91,6 @@
               </div>
         </div>
       
-
       }
-
-    
 
 </div>
