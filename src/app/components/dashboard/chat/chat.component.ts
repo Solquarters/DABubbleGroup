@@ -42,11 +42,6 @@ export interface Message {
   threadId?: string; 
 }
 
-// export interface Thread {
-//   threadId: string;
-//   messages: Message[];
-// }
-
 export interface Thread {
   threadId: string;
   parentMessageId: string; // The message that the thread is attached to
@@ -69,9 +64,7 @@ export interface Reaction {
 ///INTERFACES END
 ////////////////////////////////////////////
 
-
 import { Component } from '@angular/core';
-
 
 @Component({
   selector: 'app-chat',
@@ -84,7 +77,6 @@ import { Component } from '@angular/core';
 
 export class ChatComponent {
   
-
   channels: Channel[] = [
     {
       channelId: 'channel01',
@@ -142,7 +134,6 @@ export class ChatComponent {
       role: 'member',
     }
   ];
-
 
   messages: Message[] = [
     // Main message that starts a thread
@@ -235,8 +226,6 @@ getMessageTime(date: Date): string {
 }
 
 
-
-
 // Access messages collection, filter by channelId and get a sorted array of the latest 50 messages inside the channel:
 // // Firestore query to get messages for a specific channel
 // this.firestore
@@ -251,8 +240,6 @@ getMessageTime(date: Date): string {
 //     // Since we're ordering by timestamp descending, we might want to reverse the array
 //     this.currentChannelMessages = messages.reverse();
 //   });
-
-
 
 
 //Für Antworten zu messages (threads):
@@ -297,8 +284,6 @@ getMessageTime(date: Date): string {
 //       this.currentThreadMessages = threadMessages;
 //     });
 // }
-
-
 
 
 
