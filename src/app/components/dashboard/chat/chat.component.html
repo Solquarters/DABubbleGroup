@@ -18,11 +18,28 @@
         <div class="avatars-and-add-users-class">
 
             <div class="head-avatars-class">
-                @for (user of channelMembers; track user.userId) {
+                
+
+                  @if(channelMembers.length > 5){
+                    <p>{{channelMembers.length}} Members</p>
+                  }@else{
+                    
+                  @for (user of channelMembers; track user.userId) {
                     <img [src]="user.avatarUrl" alt="{{ user.displayName }}">
                   }
                   <p>{{channelMembers.length}}</p>
+                }
+                  
             </div>
+            <div class="mobile-head-avatars-class">
+                
+                
+                  <p>{{channelMembers.length}} Members</p>
+               
+
+          </div>
+
+
     
            <div class="add-avatar-button-class">
     

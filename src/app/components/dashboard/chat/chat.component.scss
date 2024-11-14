@@ -203,6 +203,13 @@
     }
 }
 
+
+
+
+.mobile-head-avatars-class{
+    display: none;
+  }
+
   @media only screen and (max-width: 650px) {
    .channel-head-class{
     padding: 12px 12px 16px 12px;
@@ -210,3 +217,23 @@
   }
 
 
+
+
+
+  @media only screen and (max-width: 500px) {
+    .head-avatars-class{
+        display: none;
+    }
+
+    .mobile-head-avatars-class{
+        display: flex;
+      }
+   }
+
+  
+   @media only screen and (max-width: 360px) {
+   
+    .mobile-head-avatars-class{
+        display: none;
+      }
+   }
