@@ -7,7 +7,6 @@ import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.c
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { ChatComponent } from './components/dashboard/chat/chat.component';
 
 export const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -19,3 +18,10 @@ export const routes: Routes = [
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'profile', component: ProfileComponent },
 ];
+
+
+// export const appRoutes: Routes = [
+//   { path: 'dashboard', component: DashboardComponent },
+//   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+//   { path: '**', redirectTo: '/dashboard' }
+// ];
