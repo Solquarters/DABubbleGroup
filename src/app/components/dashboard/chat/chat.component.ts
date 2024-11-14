@@ -166,6 +166,11 @@ export class ChatComponent {
           emoji: '👍',
           userIds: ['user456'],
         },
+        {
+          reactionId: 'reaction1',
+          emoji: '👍',
+          userIds: ['user123'],
+        },
       ],
       // No threadId since this is the main message
     },
@@ -176,7 +181,7 @@ export class ChatComponent {
       senderId: 'user456',
       senderName: 'Alice Wonderland',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar2.png',
-      content: 'Hey there!',
+      content: 'Hey there! Whats up how is it going, the weather is so nice',
       timestamp: new Date('2024-11-13T15:10:00Z'),
       threadId: 'thread1', // Reference to the thread
     },
@@ -190,6 +195,7 @@ export class ChatComponent {
       timestamp: new Date('2024-11-14T15:15:00Z'),
       threadId: 'thread1', // Reference to the thread
     },
+    
     // ...additional messages
   ];
 

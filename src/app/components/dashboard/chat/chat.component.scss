@@ -173,6 +173,36 @@
 }
 
 
+.single-message-main-class:nth-of-type(odd) .name-posted-timestamp{
+    flex-direction: row-reverse;
+    padding: 4px 24px 0px 0px ;
+}
+
+.single-message-main-class:nth-of-type(even) .name-posted-timestamp{
+   
+    padding: 4px 0px 0px 24px;
+}
+
+
+.single-message-main-class:nth-of-type(odd) .message-content-class{
+    
+    margin: 0px 24px 0px 0px;
+    background-color: #797EF3;
+    color: white;
+    border-radius: 24px 0px 24px 24px;
+   
+}
+
+.single-message-main-class:nth-of-type(even) .message-content-class{
+   
+    margin: 0px 24px 0px 24px;
+    background-color: #ECEEFE;
+    border-radius: 0px 24px 24px 24px;
+}
+
+.message-content-class{
+    padding: 12px;
+}
 
 
 .img-messages-div {
@@ -182,6 +212,7 @@
 }
 
 .align-left-right-parent-class {
+    padding: 16px 0px;
     display: flex;
     width: 100%;
 }
@@ -205,7 +236,7 @@
 
 
 .name-posted-timestamp {
-    padding: 4px 0px 0px 24px;
+ 
     display: flex;
     align-items: center;
     gap: 16px;
@@ -218,9 +249,19 @@
     }
 }
 
-.message-content-class {
-    padding: 0px 0px 0px 24px;
+
+.reactions-div-class{
+    margin: 0px 0px 0px 24px;
+    display: flex;
+    gap: 8px;
 }
+
+.single-reaction-div-class{
+    border-radius: 24px;
+    padding: 2px;
+    border: 1px solid #B2B5DB;
+}
+
 
 .mobile-head-avatars-class {
     display: none;

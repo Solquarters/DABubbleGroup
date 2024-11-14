@@ -84,14 +84,20 @@
   
                         </div>
                         
-                        <div class="reactions-div-class">
-                          @for(reaction of message.reactions; track reaction.reactionId){
-                            {{reaction.emoji}}by {{reaction.userIds}}
-                          }
-                     
-                        </div>
+                        
                       </div>
-  
+
+                      <div class="reactions-div-class">
+                        
+
+                        @for(reaction of message.reactions; track reaction.reactionId){
+                          <div class="single-reaction-div-class">
+                            {{reaction.emoji}}{{reaction.userIds}}
+                          </div>
+                          
+                        }
+                   
+                      </div>
                      
                   </div>
 
