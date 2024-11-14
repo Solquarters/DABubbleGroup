@@ -17,19 +17,42 @@ export interface User {
   role: string;
 }
 
+// export interface Message {
+//   messageId: string;
+//   channelId: string;
+//   senderId: string;
+//   content: string;
+//   timestamp: Date;
+//   thread?: Thread;
+//   attachments?: Attachment[];
+//   reactions?: Reaction[];
+// }
+
+///Message with author data in it, easier and quicker than storing and getting userName and Url seperately each message.
 export interface Message {
   messageId: string;
   channelId: string;
   senderId: string;
+  senderName: string;
+  senderAvatarUrl: string;
   content: string;
   timestamp: Date;
-  thread?: Thread;
   attachments?: Attachment[];
   reactions?: Reaction[];
+  threadId?: string; 
 }
+
+// export interface Thread {
+//   threadId: string;
+//   messages: Message[];
+// }
+
 export interface Thread {
   threadId: string;
-  messages: Message[];
+  parentMessageId: string; // The message that the thread is attached to
+  channelId: string;
+  createdAt: Date;
+  createdBy: string; // userId of the creator
 }
 
 export interface Attachment {
@@ -122,31 +145,15 @@ export class ChatComponent {
 
 
   messages: Message[] = [
+    // Main message that starts a thread
     {
       messageId: 'message1',
       channelId: 'channel01',
       senderId: 'user123',
+      senderName: 'Alice',
+      senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
       content: 'Hello everyone!',
       timestamp: new Date('2024-11-13T15:00:00Z'),
-      thread: {
-        threadId: 'thread1',
-        messages: [
-          {
-            messageId: 'message2',
-            channelId: 'channel01',
-            senderId: 'user456',
-            content: 'Hey there!',
-            timestamp: new Date('2024-11-13T15:10:00Z'),
-          },
-          {
-            messageId: 'message3',
-            channelId: 'channel01',
-            senderId: 'user123',
-            content: 'How are you?',
-            timestamp: new Date('2024-11-13T15:15:00Z'),
-          },
-        ],
-      },
       attachments: [
         {
           type: 'image',
@@ -160,16 +167,146 @@ export class ChatComponent {
           userIds: ['user456'],
         },
       ],
+      // No threadId since this is the main message
+    },
+    // Messages in the thread
+    {
+      messageId: 'message2',
+      channelId: 'channel01',
+      senderId: 'user456',
+      senderName: 'Bob',
+      senderAvatarUrl: '../../../../assets/basic-avatars/avatar2.png',
+      content: 'Hey there!',
+      timestamp: new Date('2024-11-13T15:10:00Z'),
+      threadId: 'thread1', // Reference to the thread
+    },
+    {
+      messageId: 'message3',
+      channelId: 'channel01',
+      senderId: 'user123',
+      senderName: 'Alice',
+      senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
+      content: 'How are you?',
+      timestamp: new Date('2024-11-13T15:15:00Z'),
+      threadId: 'thread1', // Reference to the thread
     },
     // ...additional messages
   ];
 
 
-
-
+  threads: Thread[] = [
+    {
+      threadId: 'thread1',
+      parentMessageId: 'message1',
+      channelId: 'channel01',
+      createdAt: new Date('2024-11-13T15:05:00Z'),
+      createdBy: 'user456',
+    },
+    // ...additional threads
+  ];
 
   returnTodayStringOrDate(){
-    
+
   }
 
 }
+
+
+
+
+// Access messages collection, filter by channelId and get a sorted array of the latest 50 messages inside the channel:
+// // Firestore query to get messages for a specific channel
+// this.firestore
+//   .collection<Message>('messages', ref =>
+//     ref
+//       .where('channelId', '==', this.currentChannel.channelId)
+//       .orderBy('timestamp', 'desc')
+//       .limit(50) // Fetch the latest 50 messages
+//   )
+//   .valueChanges({ idField: 'messageId' })
+//   .subscribe(messages => {
+//     // Since we're ordering by timestamp descending, we might want to reverse the array
+//     this.currentChannelMessages = messages.reverse();
+//   });
+
+
+
+
+//Für Antworten zu messages (threads):
+// Function to create a new thread
+// createThread(parentMessageId: string) {
+//   const threadId = this.firestore.createId();
+//   const thread: Thread = {
+//     threadId,
+//     parentMessageId,
+//     channelId: this.currentChannel.channelId,
+//     createdAt: new Date(),
+//     createdBy: this.authService.currentUser.userId,
+//   };
+//   this.firestore.collection('threads').doc(threadId).set(thread);
+//   return threadId;
+// }
+
+///Message sending in einem thread:
+// sendMessageInThread(content: string, threadId: string) {
+//   const currentUser = this.authService.currentUser;
+//   const message: Message = {
+//     messageId: this.firestore.createId(),
+//     channelId: this.currentChannel.channelId,
+//     senderId: currentUser.userId,
+//     senderName: currentUser.displayName,
+//     senderAvatarUrl: currentUser.avatarUrl,
+//     content,
+//     timestamp: new Date(),
+//     threadId,
+//   };
+//   this.firestore.collection('messages').doc(message.messageId).set(message);
+// }
+
+//mögliche firebase abfrage:
+// loadThreadMessages(threadId: string) {
+//   this.firestore
+//     .collection<Message>('messages', ref =>
+//       ref.where('threadId', '==', threadId).orderBy('timestamp', 'asc')
+//     )
+//     .valueChanges({ idField: 'messageId' })
+//     .subscribe(threadMessages => {
+//       this.currentThreadMessages = threadMessages;
+//     });
+// }
+
+
+
+
+
+//Beispiel für Sec Rules für thread Zugriff:
+// match /messages/{messageId} {
+//   allow read, write: if isChannelMember(request.auth.uid, resource.data.channelId);
+// }
+
+// match /threads/{threadId} {
+//   allow read, write: if isChannelMember(request.auth.uid, resource.data.channelId);
+// }
+
+// function isChannelMember(userId, channelId) {
+//   return exists(/databases/$(database)/documents/channels/$(channelId)) &&
+//          get(/databases/$(database)/documents/channels/$(channelId)).data.memberIds.hasAny([userId]);
+// }
+
+
+///Kreiiere einen thread wenn noch keiner vorhanden:
+// startThread(parentMessageId: string, content: string) {
+//   // Check if thread already exists
+//   const parentMessageRef = this.firestore.collection('messages').doc(parentMessageId);
+//   parentMessageRef.get().subscribe(doc => {
+//     let threadId = doc.data().threadId;
+//     if (!threadId) {
+//       // Create a new thread
+//       threadId = this.createThread(parentMessageId);
+//       // Update the parent message to include the threadId
+//       parentMessageRef.update({ threadId });
+//     }
+//     // Send the first message in the thread
+//     this.sendMessageInThread(content, threadId);
+//   });
+// }
