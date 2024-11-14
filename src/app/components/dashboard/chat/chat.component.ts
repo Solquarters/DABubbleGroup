@@ -17,16 +17,6 @@ export interface User {
   role: string;
 }
 
-// export interface Message {
-//   messageId: string;
-//   channelId: string;
-//   senderId: string;
-//   content: string;
-//   timestamp: Date;
-//   thread?: Thread;
-//   attachments?: Attachment[];
-//   reactions?: Reaction[];
-// }
 
 ///Message with author data in it, easier and quicker than storing and getting userName and Url seperately each message.
 export interface Message {
@@ -136,7 +126,6 @@ export class ChatComponent {
   ];
 
   messages: Message[] = [
-    // Main message that starts a thread
     {
       messageId: 'message1',
       channelId: 'channel01',
@@ -163,9 +152,7 @@ export class ChatComponent {
           userIds: ['user123'],
         },
       ],
-      // No threadId since this is the main message
     },
-    // Messages in the thread
     {
       messageId: 'message2',
       channelId: 'channel01',
@@ -174,7 +161,7 @@ export class ChatComponent {
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar2.png',
       content: 'Hey there! Whats up how is it going, the weather is so nice',
       timestamp: new Date('2024-11-13T15:10:00Z'),
-      threadId: 'thread1', // Reference to the thread
+      threadId: 'thread5252525', 
     },
     {
       messageId: 'message3',
@@ -184,7 +171,27 @@ export class ChatComponent {
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
       content: 'How are you?',
       timestamp: new Date('2024-11-14T15:15:00Z'),
-      threadId: 'thread1', // Reference to the thread
+      threadId: 'thread26236236', 
+    },
+    {
+      messageId: 'message3',
+      channelId: 'channel01',
+      senderId: 'user123',
+      senderName: 'Günther Lindenberg',
+      senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
+      content: 'How are you?',
+      timestamp: new Date('2024-11-14T15:15:00Z'),
+      threadId: 'threadsfsfsfsf', 
+    },
+    {
+      messageId: 'message3',
+      channelId: 'channel01',
+      senderId: 'user123',
+      senderName: 'Günther Lindenberg',
+      senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
+      content: 'How are you?',
+      timestamp: new Date('2024-11-14T15:15:00Z'),
+      threadId: 'thread116616', 
     },
     
     // ...additional messages
@@ -203,6 +210,7 @@ export class ChatComponent {
   ];
 
   returnDayStringOrDate(date: Date): string {
+    console.log('Called function');
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const yesterday = new Date(today);
@@ -227,7 +235,7 @@ getMessageTime(date: Date): string {
 
 
 // Access messages collection, filter by channelId and get a sorted array of the latest 50 messages inside the channel:
-// // Firestore query to get messages for a specific channel
+// Firestore query to get messages for a specific channel
 // this.firestore
 //   .collection<Message>('messages', ref =>
 //     ref
