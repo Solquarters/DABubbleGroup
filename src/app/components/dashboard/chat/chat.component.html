@@ -57,27 +57,46 @@
 
     <!-- /////MESSAGES FOR LOOP////// -->
      
-    @for (user of channelMembers; track user.userId) {
+    @for (message of messages; track message.messageId) {
        
         <div class="single-message-main-class">
             <div class="chat-date-separator">
-                <span class="date-container">{{ returnTodayStringOrDate()}}{{'heute'}}</span>
+                <span class="date-container">{{ returnDayStringOrDate(message.timestamp)}}</span>
               </div>
 
               <div class="img-messages-div">
-                <img src="../../../../assets/basic-avatars/avatar-1.png" alt="">
-                
-                <div class="messages-text-div-class">
-                    <div class="name-posted-timestamp">
-                        <p>Noah Dude</p><p>14:55 Uhr</p>
+
+                <div class="align-left-right-parent-class">
+                    <div class="avatar-div-class">
+                      <img src="{{message.senderAvatarUrl}}" alt="">
                     </div>
-
-                    <div class="message-content-class">
-
+                  
+                  
+                  <div class="messages-text-div-class">
+                      <div class="name-posted-timestamp">
+                          <p>{{message.senderName}}</p><p>{{ getMessageTime(message.timestamp) }}</p>
+                      </div>
+  
+                      <div class="message-content-class">
+  
+                        <div class="message-text-div-class">
+                          {{message.content}}
+  
+                        </div>
                         
-                    </div>
+                        <div class="reactions-div-class">
+                          @for(reaction of message.reactions; track reaction.reactionId){
+                            {{reaction.emoji}}by {{reaction.userIds}}
+                          }
+                     
+                        </div>
+                      </div>
+  
+                     
+                  </div>
 
                 </div>
+                
 
               </div>
 

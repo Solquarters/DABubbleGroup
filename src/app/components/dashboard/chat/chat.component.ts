@@ -150,10 +150,10 @@ export class ChatComponent {
       messageId: 'message1',
       channelId: 'channel01',
       senderId: 'user123',
-      senderName: 'Alice',
+      senderName: 'Bob Johnson',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
       content: 'Hello everyone!',
-      timestamp: new Date('2024-11-13T15:00:00Z'),
+      timestamp: new Date('2024-11-02T09:02:00Z'),
       attachments: [
         {
           type: 'image',
@@ -174,7 +174,7 @@ export class ChatComponent {
       messageId: 'message2',
       channelId: 'channel01',
       senderId: 'user456',
-      senderName: 'Bob',
+      senderName: 'Alice Wonderland',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar2.png',
       content: 'Hey there!',
       timestamp: new Date('2024-11-13T15:10:00Z'),
@@ -184,10 +184,10 @@ export class ChatComponent {
       messageId: 'message3',
       channelId: 'channel01',
       senderId: 'user123',
-      senderName: 'Alice',
+      senderName: 'Günther Lindenberg',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
       content: 'How are you?',
-      timestamp: new Date('2024-11-13T15:15:00Z'),
+      timestamp: new Date('2024-11-14T15:15:00Z'),
       threadId: 'thread1', // Reference to the thread
     },
     // ...additional messages
@@ -205,9 +205,26 @@ export class ChatComponent {
     // ...additional threads
   ];
 
-  returnTodayStringOrDate(){
+  returnDayStringOrDate(date: Date): string {
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
 
+  const inputDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+
+  if (inputDate.getTime() === today.getTime()) {
+    return 'Today';
+  } else if (inputDate.getTime() === yesterday.getTime()) {
+    return 'Yesterday';
+  } else {
+    return inputDate.toLocaleDateString(); // Returns formatted date
   }
+};
+
+getMessageTime(date: Date): string {
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
 
 }
 
