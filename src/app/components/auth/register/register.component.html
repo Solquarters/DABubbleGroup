@@ -34,12 +34,12 @@
                     id="password" [placeholder]="authService.placeholderPw" />
             </div>
             <div class="privacy-container" (click)="authService.toggleCheckbox(checkbox)">
-                <input #checkbox type="checkbox"> <span> ich stimmt der <span class="privacy-span"
+                <input #checkbox type="checkbox"> <span> ich stimme der <span class="privacy-span"
                         [routerLink]="['/privacy-policy']">Datenschutzerklärung</span>
                     zu.</span>
             </div>
             <div class="button-container">
-                <button type="submit" class="next-btn">Weiter</button>
+               <a [routerLink]="['/add-avatar']">  <button type="submit" class="next-btn">Weiter</button></a>
             </div>
         </form>
 
