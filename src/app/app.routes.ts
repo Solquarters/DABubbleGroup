@@ -19,12 +19,6 @@ export const routes: Routes = [
   {path: 'profile', component: ProfileComponent}
 ];
 
-// export const appRoutes: Routes = [
-//   { path: 'dashboard', component: DashboardComponent },
-//   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-//   { path: '**', redirectTo: '/dashboard' }
-// ];
-
 
 // export const appRoutes: Routes = [
 //   { path: 'dashboard', component: DashboardComponent },
