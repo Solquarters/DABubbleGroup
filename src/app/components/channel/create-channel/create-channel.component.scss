@@ -98,7 +98,7 @@
     margin-top: 30px;
     width: 116px;
     height: 50px;
-    background-color: $purple-bg-reaction;
+    background-color: $bg-color;
     color: $white;
     border: none;
     border-radius: 25px;
@@ -110,7 +110,7 @@
     transition: background-color 0.3s ease-in-out;
     
     &:hover {
-      background-color: $purple-bg-message;
+      background-color: $bg-color;
     }
   }
 
@@ -198,7 +198,7 @@
     .button-primary {
       width: 116px;
       height: 50px;
-      background-color: $purple-bg-reaction;
+      background-color: $bg-color;
       color: $white;
       border: none;
       border-radius: 25px;
@@ -208,7 +208,7 @@
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: $purple-bg-message;
+        background-color: $bg-color;
       }
 
       &:disabled {
