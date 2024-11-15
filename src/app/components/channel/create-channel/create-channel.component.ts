@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { ChannelService } from '../../../shared/channel.service';
+import { ChannelService } from '../../../core/services/channel.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({

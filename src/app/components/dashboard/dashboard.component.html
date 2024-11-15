@@ -19,8 +19,11 @@
 	</div>
   
 	<div class="dashboard-container-class">
-	  <app-sidenav *ngIf="isSidebarVisible"></app-sidenav>
-	  <app-chat></app-chat>
+	  <app-sidenav 
+	  *ngIf="isSidebarVisible"
+	  (channelSelected)="onChannelSelected($event)">
+	  </app-sidenav>
+	  <app-chat [currentChannel]="selectedChannel"></app-chat>
 	  <app-thread-bar></app-thread-bar>
 	</div>
   </div>

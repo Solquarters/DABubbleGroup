@@ -48,6 +48,7 @@ export interface Reaction {
 
 
 import { Component } from '@angular/core';
+import { Input } from '@angular/core';
 
 
 @Component({
@@ -60,8 +61,10 @@ import { Component } from '@angular/core';
 
 
 export class ChatComponent {
+  @Input() currentChannel: { name: string } | null = null;
+}
   
-
+/** 
   channels: Channel[] = [
     {
       channelId: 'channel01',
@@ -166,3 +169,4 @@ export class ChatComponent {
 
 
 }
+*/

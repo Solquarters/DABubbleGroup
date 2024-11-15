@@ -4,11 +4,11 @@
         <div class="head-name-class">
 
             <img src="../../../../assets/hashtag.svg" alt="">
-            {{ currentChannel.name }}
+            {{ currentChannel?.name || 'Select a Channel' }}
             <img src="../../../../assets/keyboard_arrow_down.svg" alt="">
             
         </div>
-
+      
         <div class="avatars-and-add-users-class">
 
             <div class="head-avatars-class">
@@ -26,9 +26,9 @@
                 
            </div>
 
-        </div>
+        </div>  
 
-        
+   
 
     </div>
 

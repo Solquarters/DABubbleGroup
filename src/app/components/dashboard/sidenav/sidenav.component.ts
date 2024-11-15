@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateChannelComponent } from '../../channel/create-channel/create-channel.component';
-import { DashboardComponent } from '../dashboard.component';
-import { ChannelService } from '../../../shared/channel.service';
+import { CreateChannelComponent } from '../../channel/create-channel/create-channel.component'; 
+import { ChannelService } from '../../../core/services/channel.service';
 
 @Component({
   standalone: true,
@@ -13,7 +12,10 @@ import { ChannelService } from '../../../shared/channel.service';
   providers: [ChannelService],  
 })
 export class SidenavComponent implements OnInit {
-  channels$;
+  channels$; 
+  channels: { name: string }[] = [];
+    
+  @Output() channelSelected = new EventEmitter<{ name: string }>();
 
   constructor(private channelService: ChannelService) {
     this.channels$ = this.channelService.channels$;
@@ -31,8 +33,7 @@ export class SidenavComponent implements OnInit {
     { name: 'Benutzer 4', avatar: 'assets/basic-avatars/avatar4.png' }
   ];
 
-  // Kanalliste, die durch den Service abgerufen wird
-  channels: { name: string }[] = [];
+
 
   // Methode zur Umschaltung der Direktnachrichten-Sichtbarkeit
   toggleDirectMessages() {
@@ -55,5 +56,9 @@ export class SidenavComponent implements OnInit {
   // Beispiel-Methode zum Erstellen eines neuen Kanals
   async addChannel(name: string) {
     await this.channelService.createChannel(name, 'Default description');
+  }
+
+  selectChannel(channel: any) {
+    this.channelSelected.emit(channel);
   }
 }
