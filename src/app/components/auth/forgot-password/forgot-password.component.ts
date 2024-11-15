@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { StyleService } from '../style.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,5 +11,5 @@ import { AuthService } from '../auth.service';
   styleUrl: './forgot-password.component.scss',
 })
 export class ForgotPasswordComponent {
-  constructor(public authService: AuthService) {}
+  constructor(public styleService: StyleService) {}
 }

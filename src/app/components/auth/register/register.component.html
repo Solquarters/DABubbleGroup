@@ -6,9 +6,9 @@
         </div>
     </header>
     <div class="login-card">
-        <a (mouseover)="authService.backArrowPurple()" (mouseleave)="authService.backArrowBlack()"
-            (click)="authService.backArrowBlack()" [routerLink]="['']" class="back-arrow">
-            <img [src]="authService.backArrowSvg" alt="arrow back">
+        <a (mouseover)="styleService.backArrowPurple()" (mouseleave)="styleService.backArrowBlack()"
+            (click)="styleService.backArrowBlack()" [routerLink]="['']" class="back-arrow">
+            <img [src]="styleService.backArrowSvg" alt="arrow back">
         </a>
         <h2>Konto erstellen</h2>
         <p>
@@ -16,30 +16,30 @@
         </p>
         <form>
             <div class="input-group">
-                <img [src]="authService.nameSvg" alt="mail-icon">
-                <label for="email"></label>
-                <input (focus)="authService.focusNameInput()" (blur)="authService.blurNameInput()" type="text" id="name"
-                    [placeholder]="authService.placeholderName" />
+                <img [src]="styleService.nameSvg" alt="person-icon">
+                <label for="name"></label>
+                <input (focus)="styleService.focusNameInput()" (blur)="styleService.blurNameInput()" type="passwort"
+                    id="name" [placeholder]="styleService.placeholderName" />
             </div>
             <div class="input-group">
-                <img [src]="authService.mailSvg" alt="mail-icon">
+                <img [src]="styleService.mailSvg" alt="mail-icon">
                 <label for="email"></label>
-                <input (focus)="authService.focusMailInput()" (blur)="authService.blurMailInput()" type="email"
-                    id="email" [placeholder]="authService.placeholderMail" />
+                <input (focus)="styleService.focusMailInput()" (blur)="styleService.blurMailInput()" type="email"
+                    id="email" [placeholder]="styleService.placeholderMail" />
             </div>
             <div class="input-group">
-                <img [src]="authService.passwordSvg" alt="mail-icon">
+                <img [src]="styleService.passwordSvg" alt="pw-icon">
                 <label for="password"><i class="fas fa-lock"></i></label>
-                <input (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput()" type="password"
-                    id="password" [placeholder]="authService.placeholderPw" />
+                <input (focus)="styleService.focusPwInput()" (blur)="styleService.blurPwInput()" type="password"
+                    id="password" [placeholder]="styleService.placeholderPw" />
             </div>
-            <div class="privacy-container" (click)="authService.toggleCheckbox(checkbox)">
+            <div class="privacy-container" (click)="styleService.toggleCheckbox(checkbox)">
                 <input #checkbox type="checkbox"> <span> ich stimme der <span class="privacy-span"
                         [routerLink]="['/privacy-policy']">Datenschutzerklärung</span>
                     zu.</span>
             </div>
             <div class="button-container">
-               <a [routerLink]="['/add-avatar']">  <button type="submit" class="next-btn">Weiter</button></a>
+                <a [routerLink]="['/add-avatar']"> <button type="submit" class="next-btn">Weiter</button></a>
             </div>
         </form>
 

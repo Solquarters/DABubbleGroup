@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { StyleService } from '../style.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -11,5 +11,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './reset-password.component.scss',
 })
 export class ResetPasswordComponent {
-  constructor(public authService: AuthService) {}
+  constructor(public styleService: StyleService) {}
 }

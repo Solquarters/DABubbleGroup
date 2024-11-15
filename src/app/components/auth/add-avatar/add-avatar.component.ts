@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { StyleService } from '../style.service';
 
 @Component({
   selector: 'app-add-avatar',
@@ -19,5 +19,5 @@ export class AddAvatarComponent {
     'assets/basic-avatars/avatar5.svg',
     'assets/basic-avatars/avatar6.svg'
   ];
-  constructor(public authService: AuthService) {}
+  constructor(public styleService: StyleService) {}
 }

@@ -17,16 +17,16 @@
         </p>
         <form>
             <div class="input-group">
-                <img [src]="authService.mailSvg" alt="mail-icon">
+                <img [src]="styleService.mailSvg" alt="mail-icon">
                 <label for="email"></label>
-                <input (focus)="authService.focusMailInput()" (blur)="authService.blurMailInput()" type="email" id="email"
-                    [placeholder]="authService.placeholderMail" />
+                <input (focus)="styleService.focusMailInput()" (blur)="styleService.blurMailInput()" type="email" id="email"
+                    [placeholder]="styleService.placeholderMail" />
             </div>
             <div class="input-group">
-                <img [src]="authService.passwordSvg" alt="mail-icon">
+                <img [src]="styleService.passwordSvg" alt="mail-icon">
                 <label for="password"><i class="fas fa-lock"></i></label>
-                <input (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput()" type="password" id="password"
-                    [placeholder]="authService.placeholderPw" />
+                <input (focus)="styleService.focusPwInput()" (blur)="styleService.blurPwInput()" type="password" id="password"
+                    [placeholder]="styleService.placeholderPw" />
             </div>
             <div class="forgot-password-container">
                 <a [routerLink]="['forgot-password']" class="forgot-password">Passwort vergessen?</a>

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { environment } from '../../../environments/environments';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class StyleService {
   nameSvg = 'assets/icons/person.svg';
   mailSvg = 'assets/icons/mail.svg';
   passwordSvg = 'assets/icons/password.svg';
@@ -16,12 +13,7 @@ export class AuthService {
   placeholderPwConfirm = 'Neues Kennwort bestätigen';
   backArrowSvg = 'assets/icons/back-arrow.svg';
 
-  private app = initializeApp(environment);
-  auth = getAuth(this.app);
-
-  constructor() {
-    console.log(this.auth);
-  }
+  constructor() {}
 
   focusNameInput() {
     this.nameSvg = 'assets/icons/person-bold.svg';
