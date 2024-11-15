@@ -6,22 +6,14 @@
     </div>
   </header>
   <div class="login-card">
-    <a
-      (mouseover)="authService.backArrowPurple()"
-      (mouseleave)="authService.backArrowBlack()"
-      (click)="authService.backArrowBlack()"
-      [routerLink]="['']"
-      class="back-arrow"
-    >
+    <a (mouseover)="authService.backArrowPurple()" (mouseleave)="authService.backArrowBlack()"
+      (click)="authService.backArrowBlack()" [routerLink]="['']" class="back-arrow">
       <img [src]="authService.backArrowSvg" alt="arrow back" />
     </a>
     <h2>Wähle deinen Avatar</h2>
     <div class="avatar-container">
       <div class="picked-avatar">
-        <img
-          src="assets/basic-avatars/default-avatar.svg"
-          alt="Choosen Avatar Img"
-        />
+        <img src="assets/basic-avatars/default-avatar.svg" alt="Choosen Avatar Img" />
       </div>
       <div class="avatar-choosing-container">
         <div class="name-and-span">
@@ -33,22 +25,22 @@
           </div>
         </div>
         <div class="available-avatars">
-          @for (path of avatarPaths; track $index; let i = $index) { 
+          @for (path of avatarPaths; track $index; let i = $index) {
+          <div class="img-container">
             <img [src]="path" alt="">
+          </div>
           }
         </div>
       </div>
       <div class="storage-container">
         <span>eigenes Bild verwenden</span>
         <a [routerLink]="['add-avatar']">
-          <button type="submit" class="storage-btn">Datei hochladen</button></a
-        >
+          <button type="submit" class="storage-btn">Datei hochladen</button></a>
       </div>
     </div>
     <div class="button-container">
       <a [routerLink]="['add-avatar']">
-        <button type="submit" class="next-btn">Weiter</button></a
-      >
+        <button type="submit" class="next-btn">Weiter</button></a>
     </div>
   </div>
   <footer>

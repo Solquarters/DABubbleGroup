@@ -83,17 +83,20 @@ header {
   }
 
   .button-container {
-    @include dFlex($fd: row, $jc: flex-end, $g:24px);
+    @include dFlex($fd: row, $jc: flex-end, $g: 24px);
   }
 
   .storage-container {
     width: 100%;
-    @include dFlex($fd: row, $jc: flex-start);
+    @include dFlex($fd: row, $jc: flex-start, $g: 24px);
+    span {
+      font-size: 20px;
+    }
   }
 
   .storage-btn {
-    padding: 12px 25px;
     height: 49px;
+    padding: 12px 25px;
     background-color: white;
     border: 1px solid $purple2;
     font-size: 18px;
@@ -130,6 +133,43 @@ header {
   max-width: 472px;
   @include dFlex($g: 32px);
   margin-bottom: 30px;
+}
+
+.avatar-choosing-container {
+  @include dFlex($g: 16px);
+  width: 100%;
+  .name-and-span {
+    width: 100%;
+    h3 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .span {
+      font-size: 20px;
+      font-weight: 400;
+      width: 100%;
+      @include dFlex($ai: flex-start);
+    }
+  }
+  .available-avatars {
+    width: 100%;
+    @include dFlex($jc: space-between, $fd: row);
+    .img-container {
+      border: 4px solid #eceefe;
+      border-radius: 100px;
+      transition: all 125ms ease-in-out;
+      cursor: pointer;
+      @include dFlex();
+      img {
+        height: 64px;
+        width: 64px;
+      }
+      &:hover {
+        border-color: $purple2;
+      }
+    }
+  }
 }
 
 .picked-avatar {
