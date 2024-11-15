@@ -1,52 +1,45 @@
 @import "../src/mixins.scss";
 
-$black: #000000;
-$white: white;
-$bg-color: #eceefe;
-$light-purple: #adb0d9;
-$purple-bg-reaction: #444df2;
-$purple-bg-message: #797ef3;
-$purple-text: #535af1;
-$text-gray: #686868;
-$online-green: #92c83e;
-$error-rosa: #ed1e79;
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-.button-primary {
-  width: 150px;
-  height: 50px;
-  background-color: $purple-bg-reaction;
-  color: $white;
-  border: none;
-  border-radius: 50%;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 24.55px;
-  transition: background-color 0.3s ease-in-out;
-  
-  &:hover {
-    background-color: $purple-bg-message;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.close-btn {
-  position: absolute;
-  top: 40px;
-  right: 40px; 
-  cursor: pointer;
-  transition: color 0.3s ease-in-out; 
+html {
+  font-family: "Nunito";
+  font-weight: 400;
+}
 
-  &:hover {
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: $bg-color;  
-    box-sizing: border-box; 
-    content: url('/assets/icons/close-hover.svg');  
-    }
-  }
-  
+body {
+  font-family: "Nunito" !important;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Nunito";
+  font-weight: 400;
+  font-style: normal;
+  src: url("assets/fonts/Nunito-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito";
+  font-weight: 500;
+  font-style: normal;
+  src: url("assets/fonts/Nunito-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito";
+  font-weight: 600;
+  font-style: normal;
+  src: url("assets/fonts/Nunito-Black.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Nunito";
+  font-weight: 700;
+  font-style: normal;
+  src: url("assets/fonts/Nunito-Bold.ttf") format("truetype");
+}

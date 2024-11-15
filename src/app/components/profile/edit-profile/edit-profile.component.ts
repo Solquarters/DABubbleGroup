@@ -1,36 +1,30 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [CommonModule], 
+  imports: [CommonModule, FormsModule], 
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss']
 })
 export class EditProfileComponent {
-  isEditing = false;
-  showProfileDetails = false;
 
-  constructor(private router: Router) {}
+  data = {
+    displayName: "Frederik Beck",
+    email: "fred.beck@email.com",
+    avatarUrl: "assets/basic-avatars/avatar-1.png"
+  };
 
-  openProfileDetails() {
-    this.showProfileDetails = true;
-    this.isEditing = false;
+  closeEditProfile() {
+    console.log('Profil-Bearbeitungsansicht schließen');
   }
 
-  editProfile() {
-    this.isEditing = true;
-    this.showProfileDetails = false;
-  }
 
-  closePopup() {
-    this.showProfileDetails = false;
-    this.isEditing = false;
-  }
-
-  logout() {
-    window.location.href = 'index.html';
+  saveProfile() {
+    console.log('Profil speichern');
+    console.log('Neuer Name:', this.data.displayName);
+    console.log('Neue E-Mail:', this.data.email);
   }
 }
