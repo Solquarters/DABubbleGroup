@@ -22,6 +22,7 @@ export class EditProfileComponent {
 
   editProfile() {
     this.isEditing = true;
+    this.showProfileDetails = false;
   }
 
   closePopup() {
