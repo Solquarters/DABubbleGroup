@@ -37,7 +37,7 @@ export interface Thread {
   parentMessageId: string; // The message that the thread is attached to
   channelId: string;
   createdAt: Date;
-  createdBy: string; // userId of the creator
+  createdBy: string; 
 }
 
 export interface Attachment {
@@ -66,7 +66,6 @@ import { Component } from '@angular/core';
 
 
 export class ChatComponent {
-  
   channels: Channel[] = [
     {
       channelId: 'channel01',
@@ -209,7 +208,8 @@ export class ChatComponent {
     // ...additional threads
   ];
 
-  returnDayStringOrDate(date: Date): string {
+
+returnDayStringOrDate(date: Date): string {
     console.log('Called function');
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
