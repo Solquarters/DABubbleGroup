@@ -19,19 +19,19 @@
                 <img [src]="styleService.nameSvg" alt="person-icon">
                 <label for="name"></label>
                 <input (focus)="styleService.focusNameInput()" (blur)="styleService.blurNameInput()" type="passwort"
-                    id="name" [placeholder]="styleService.placeholderName" />
+                    id="name" [placeholder]="styleService.placeholderName"  autocomplete="name" />
             </div>
             <div class="input-group">
                 <img [src]="styleService.mailSvg" alt="mail-icon">
                 <label for="email"></label>
                 <input (focus)="styleService.focusMailInput()" (blur)="styleService.blurMailInput()" type="email"
-                    id="email" [placeholder]="styleService.placeholderMail" />
+                    id="email" [placeholder]="styleService.placeholderMail" autocomplete="email" />
             </div>
             <div class="input-group">
                 <img [src]="styleService.passwordSvg" alt="pw-icon">
                 <label for="password"><i class="fas fa-lock"></i></label>
                 <input (focus)="styleService.focusPwInput()" (blur)="styleService.blurPwInput()" type="password"
-                    id="password" [placeholder]="styleService.placeholderPw" />
+                    id="password" [placeholder]="styleService.placeholderPw" autocomplete="new-password" />
             </div>
             <div class="privacy-container" (click)="styleService.toggleCheckbox(checkbox)">
                 <input #checkbox type="checkbox"> <span> ich stimme der <span class="privacy-span"
