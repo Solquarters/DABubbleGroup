@@ -21,22 +21,22 @@ export class RegisterComponent {
   profileForm = new FormGroup({
     name: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(7),
-    ]),
+    password: new FormControl('', Validators.required),
     privacyPolicy: new FormControl(false, Validators.requiredTrue),
   });
 
   constructor(public authService: AuthService) {}
 
-  onSubmit() {
+  async onSubmit() {
     if (this.profileForm.valid) {
-      // Formular ist gültig, du kannst die Daten verarbeiten oder weiterleiten
       console.log('Formular ist gültig:', this.profileForm.value);
+      await this.createNewMember();
     } else {
-      // Formular ist ungültig, zeige eine Fehlermeldung oder entsprechende Logik
       console.log('Formular ist ungültig');
     }
+  }
+
+  createNewMember() {
+    
   }
 }

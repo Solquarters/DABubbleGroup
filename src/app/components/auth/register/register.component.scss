@@ -157,6 +157,13 @@ header {
       background-color: #444df2bd;
     }
   }
+
+  .invalid {
+    background-color: $text-gray;
+    &:hover {
+      background-color: rgb(133, 133, 133);
+    }
+  }
 }
 
 .privacy-container {

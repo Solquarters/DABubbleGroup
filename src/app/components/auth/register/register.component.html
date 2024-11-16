@@ -54,7 +54,8 @@
 
             <label class="privacy-container" (click)="authService.toggleCheckbox($event, checkbox)">
                 <div class="checkbox-container">
-                    <input id="checkbox" name="checkbox" #checkbox type="checkbox" name="checkbox" required />
+                    <input formControlName="privacyPolicy" id="checkbox" name="checkbox" #checkbox type="checkbox"
+                        name="checkbox" required />
                 </div>
                 <span>Ich stimme der <span class="privacy-span"
                         [routerLink]="['/privacy-policy']">Datenschutzerklärung</span>
@@ -66,10 +67,10 @@
             </label>
             <div class="button-container">
                 @if (!profileForm.valid) {
-                <button (click)="authService.formValidationWarning(profileForm.valid)" type="submit"
-                    class="next-btn">Weiter</button>
+                <button (click)="authService.formValidationWarning(profileForm.valid)"
+                    class="next-btn invalid">Weiter</button>
                 } @else {
-                <button [routerLink]="['/add-avatar']" routerLinkActive="router-link-active" type="submit"
+                <button routerLinkActive="router-link-active" type="submit"
                     class="next-btn">Weiter</button>
                 }
             </div>

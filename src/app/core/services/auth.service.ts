@@ -100,7 +100,6 @@ export class AuthService {
   }
 
   formValidationWarning(formvalid: boolean) {
-    console.log(formvalid);
     this.registerCheckboxClicked = true;
     this.registerNameClicked = true;
     this.registerEmailClicked = true;
