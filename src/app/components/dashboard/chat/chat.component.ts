@@ -40,22 +40,15 @@ export interface Thread {
   createdBy: string; 
   attachments: [
     {
-      type: 'image',
-      url: 'https://example.com/image.png',
+      type: string,
+      url: string,
     },
   ],
-  reactions: [
-    {
-      reactionId: 'reaction1',
-      emoji: '👍',
-      userIds: ['user456'],
-    },
-    {
-      reactionId: 'reaction1',
-      emoji: '👍',
-      userIds: ['user123'],
-    },
-  ],
+  reactions: {
+    reactionId: string;
+    emoji: string;
+    userIds: string[];
+  }[];
 }
 
 export interface Attachment {
@@ -128,14 +121,14 @@ export class ChatComponent {
       role: 'member',
     },
     {
-      userId: "user45655",
+      userId: "user456565",
       displayName: "Noah",
       avatarUrl: '../../../../assets/basic-avatars/avatar3.png',
       joinedAt: new Date('2024-01-06T10:00:00Z'),
       role: 'member',
     },
     {
-      userId: "user45655",
+      userId: "user456551",
       displayName: "Noah",
       avatarUrl: '../../../../assets/basic-avatars/avatar3.png',
       joinedAt: new Date('2024-01-06T10:00:00Z'),
@@ -160,14 +153,14 @@ export class ChatComponent {
       ],
       reactions: [
         {
-          reactionId: 'reaction1',
+          reactionId: 'reaction12',
           emoji: '👍',
           userIds: ['user456'],
         },
         {
           reactionId: 'reaction1',
           emoji: '👍',
-          userIds: ['user123'],
+          userIds: ['user12367'],
         },
       ],
     },
@@ -194,9 +187,9 @@ export class ChatComponent {
       threadId: 'thread26236236', 
     },
     {
-      messageId: 'message3',
+      messageId: 'message34',
       channelId: 'channel01',
-      senderId: 'user123',
+      senderId: 'user1234',
       senderName: 'Günther Lindenberg',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
       content: 'How are you?',
@@ -204,9 +197,9 @@ export class ChatComponent {
       threadId: 'threadsfsfsfsf', 
     },
     {
-      messageId: 'message3',
+      messageId: 'message43',
       channelId: 'channel01',
-      senderId: 'user123',
+      senderId: 'user1236',
       senderName: 'Günther Lindenberg',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar-1.png',
       content: 'How are you?',
@@ -222,7 +215,7 @@ export class ChatComponent {
     {
       ///thread should look nearly identical to a message object, just without further threads... or ?
       threadId: 'thread1',
-      parentMessageId: 'message1',
+      parentMessageId: 'message162',
       channelId: 'channel01',
       createdAt: new Date('2024-11-13T15:05:00Z'),
       createdBy: 'user456',
@@ -236,7 +229,7 @@ export class ChatComponent {
         {
           reactionId: 'reaction1',
           emoji: '👍',
-          userIds: ['user456'],
+          userIds: ['user4576'],
         },
         {
           reactionId: 'reaction1',
