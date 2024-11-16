@@ -282,6 +282,10 @@ html, body{
 
     > p:first-child {
         font-weight: 600;
+        transition: color 200ms ease;
+        &:hover{
+            color: $purple3;
+        }
     }
     > p:nth-child(2) {
         font-size: 14px;
