@@ -1,4 +1,4 @@
-<div class="main-chat-div" id="main-chat-div-id">
+<div class="main-chat-div" >
 
     <div class="channel-head-class">
         <div class="head-name-class">
@@ -43,7 +43,8 @@
     </div>
 
     <!-- /////MESSAGES FOR LOOP////// -->
-     
+  <div class="chat-content" id="chat-content-div-id">
+
     @for (message of messages; let index = $index;  track message.messageId) {
        
         <div class="single-message-main-class">
@@ -122,8 +123,8 @@
         </div>
       
       }
-
-
+<!-- FOR LOOP CHAT CONTENT END//////////////////////////////////////// -->
+</div>
       <div class="main-chatinput-field-class">
 
         <textarea name="Nachricht an {{this.currentChannel}}" placeholder = 'Nachricht an #{{this.currentChannel.name}}' id=""></textarea>

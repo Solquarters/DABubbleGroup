@@ -7,6 +7,22 @@ html, body{
 }
 
 
+::-webkit-scrollbar {
+    width: 10px;
+    
+  }
+  ::-webkit-scrollbar-track {
+   background-color:white ;
+    border-radius: 10px;
+    
+  }
+  ::-webkit-scrollbar-thumb {
+    // background:$light-purple ;
+    border-radius: 10px;
+    border: 1px solid $bg-color;
+    background-color: $bg-color;
+  }
+
 
 .main-chat-div {
     background-color: $white;
@@ -17,8 +33,16 @@ html, body{
     flex-direction: column;
     position: relative;
 
-    overflow-y: auto;
+    // overflow-y: auto;
 }
+
+.chat-content {
+    flex: 1; // Allow the content to take up the remaining space
+    overflow-y: auto; // Enable scrolling for the messages
+    padding: 24px 0px 64px 0px; // Ensure space for the input field
+}
+
+
 
 .channel-head-class {
     position: relative;
@@ -128,7 +152,7 @@ html, body{
     display: flex;
     align-items: center;
     position: relative;
-    top: -16px;
+    // top: -16px;
     height:1px;
 }
 
@@ -158,7 +182,7 @@ html, body{
 .single-message-main-class {
     display: flex;
     flex-direction: column;
-    padding: 16px 16px;
+    // padding: 16px 16px;
     position: relative;
     top: 8px;
     cursor: pointer;
@@ -176,11 +200,13 @@ html, body{
 .single-message-main-class:nth-of-type(even) >.align-left-right-parent-class {
     justify-content: flex-start; /* Aligns content to the left */
     
+    
 }
 
 .single-message-main-class:nth-of-type(odd) .align-left-right-parent-class {
     justify-content: flex-start; /* Aligns content to the right */
     flex-direction: row-reverse;
+    
 }
 
 
@@ -231,10 +257,17 @@ html, body{
 
 
 .single-message-main-class:nth-of-type(even) {
-   
+    padding: 0px 16px 0px 16px;
+
     &:hover .message-content-class{
         background-color: white;
     }
+    
+    
+}
+
+.single-message-main-class:nth-of-type(odd) {
+    padding: 0px 16px 0px 16px ;
     
     
 }
@@ -380,49 +413,86 @@ svg{
 }
 
 
-.main-chatinput-field-class{
-    position: absolute;
-    z-index: 10;
+// .main-chatinput-field-class{
+//     position: absolute;
+//     z-index: 10;
+//     bottom: 0;
+//     background-color: white;
+// display: flex;
+// flex-direction: column;
+// align-items: center;
+// justify-content: center;
+// width: 100%;
+// border-radius: 24px;
+// border: 1px solid $light-purple;
+
+// // min-height: 100px;
+
+// textarea{
+//     width: 100%;
+//     height: 54px;
+//     padding: 16px 16px 16px 24px;
+//     box-sizing: border-box;
+//     border: none;
+//     background-color: white;
+//     font-size: 16px;
+//     resize: none;
+//     overflow:auto;
+//     -ms-overflow-style: none;
+//     outline: none;
+//     border-radius: 24px 25px 0px 0px;
+//     overflow: hidden;
+//     font-family: "Nunito" !important;
+//     font-weight: 400;
+// }
+// }
+
+// .chatinput-send-and-attachments-class{
+// width: 100%;
+// display: flex;
+// align-items: center;
+// gap: 8px;
+// padding: 16px 8px;
+// }
+
+.main-chatinput-field-class {
+    position: sticky; // Or absolute if the parent is positioned
     bottom: 0;
     background-color: white;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 100%;
-border-radius: 24px;
-border: 1px solid $light-purple;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+   
+    border-radius: 24px;
+    border: 1px solid $light-purple;
+    margin: 16px;
+    width: auto;
+    textarea {
+        width: 100%;
+        height: 54px;
+        padding: 16px 16px 16px 24px;
+        box-sizing: border-box;
+        border: none;
+        background-color: white;
+        font-size: 16px;
+        resize: none;
+        overflow: auto;
+        outline: none;
+        border-radius: 24px 25px 0px 0px;
+        font-family: "Nunito" !important;
+        font-weight: 400;
+    }
 
-// min-height: 100px;
-
-textarea{
-    width: 100%;
-    height: 54px;
-    padding: 16px 16px 16px 24px;
-    box-sizing: border-box;
-    border: none;
-    background-color: white;
-    font-size: 16px;
-    resize: none;
-    overflow:auto;
-    -ms-overflow-style: none;
-    outline: none;
-    border-radius: 24px 25px 0px 0px;
-    overflow: hidden;
-    font-family: "Nunito" !important;
-    font-weight: 400;
+    .chatinput-send-and-attachments-class {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 8px;
+    }
 }
-}
-
-.chatinput-send-and-attachments-class{
-width: 100%;
-display: flex;
-align-items: center;
-gap: 8px;
-padding: 16px 8px;
-}
-
-
 
 
 .small-seperator{

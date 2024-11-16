@@ -80,7 +80,7 @@ export class ChatComponent {
   constructor(){}  
     
   ngAfterViewInit() {         
-    this.container = document.getElementById("main-chat-div-id");           
+    this.container = document.getElementById("chat-content-div-id");           
     this.container.scrollTop = this.container.scrollHeight;     
   }  
     currentUserId: string = '';
