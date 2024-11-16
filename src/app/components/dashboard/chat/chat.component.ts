@@ -67,11 +67,12 @@ export interface Reaction {
 
 import { Component } from '@angular/core';
 import { DateSeperatorPipe } from './pipes/date-seperator.pipe';
+import { GetMessageTimePipe } from './pipes/get-message-time.pipe';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [DateSeperatorPipe],
+  imports: [DateSeperatorPipe,GetMessageTimePipe ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss', '../../../../styles.scss']
 })
