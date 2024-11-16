@@ -124,7 +124,7 @@ html, body{
     display: flex;
     align-items: center;
     position: relative;
-    top: -8px;
+    top: -16px;
     height:1px;
 }
 
@@ -154,7 +154,7 @@ html, body{
 .single-message-main-class {
     display: flex;
     flex-direction: column;
-    padding: 8px 16px;
+    padding: 16px 16px;
     position: relative;
     top: 8px;
     cursor: pointer;
@@ -165,7 +165,6 @@ html, body{
 
 
 }
-
 
 
 
@@ -184,29 +183,30 @@ html, body{
 
 .single-message-main-class:nth-of-type(even) .messages-text-div-class{
     align-items: flex-start; /* Aligns content to the left */
+    margin: 0px 0px 0px 24px;
     
 }
 
 .single-message-main-class:nth-of-type(odd) .messages-text-div-class{
     align-items: flex-end; /* Aligns content to the right */
-   
+    margin: 0px 24px 0px 0px ;
 }
 
 
 .single-message-main-class:nth-of-type(odd) .name-posted-timestamp{
     flex-direction: row-reverse;
-    padding: 4px 24px 0px 0px ;
+    
 }
 
-.single-message-main-class:nth-of-type(even) .name-posted-timestamp{
+// .single-message-main-class:nth-of-type(even) .name-posted-timestamp{
    
-    padding: 4px 0px 0px 24px;
-}
+    
+// }
 
 
 .single-message-main-class:nth-of-type(odd) .message-content-class{
     
-    margin: 0px 24px 0px 0px;
+ 
     background-color: $purple2;
     color: white;
     border-radius: 24px 0px 24px 24px;
@@ -217,7 +217,7 @@ html, body{
 
 .single-message-main-class:nth-of-type(even) .message-content-class{
    
-    margin: 0px 24px 0px 24px;
+   
     background-color: $bg-color;
     border-radius: 0px 24px 24px 24px;
 
@@ -267,6 +267,7 @@ html, body{
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 8px 0px;
 }
 
 
@@ -285,7 +286,7 @@ html, body{
 }
 
 .reactions-div-class{
-    margin: 0px 0px 0px 24px;
+ 
     display: flex;
     gap: 8px;
 }
@@ -299,6 +300,26 @@ html, body{
 
 .mobile-head-avatars-class {
     display: none;
+}
+
+
+
+
+.add-reaction-button-class{
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 4px;
+
+   >svg{
+        fill: black;
+    }
+
+    &:hover svg{
+        fill:$purple1;
+    }
 }
 
 @media only screen and (max-width: 650px) {
