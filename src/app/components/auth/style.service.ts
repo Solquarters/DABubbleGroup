@@ -55,8 +55,13 @@ export class StyleService {
       this.backArrowSvg = 'assets/icons/back-arrow-purple.svg';
     }, 75);
   }
-  toggleCheckbox(checkbox: HTMLInputElement): void {
-    checkbox.checked = !checkbox.checked; // Toggle den Status der Checkbox
+  toggleCheckbox(event: MouseEvent, checkbox: HTMLInputElement): void {
+    console.log("hello");
+    
+    if (event.target === checkbox) {
+      return;
+  }
+    checkbox.checked = checkbox.checked; // Toggle den Status der Checkbox
   }
 
   focusPwConfirmInput() {

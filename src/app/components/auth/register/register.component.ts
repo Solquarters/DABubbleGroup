@@ -12,4 +12,5 @@ import { StyleService } from '../style.service';
 })
 export class RegisterComponent {
   constructor(public styleService: StyleService) {}
+
 }

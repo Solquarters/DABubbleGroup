@@ -19,7 +19,7 @@
                 <img [src]="styleService.nameSvg" alt="person-icon">
                 <label for="name"></label>
                 <input (focus)="styleService.focusNameInput()" (blur)="styleService.blurNameInput()" type="passwort"
-                    id="name" [placeholder]="styleService.placeholderName"  autocomplete="name" />
+                    id="name" [placeholder]="styleService.placeholderName" autocomplete="name" />
             </div>
             <div class="input-group">
                 <img [src]="styleService.mailSvg" alt="mail-icon">
@@ -33,11 +33,15 @@
                 <input (focus)="styleService.focusPwInput()" (blur)="styleService.blurPwInput()" type="password"
                     id="password" [placeholder]="styleService.placeholderPw" autocomplete="new-password" />
             </div>
-            <div class="privacy-container" (click)="styleService.toggleCheckbox(checkbox)">
-                <input #checkbox type="checkbox"> <span> ich stimme der <span class="privacy-span"
+
+            <label class="privacy-container" (click)="styleService.toggleCheckbox($event, checkbox)">
+                <div class="checkbox-container">
+                    <input #checkbox type="checkbox" name="checkbox" />
+                </div>
+                <span> ich stimme der <span class="privacy-span"
                         [routerLink]="['/privacy-policy']">Datenschutzerklärung</span>
                     zu.</span>
-            </div>
+            </label>
             <div class="button-container">
                 <a [routerLink]="['/add-avatar']"> <button type="submit" class="next-btn">Weiter</button></a>
             </div>
