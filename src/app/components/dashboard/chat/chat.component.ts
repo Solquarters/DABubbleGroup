@@ -38,6 +38,24 @@ export interface Thread {
   channelId: string;
   createdAt: Date;
   createdBy: string; 
+  attachments: [
+    {
+      type: 'image',
+      url: 'https://example.com/image.png',
+    },
+  ],
+  reactions: [
+    {
+      reactionId: 'reaction1',
+      emoji: '👍',
+      userIds: ['user456'],
+    },
+    {
+      reactionId: 'reaction1',
+      emoji: '👍',
+      userIds: ['user123'],
+    },
+  ],
 }
 
 export interface Attachment {
@@ -161,6 +179,8 @@ export class ChatComponent {
       content: 'Hey there! Whats up how is it going, the weather is so nice',
       timestamp: new Date('2024-11-13T15:10:00Z'),
       threadId: 'thread5252525', 
+      ///Thread messages counter here? Whenever a message in thread is added, this counter should be incremented 
+      ///or: by fetching the thread, you get the thread length. But then to get the "2 Antworten" below a message, you will need to fetch the thread data even if its not displayed yet...
     },
     {
       messageId: 'message3',
@@ -199,11 +219,30 @@ export class ChatComponent {
 
   threads: Thread[] = [
     {
+      ///thread should look nearly identical to a message object, just without further threads... or ?
       threadId: 'thread1',
       parentMessageId: 'message1',
       channelId: 'channel01',
       createdAt: new Date('2024-11-13T15:05:00Z'),
       createdBy: 'user456',
+      attachments: [
+        {
+          type: 'image',
+          url: 'https://example.com/image.png',
+        },
+      ],
+      reactions: [
+        {
+          reactionId: 'reaction1',
+          emoji: '👍',
+          userIds: ['user456'],
+        },
+        {
+          reactionId: 'reaction1',
+          emoji: '👍',
+          userIds: ['user123'],
+        },
+      ],
     },
     // ...additional threads
   ];
