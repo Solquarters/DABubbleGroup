@@ -291,21 +291,44 @@ html, body{
     gap: 8px;
 }
 
+
+.hover-users-reactions-class{
+    display:none;
+    z-index: 10;
+    
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+   
+    left: 24px;
+    padding: 8px;
+    border-radius: 24px 24px 24px 0px;
+    background-color: #444df2;
+    color: white;
+    bottom: calc(100% + 4px);
+}
+
 .single-reaction-div-class{
     position: relative;
     border-radius: 24px;
     padding: 2px 8px;
     border: 1px solid $light-purple;
-}
+    background-color: white;
 
-.hover-users-reactions-class{
-    display:none;
-    position: absolute;
-    padding: 8px;
-    border-radius: 24px 24px 0px 24px;
-    background-color: #444df2;
-    color: white;
+    &:hover{
+    background-color:$bg-color;
+
+
+    }
+
+&:hover .hover-users-reactions-class{
+    display: flex;
 }
+    } 
+
+  
+
 
 .mobile-head-avatars-class {
     display: none;
