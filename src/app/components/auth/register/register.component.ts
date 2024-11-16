@@ -6,6 +6,7 @@ import {
   FormControl,
   FormGroup,
   FormsModule,
+  NgForm,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -23,5 +24,13 @@ export class RegisterComponent {
     email: new FormControl('', Validators.required),
     passwort: new FormControl('', Validators.required),
   });
+
   constructor(public authService: AuthService) {}
+
+  handleButtonClick(profileForm: any) {
+    const button = document.querySelector('button.next-btn');
+    if (button) {
+        this.authService.formValidationWarning(profileForm);
+    }
+}
 }

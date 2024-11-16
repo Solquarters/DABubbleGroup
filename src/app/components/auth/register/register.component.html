@@ -20,8 +20,8 @@
                 <label for="name"></label>
                 <input [(ngModel)]="authService.registerNameValue" #nameI="ngModel" id="name" name="name" type="text"
                     minlength="5" required [placeholder]="authService.placeholderName" autocomplete="name"
-                    (focus)="authService.focusNameInput()" (blur)="authService.blurNameInput()" />
-                @if (nameI.errors?.['required']) {
+                    (focus)="authService.focusNameInput()" (blur)="authService.blurNameInput('register')" />
+                @if (nameI.errors?.['required'] && authService.registerNameClicked) {
                 <span class="error-message">Bitte schreiben Sie einen Namen</span>
                 }
 
@@ -32,8 +32,8 @@
                 <input [(ngModel)]="authService.registerMailValue" #emailI="ngModel" id="email" name="email"
                     type="email" minlength="5" required [placeholder]="authService.placeholderMail" autocomplete="email"
                     required pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" (focus)="authService.focusMailInput()"
-                    (blur)="authService.blurMailInput()" />
-                @if (emailI.errors?.['required']) {
+                    (blur)="authService.blurMailInput('register')" />
+                @if (emailI.errors?.['required'] && authService.registerEmailClicked) {
                 <span class="error-message">Bitte geben Sie eine E-Mail-Adresse ein</span>
                 } @else if (emailI.errors?.['pattern']) {
                 <span class="error-message">Diese E-Mail-Adresse ist leider ungültig</span>
@@ -47,8 +47,8 @@
                 <label for="password"><i class="fas fa-lock"></i></label>
                 <input [(ngModel)]="authService.registerPwValue" #passwordI="ngModel" id="password" name="password"
                     type="password" min="7" required [placeholder]="authService.placeholderPw" autocomplete="email"
-                    required (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput()" />
-                @if (passwordI.errors?.['required']) {
+                    required (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput('register')" />
+                @if (passwordI.errors?.['required'] && authService.registerPasswordClicked) {
                 <span class="error-message">Bitte geben Sie ein Passwort mit mindestens 7 Zeichen ein.</span>
                 }
 
@@ -56,20 +56,19 @@
 
             <label class="privacy-container" (click)="authService.toggleCheckbox($event, checkbox)">
                 <div class="checkbox-container">
-                    <input [(ngModel)]="checkbox" id="checkbox" name="checkbox" #checkbox #checkboxI="ngModel"
-                        type="checkbox" name="checkbox" required />
-
+                    <input [(ngModel)]="authService.registerCheckbox" id="checkbox" name="checkbox" #checkbox
+                        #checkboxI="ngModel" type="checkbox" name="checkbox" required />
                 </div>
-                <span> ich stimme der <span class="privacy-span"
+                <span>Ich stimme der <span class="privacy-span"
                         [routerLink]="['/privacy-policy']">Datenschutzerklärung</span>
                     zu.</span>
-                @if (checkboxI.errors?.['required']) {
+                @if (checkboxI.errors?.['required'] && authService.registerCheckboxClicked) {
                 <span class="error-message">Bitte akzeptieren sie die Datenschutzerklärung</span>
                 }
             </label>
-            <div class="button-container">
-                <a [routerLink]="['/add-avatar']"> <button [disabled]="!profileForm.valid" type="submit"
-                        class="next-btn">Weiter</button></a>
+            <div class="button-container" (click)="handleButtonClick(profileForm)">
+                <button [routerLink]="['/add-avatar']" [disabled]="!profileForm.valid" type="submit"
+                    class="next-btn">Weiter</button>
             </div>
         </form>
 

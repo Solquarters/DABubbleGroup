@@ -156,23 +156,26 @@ header {
     }
   }
 }
+
 .privacy-container {
   position: relative;
   @include dFlex($fd: row, $jc: flex-start);
   margin-bottom: 30px;
   font-size: 16px;
   color: #42526e;
-  cursor: pointer;
+  max-width: max-content;
   .checkbox-container {
     padding: 6px;
     margin-right: 8px;
     border-radius: 50px;
     transition: all 125ms ease-in-out;
     @include dFlex();
+    cursor: pointer;
     &:hover {
       background-color: $bg-color;
     }
   }
+
 
   input[type="checkbox"] {
     /* Add if not using autoprefixer */
@@ -211,7 +214,8 @@ header {
 
   .privacy-span {
     color: $purple1;
-    font-size: 18px;
+    font-size: 18px; 
+      cursor: pointer;
   }
 }
 

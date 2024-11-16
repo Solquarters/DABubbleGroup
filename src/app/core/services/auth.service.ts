@@ -6,7 +6,6 @@ import { getAuth } from 'firebase/auth';
 @Injectable({
   providedIn: 'root',
 })
-
 export class AuthService {
   private app = initializeApp(environment);
   auth = getAuth(this.app);
@@ -18,9 +17,14 @@ export class AuthService {
   placeholderPw = 'Passwort';
   placeholderPwConfirm = 'Neues Kennwort bestätigen';
   backArrowSvg = 'assets/icons/back-arrow.svg';
-  registerNameValue: string = "";
-  registerMailValue: string = "";
-  registerPwValue: string = "";
+  registerNameClicked = false;
+  registerEmailClicked = false;
+  registerPasswordClicked = false;
+  registerCheckboxClicked = false;
+  registerNameValue: string = '';
+  registerMailValue: string = '';
+  registerPwValue: string = '';
+  registerCheckbox: boolean = false;
 
   constructor() {}
 
@@ -29,18 +33,28 @@ export class AuthService {
     this.placeholderName = '';
   }
 
-  blurNameInput() {
+  blurNameInput(component: string) {
     this.nameSvg = 'assets/icons/person.svg';
     this.placeholderName = 'Name und Nachname';
+    if (component == 'register') {
+      this.registerNameClicked = true;
+    } else if (component == 'login') {
+    } else {
+    }
   }
   focusMailInput() {
     this.mailSvg = 'assets/icons/mail-bold.svg';
     this.placeholderMail = '';
   }
 
-  blurMailInput() {
+  blurMailInput(component: string) {
     this.mailSvg = 'assets/icons/mail.svg';
     this.placeholderMail = 'beispielname@email.com';
+    if (component == 'register') {
+      this.registerEmailClicked = true;
+    } else if (component == 'login') {
+    } else {
+    }
   }
 
   focusPwInput() {
@@ -48,9 +62,14 @@ export class AuthService {
     this.placeholderPw = '';
   }
 
-  blurPwInput() {
+  blurPwInput(component: string) {
     this.passwordSvg = 'assets/icons/password.svg';
     this.placeholderPw = 'Passwort';
+    if (component == 'register') {
+      this.registerEmailClicked = true;
+    } else if (component == 'login') {
+    } else {
+    }
   }
 
   backArrowBlack() {
@@ -65,11 +84,10 @@ export class AuthService {
     }, 75);
   }
   toggleCheckbox(event: MouseEvent, checkbox: HTMLInputElement): void {
-    console.log("hello");
-    
     if (event.target === checkbox) {
       return;
-  }
+    }
+    this.registerCheckboxClicked = true;
     checkbox.checked = checkbox.checked; // Toggle den Status der Checkbox
   }
 
@@ -79,5 +97,13 @@ export class AuthService {
 
   blurPwConfirmInput() {
     this.placeholderPwConfirm = 'Neues Kennwort bestätigen';
+  }
+
+  formValidationWarning(formvalid: any) {
+    console.log(formvalid);
+    this.registerCheckboxClicked = true;
+    this.registerNameClicked = true;
+    this.registerEmailClicked = true;
+    this.registerPasswordClicked = true;
   }
 }
