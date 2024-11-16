@@ -56,8 +56,12 @@ export interface Attachment {
   url: string;
 }
 
+// export interface Reaction {
+//   reactionId: string;
+//   emoji: string;
+//   userIds: string[];
+// }
 export interface Reaction {
-  reactionId: string;
   emoji: string;
   userIds: string[];
 }
@@ -155,12 +159,10 @@ export class ChatComponent {
       ],
       reactions: [
         {
-          reactionId: 'reaction12',
           emoji: '👍',
           userIds: ['user456'],
         },
         {
-          reactionId: 'reaction1',
           emoji: '👍',
           userIds: ['user12367'],
         },
@@ -189,22 +191,18 @@ export class ChatComponent {
       threadId: 'thread26236236', 
       reactions: [
         {
-          reactionId: 'reaction12',
           emoji: '🚀',
           userIds: ['user456'],
         },
         {
-          reactionId: 'reaction17',
           emoji: '🌟',
           userIds: ['user12367'],
         },
         {
-          reactionId: 'reaction121',
           emoji: '🚀',
           userIds: ['user456115'],
         },
         {
-          reactionId: 'reaction126',
           emoji: '🚀',
           userIds: ['user4568888'],
         },
