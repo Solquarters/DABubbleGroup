@@ -302,11 +302,14 @@ html, body{
     position: absolute;
    
     left: 24px;
-    padding: 8px;
+    padding: 12px 16px 16px 16px;
     border-radius: 24px 24px 24px 0px;
     background-color: #444df2;
     color: white;
     bottom: calc(100% + 4px);
+
+    
+    
 }
 
 .single-reaction-div-class{
