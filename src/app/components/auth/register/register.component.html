@@ -6,9 +6,9 @@
         </div>
     </header>
     <div class="login-card">
-        <a (mouseover)="styleService.backArrowPurple()" (mouseleave)="styleService.backArrowBlack()"
-            (click)="styleService.backArrowBlack()" [routerLink]="['']" class="back-arrow">
-            <img [src]="styleService.backArrowSvg" alt="arrow back">
+        <a (mouseover)="authService.backArrowPurple()" (mouseleave)="authService.backArrowBlack()"
+            (click)="authService.backArrowBlack()" [routerLink]="['']" class="back-arrow">
+            <img [src]="authService.backArrowSvg" alt="arrow back">
         </a>
         <h2>Konto erstellen</h2>
         <p>
@@ -16,34 +16,60 @@
         </p>
         <form>
             <div class="input-group">
-                <img [src]="styleService.nameSvg" alt="person-icon">
+                <img [src]="authService.nameSvg" alt="person-icon">
                 <label for="name"></label>
-                <input (focus)="styleService.focusNameInput()" (blur)="styleService.blurNameInput()" type="passwort"
-                    id="name" [placeholder]="styleService.placeholderName" autocomplete="name" />
+                <input [(ngModel)]="authService.registerNameValue" #nameI="ngModel" id="name" name="name" type="text"
+                    minlength="5" required [placeholder]="authService.placeholderName" autocomplete="name"
+                    (focus)="authService.focusNameInput()" (blur)="authService.blurNameInput()" />
+                @if (nameI.errors?.['required']) {
+                <span class="error-message">Bitte schreiben Sie einen Namen</span>
+                }
+
             </div>
             <div class="input-group">
-                <img [src]="styleService.mailSvg" alt="mail-icon">
+                <img [src]="authService.mailSvg" alt="mail-icon">
                 <label for="email"></label>
-                <input (focus)="styleService.focusMailInput()" (blur)="styleService.blurMailInput()" type="email"
-                    id="email" [placeholder]="styleService.placeholderMail" autocomplete="email" />
+                <input [(ngModel)]="authService.registerMailValue" #emailI="ngModel" id="email" name="email"
+                    type="email" minlength="5" required [placeholder]="authService.placeholderMail" autocomplete="email"
+                    required pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" (focus)="authService.focusMailInput()"
+                    (blur)="authService.blurMailInput()" />
+                @if (emailI.errors?.['required']) {
+                <span class="error-message">Bitte geben Sie eine E-Mail-Adresse ein</span>
+                } @else if (emailI.errors?.['pattern']) {
+                <span class="error-message">Diese E-Mail-Adresse ist leider ungültig</span>
+                }
+
+
+
             </div>
             <div class="input-group">
-                <img [src]="styleService.passwordSvg" alt="pw-icon">
+                <img [src]="authService.passwordSvg" alt="pw-icon">
                 <label for="password"><i class="fas fa-lock"></i></label>
-                <input (focus)="styleService.focusPwInput()" (blur)="styleService.blurPwInput()" type="password"
-                    id="password" [placeholder]="styleService.placeholderPw" autocomplete="new-password" />
+                <input [(ngModel)]="authService.registerPwValue" #passwordI="ngModel" id="password" name="password"
+                    type="password" min="7" required [placeholder]="authService.placeholderPw" autocomplete="email"
+                    required (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput()" />
+                @if (passwordI.errors?.['required']) {
+                <span class="error-message">Bitte geben Sie ein Passwort mit mindestens 7 Zeichen ein.</span>
+                }
+
             </div>
 
-            <label class="privacy-container" (click)="styleService.toggleCheckbox($event, checkbox)">
+            <label class="privacy-container" (click)="authService.toggleCheckbox($event, checkbox)">
                 <div class="checkbox-container">
-                    <input #checkbox type="checkbox" name="checkbox" />
+                    <input [(ngModel)]="checkbox" id="checkbox" name="checkbox" #checkbox #checkboxI="ngModel"
+                        type="checkbox" name="checkbox" required />
+
                 </div>
                 <span> ich stimme der <span class="privacy-span"
                         [routerLink]="['/privacy-policy']">Datenschutzerklärung</span>
                     zu.</span>
+                @if (checkboxI.errors?.['required']) {
+                <span class="error-message">Bitte akzeptieren sie die Datenschutzerklärung</span>
+                }
             </label>
             <div class="button-container">
-                <a [routerLink]="['/add-avatar']"> <button type="submit" class="next-btn">Weiter</button></a>
+                <a [routerLink]="['/add-avatar']"> <button [disabled]="!profileForm.valid" type="submit"
+                        class="next-btn">Weiter</button></a>
             </div>
         </form>
 

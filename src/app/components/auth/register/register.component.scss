@@ -127,6 +127,15 @@ header {
     }
   }
 
+  // ERROR MESSAGES
+  .error-message {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: $error-rosa;
+    font-size: 14px;
+  }
+
   .button-container {
     @include dFlex($fd: row, $jc: flex-end);
   }
@@ -148,6 +157,7 @@ header {
   }
 }
 .privacy-container {
+  position: relative;
   @include dFlex($fd: row, $jc: flex-start);
   margin-bottom: 30px;
   font-size: 16px;
@@ -156,7 +166,6 @@ header {
   .checkbox-container {
     padding: 6px;
     margin-right: 8px;
-    margin-top: 4px;
     border-radius: 50px;
     transition: all 125ms ease-in-out;
     @include dFlex();

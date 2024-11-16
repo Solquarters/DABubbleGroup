@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-
-import { StyleService } from '../style.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,5 +12,5 @@ import { StyleService } from '../style.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  constructor(public styleService: StyleService) {}
+  constructor(public authService: AuthService) {}
 }
