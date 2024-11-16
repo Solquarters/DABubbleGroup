@@ -68,11 +68,12 @@ export interface Reaction {
 import { Component } from '@angular/core';
 import { DateSeperatorPipe } from './pipes/date-seperator.pipe';
 import { GetMessageTimePipe } from './pipes/get-message-time.pipe';
+import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.pipe';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [DateSeperatorPipe,GetMessageTimePipe ],
+  imports: [DateSeperatorPipe, GetMessageTimePipe, ShouldShowDateSeperatorPipe],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss', '../../../../styles.scss']
 })
@@ -265,8 +266,27 @@ getMessageTime(date: Date): string {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 }
 
+shouldShowDateSeparator(index: number, oldTimestamp: Date, newTimestamp: Date): boolean{
+  console.log('Called shouldShowDateSeparator function');
+  if (index === 0) {
+    return true;
+  }
+
+  const currentMessageDate = new Date(newTimestamp).toDateString();
+  const previousMessageDate = new Date(oldTimestamp).toDateString();
+
+  return currentMessageDate !== previousMessageDate;
 }
 
+}
+
+
+
+// //First example of Updating the messages in realtime: Attention no unsubscribe here
+// this.messageService.getMessages().subscribe((newMessages) => {
+//   this.messages = newMessages;
+//   this.processMessages();
+// });
 
 // Access messages collection, filter by channelId and get a sorted array of the latest 50 messages inside the channel:
 // Firestore query to get messages for a specific channel

@@ -44,12 +44,22 @@
 
     <!-- /////MESSAGES FOR LOOP////// -->
      
-    @for (message of messages; track message.messageId) {
+    @for (message of messages; let index = $index;  track message.messageId) {
        
         <div class="single-message-main-class">
+
+          
+          @if(index === 0){
             <div class="chat-date-separator">
-                <span class="date-container">{{ message.timestamp | dateSeperator }}</span>
-              </div>
+              <span class="date-container">{{ message.timestamp | dateSeperator }}</span>
+            </div>
+          }
+          @if(index > 0 && (index | shouldShowDateSeperator: messages[index - 1].timestamp : messages[index].timestamp)) {
+            <div class="chat-date-separator">
+              <span class="date-container">{{ message.timestamp | dateSeperator }}</span>
+            </div>
+          }
+            
 
               <div class="img-messages-div">
 
