@@ -157,14 +157,20 @@ html, body{
     padding: 8px 16px;
     position: relative;
     top: 8px;
+    cursor: pointer;
 
     &:hover{
         background-color: $bg-color;
     }
 
+
 }
 
-.single-message-main-class:nth-of-type(even) .align-left-right-parent-class {
+
+
+
+/////////////To cleanup odd and even ... start
+.single-message-main-class:nth-of-type(even) >.align-left-right-parent-class {
     justify-content: flex-start; /* Aligns content to the left */
     
 }
@@ -204,6 +210,8 @@ html, body{
     background-color: $purple2;
     color: white;
     border-radius: 24px 0px 24px 24px;
+
+   
    
 }
 
@@ -212,7 +220,23 @@ html, body{
     margin: 0px 24px 0px 24px;
     background-color: $bg-color;
     border-radius: 0px 24px 24px 24px;
+
+    
 }
+
+
+
+.single-message-main-class:nth-of-type(even) {
+   
+    &:hover .message-content-class{
+        background-color: white;
+    }
+    
+    
+}
+
+/////////////To cleanup odd and even ... END
+
 
 .message-content-class{
     padding: 12px;
