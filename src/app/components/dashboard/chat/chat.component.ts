@@ -244,39 +244,8 @@ export class ChatComponent {
   ];
 
 
-returnDayStringOrDate(date: Date): string {
-    console.log('Called function');
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const yesterday = new Date(today);
-  yesterday.setDate(today.getDate() - 1);
 
-  const inputDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
 
-  if (inputDate.getTime() === today.getTime()) {
-    return 'Today';
-  } else if (inputDate.getTime() === yesterday.getTime()) {
-    return 'Yesterday';
-  } else {
-    return inputDate.toLocaleDateString(); // Returns formatted date
-  }
-};
-
-getMessageTime(date: Date): string {
-  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-}
-
-shouldShowDateSeparator(index: number, oldTimestamp: Date, newTimestamp: Date): boolean{
-  console.log('Called shouldShowDateSeparator function');
-  if (index === 0) {
-    return true;
-  }
-
-  const currentMessageDate = new Date(newTimestamp).toDateString();
-  const previousMessageDate = new Date(oldTimestamp).toDateString();
-
-  return currentMessageDate !== previousMessageDate;
-}
 
 }
 
