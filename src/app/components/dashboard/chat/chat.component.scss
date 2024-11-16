@@ -2,7 +2,10 @@
 
 html, body{
     height: 100%;
+    
 }
+
+
 
 .main-chat-div {
     background-color: $white;
@@ -307,7 +310,9 @@ html, body{
     background-color: #444df2;
     color: white;
     bottom: calc(100% + 4px);
-
+    
+    opacity: 0;
+    
     
     
 }
@@ -318,7 +323,7 @@ html, body{
     padding: 2px 8px;
     border: 1px solid $light-purple;
     background-color: white;
-
+    
     &:hover{
     background-color:$bg-color;
 
@@ -327,6 +332,8 @@ html, body{
 
 &:hover .hover-users-reactions-class{
     display: flex;
+    opacity: 1;
+    
 }
     } 
 
@@ -341,6 +348,7 @@ html, body{
 
 
 .add-reaction-button-class{
+    transition: all 500ms ease;
     border-radius: 50%;
     background-color: white;
     display: flex;
@@ -349,6 +357,7 @@ html, body{
     padding: 4px 4px;
 
    >svg{
+   
         fill: black;
     }
 
@@ -356,6 +365,97 @@ html, body{
         fill:$purple1;
     }
 }
+
+
+div{
+    transition: all 300ms ease;
+}
+svg{
+    transition: all 200ms ease;
+}
+
+
+.main-chatinput-field-class{
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    background-color: white;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+width: 100%;
+border-radius: 24px;
+border: 1px solid $light-purple;
+
+// min-height: 100px;
+
+textarea{
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    border: none;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+}
+
+.chatinput-send-and-attachments-class{
+width: 100%;
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 16px 8px;
+}
+
+
+
+
+.small-seperator{
+    height: 32px;
+    width: 2px;
+    background-color: $light-purple;
+    
+}
+
+          .hover-button-class{
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 2px;
+            >svg{
+                fill:#686868
+            }
+
+            &:hover{
+                background-color: $bg-color;
+            }
+
+            &:hover svg{
+                fill: $purple2;
+            }
+
+          }
+
+          .send-button-class{
+            cursor: pointer;
+            padding: 2px;
+            width: 40px;
+            height: 40px;
+            fill:$purple1;
+            display: flex;
+            align-items: center;
+            position: absolute;
+            right: 40px;
+            &:hover svg{
+                fill: $purple2;
+            }
+          }        
 
 @media only screen and (max-width: 650px) {
     .channel-head-class {

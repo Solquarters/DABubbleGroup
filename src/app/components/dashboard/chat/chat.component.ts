@@ -38,17 +38,8 @@ export interface Thread {
   channelId: string;
   createdAt: Date;
   createdBy: string; 
-  attachments: [
-    {
-      type: string,
-      url: string,
-    },
-  ],
-  reactions: {
-    reactionId: string;
-    emoji: string;
-    userIds: string[];
-  }[];
+  attachments?: Attachment[];
+  reactions?: Reaction[];
 }
 
 export interface Attachment {
@@ -85,6 +76,13 @@ import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.
 
 export class ChatComponent {
 
+  container: any;
+  constructor(){}  
+    
+  ngAfterViewInit() {         
+    this.container = document.getElementById("main-chat-div-id");           
+    this.container.scrollTop = this.container.scrollHeight;     
+  }  
     currentUserId: string = '';
 
 
@@ -242,15 +240,13 @@ export class ChatComponent {
       ],
       reactions: [
         {
-          reactionId: 'reaction1',
-          emoji: '👍',
-          userIds: ['user4576'],
+          emoji: '🚀',
+          userIds: ['user456','user456115','user4568888'],
         },
         {
-          reactionId: 'reaction1',
-          emoji: '👍',
-          userIds: ['user123'],
-        },
+          emoji: '🌟',
+          userIds: ['user12367'],
+        }
       ],
     },
     // ...additional threads
