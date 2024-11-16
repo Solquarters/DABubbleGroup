@@ -184,9 +184,31 @@ export class ChatComponent {
       senderId: 'user123',
       senderName: 'Michael Jordan',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar3.png',
-      content: 'How are you?',
+      content: 'I´m great, thanks! After five years on the east coast... it was time to go home',
       timestamp: new Date('2024-11-14T15:15:00Z'),
       threadId: 'thread26236236', 
+      reactions: [
+        {
+          reactionId: 'reaction12',
+          emoji: '🚀',
+          userIds: ['user456'],
+        },
+        {
+          reactionId: 'reaction17',
+          emoji: '🌟',
+          userIds: ['user12367'],
+        },
+        {
+          reactionId: 'reaction121',
+          emoji: '🚀',
+          userIds: ['user456115'],
+        },
+        {
+          reactionId: 'reaction126',
+          emoji: '🚀',
+          userIds: ['user4568888'],
+        },
+      ],
     },
     {
       messageId: 'message34',
