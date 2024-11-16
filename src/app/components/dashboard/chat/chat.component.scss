@@ -286,17 +286,26 @@ html, body{
 }
 
 .reactions-div-class{
- 
+    position: relative;
     display: flex;
     gap: 8px;
 }
 
 .single-reaction-div-class{
+    position: relative;
     border-radius: 24px;
-    padding: 2px;
+    padding: 2px 8px;
     border: 1px solid $light-purple;
 }
 
+.hover-users-reactions-class{
+    display:none;
+    position: absolute;
+    padding: 8px;
+    border-radius: 24px 24px 0px 24px;
+    background-color: #444df2;
+    color: white;
+}
 
 .mobile-head-avatars-class {
     display: none;

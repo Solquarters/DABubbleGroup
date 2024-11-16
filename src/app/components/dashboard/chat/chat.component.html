@@ -86,14 +86,18 @@
 
                       <div class="reactions-div-class">
                         
-                        @for(reaction of message.reactions; track reaction.reactionId){
+                        @for(reaction of message.reactions; track reaction.emoji){
                           <div class="single-reaction-div-class">
-                            {{reaction.emoji}}{{reaction.userIds}}
-                            <div class="hover-users-reactions-class">
-                              
-                              <!-- here the users who reacted with the same emoji in a stapled list -->
-                            </div>
+                            {{reaction.emoji}}{{reaction.userIds.length}}
+                            
                           </div>   
+                          <div class="hover-users-reactions-class">
+                            @for(userId of reaction.userIds; track userId){
+                              {{userId}}
+                            }
+                            
+                            <!-- here the users who reacted with the same emoji in a stapled list -->
+                          </div>
 
                         }
                    <!-- Add reaction svg -->

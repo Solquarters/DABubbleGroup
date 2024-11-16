@@ -84,6 +84,10 @@ import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.
 
 
 export class ChatComponent {
+
+    currentUserId: string = '';
+
+
   channels: Channel[] = [
     {
       channelId: 'channel01',
@@ -160,12 +164,9 @@ export class ChatComponent {
       reactions: [
         {
           emoji: '👍',
-          userIds: ['user456'],
+          userIds: ['user456','user12367'],
         },
-        {
-          emoji: '👍',
-          userIds: ['user12367'],
-        },
+       
       ],
     },
     {
@@ -192,20 +193,12 @@ export class ChatComponent {
       reactions: [
         {
           emoji: '🚀',
-          userIds: ['user456'],
+          userIds: ['user456','user456115','user4568888'],
         },
         {
           emoji: '🌟',
           userIds: ['user12367'],
-        },
-        {
-          emoji: '🚀',
-          userIds: ['user456115'],
-        },
-        {
-          emoji: '🚀',
-          userIds: ['user4568888'],
-        },
+        }
       ],
     },
     {
@@ -262,6 +255,49 @@ export class ChatComponent {
     },
     // ...additional threads
   ];
+
+
+
+  // //first try of adding and removing reactions
+  // addReaction(message: Message, emoji: string) {
+  //   if (message.senderId === this.currentUserId) {
+  //     // Prevent self-reactions
+  //     return;
+  //   }
+  
+  //   const userHasReacted = Object.keys(message.reactions || {}).some(e =>
+  //     (message.reactions[e] || []).includes(this.currentUserId)
+  //   );
+  
+  //   if (userHasReacted) {
+  //     // User wants to change their reaction
+  //     this.changeReaction(message, emoji);
+  //   } else {
+  //     // User is adding a new reaction
+  //     const messageRef = this.firestore.collection('messages').doc(message.messageId);
+  //     messageRef.update({
+  //       [`reactions.${emoji}`]: firebase.firestore.FieldValue.arrayUnion(this.currentUserId)
+  //     });
+  //   }
+  // }
+  
+  // changeReaction(message: Message, newEmoji: string) {
+  //   // Remove user from old reaction
+  //   for (const [emoji, userIds] of Object.entries(message.reactions || {})) {
+  //     if (userIds.includes(this.currentUserId)) {
+  //       const messageRef = this.firestore.collection('messages').doc(message.messageId);
+  //       messageRef.update({
+  //         [`reactions.${emoji}`]: firebase.firestore.FieldValue.arrayRemove(this.currentUserId)
+  //       });
+  //       break;
+  //     }
+  //   }
+  //   // Add user to new reaction
+  //   this.addReaction(message, newEmoji);
+  // }
+
+
+
 
 
 
