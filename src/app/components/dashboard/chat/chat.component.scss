@@ -39,7 +39,7 @@ html, body{
 .chat-content {
     flex: 1; // Allow the content to take up the remaining space
     overflow-y: auto; // Enable scrolling for the messages
-    padding: 24px 0px 64px 0px; // Ensure space for the input field
+    padding: 12px 0px 64px 0px; // Ensure space for the input field
 }
 
 
@@ -197,13 +197,13 @@ html, body{
 
 
 /////////////To cleanup odd and even ... start
-.single-message-main-class:nth-of-type(even) >.align-left-right-parent-class {
+.single-message-main-class:nth-of-type(odd) >.align-left-right-parent-class {
     justify-content: flex-start; /* Aligns content to the left */
     
     
 }
 
-.single-message-main-class:nth-of-type(odd) .align-left-right-parent-class {
+.single-message-main-class:nth-of-type(even) .align-left-right-parent-class {
     justify-content: flex-start; /* Aligns content to the right */
     flex-direction: row-reverse;
     
@@ -211,19 +211,19 @@ html, body{
 
 
 
-.single-message-main-class:nth-of-type(even) .messages-text-div-class{
+.single-message-main-class:nth-of-type(odd) .messages-text-div-class{
     align-items: flex-start; /* Aligns content to the left */
     margin: 0px 0px 0px 24px;
     
 }
 
-.single-message-main-class:nth-of-type(odd) .messages-text-div-class{
+.single-message-main-class:nth-of-type(even) .messages-text-div-class{
     align-items: flex-end; /* Aligns content to the right */
     margin: 0px 24px 0px 0px ;
 }
 
 
-.single-message-main-class:nth-of-type(odd) .name-posted-timestamp{
+.single-message-main-class:nth-of-type(even) .name-posted-timestamp{
     flex-direction: row-reverse;
     
 }
@@ -234,7 +234,7 @@ html, body{
 // }
 
 
-.single-message-main-class:nth-of-type(odd) .message-content-class{
+.single-message-main-class:nth-of-type(even) .message-content-class{
     
  
     background-color: $purple2;
@@ -245,7 +245,7 @@ html, body{
    
 }
 
-.single-message-main-class:nth-of-type(even) .message-content-class{
+.single-message-main-class:nth-of-type(odd) .message-content-class{
    
    
     background-color: $bg-color;
@@ -256,7 +256,7 @@ html, body{
 
 
 
-.single-message-main-class:nth-of-type(even) {
+.single-message-main-class:nth-of-type(odd) {
     padding: 0px 16px 0px 16px;
 
     &:hover .message-content-class{
@@ -266,7 +266,7 @@ html, body{
     
 }
 
-.single-message-main-class:nth-of-type(odd) {
+.single-message-main-class:nth-of-type(even) {
     padding: 0px 16px 0px 16px ;
     
     
