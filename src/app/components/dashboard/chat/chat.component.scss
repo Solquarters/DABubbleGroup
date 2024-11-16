@@ -463,8 +463,9 @@ padding: 16px 8px;
             fill:$purple1;
             display: flex;
             align-items: center;
+            justify-content: center;
             position: absolute;
-            right: 40px;
+            right: 16px;
             &:hover svg{
                 fill: $purple2;
             }
