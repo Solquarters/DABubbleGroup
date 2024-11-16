@@ -138,9 +138,11 @@ header {
 
   .button-container {
     @include dFlex($fd: row, $jc: flex-end);
+    z-index: 2;
   }
 
   .next-btn {
+    z-index: 1;
     padding: 12px 25px;
     height: 49px;
     background-color: $purple1;

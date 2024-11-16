@@ -66,7 +66,7 @@ export class AuthService {
     this.passwordSvg = 'assets/icons/password.svg';
     this.placeholderPw = 'Passwort';
     if (component == 'register') {
-      this.registerEmailClicked = true;
+      this.registerPasswordClicked = true;
     } else if (component == 'login') {
     } else {
     }
@@ -99,7 +99,7 @@ export class AuthService {
     this.placeholderPwConfirm = 'Neues Kennwort bestätigen';
   }
 
-  formValidationWarning(formvalid: any) {
+  formValidationWarning(formvalid: boolean) {
     console.log(formvalid);
     this.registerCheckboxClicked = true;
     this.registerNameClicked = true;

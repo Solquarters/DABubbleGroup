@@ -6,7 +6,6 @@ import {
   FormControl,
   FormGroup,
   FormsModule,
-  NgForm,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -21,16 +20,23 @@ import {
 export class RegisterComponent {
   profileForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required),
-    passwort: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(7),
+    ]),
+    privacyPolicy: new FormControl(false, Validators.requiredTrue),
   });
 
   constructor(public authService: AuthService) {}
 
-  handleButtonClick(profileForm: any) {
-    const button = document.querySelector('button.next-btn');
-    if (button) {
-        this.authService.formValidationWarning(profileForm);
+  onSubmit() {
+    if (this.profileForm.valid) {
+      // Formular ist gültig, du kannst die Daten verarbeiten oder weiterleiten
+      console.log('Formular ist gültig:', this.profileForm.value);
+    } else {
+      // Formular ist ungültig, zeige eine Fehlermeldung oder entsprechende Logik
+      console.log('Formular ist ungültig');
     }
-}
+  }
 }
