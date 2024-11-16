@@ -1,9 +1,11 @@
+@import '../../../../mixins.scss';
+
 html, body{
     height: 100%;
 }
 
 .main-chat-div {
-    background-color: white;
+    background-color: $white;
     border-radius: 30px;
     width: 100%;
     height: 100%;
@@ -47,12 +49,12 @@ html, body{
     }
 
     &:hover {
-        background-color: #eceefe;
-        color: #535af1;
+        background-color: $bg-color;
+        color: $purple3;
     }
 
     &:hover svg {
-        fill: #535af1;
+        fill: $purple3;
     }
 }
 
@@ -67,7 +69,7 @@ html, body{
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        border: 2px solid white;
+        border: 2px solid $white;
         position: relative;
     }
 
@@ -82,10 +84,10 @@ html, body{
     }
 
     &:hover {
-        background-color: #eceefe;
+        background-color: $bg-color;
         border-radius: 50px;
         > p {
-            color: #535af1;
+            color: $purple3;
         }
     }
 }
@@ -94,8 +96,8 @@ html, body{
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 2px solid white;
-    background-color: #eceefe;
+    border: 2px solid $white;
+    background-color: $bg-color;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -108,7 +110,7 @@ html, body{
 
     &:hover svg {
         transform: scale(1.1);
-        fill: #535af1;
+        fill: $purple3;
     }
 }
 
@@ -131,12 +133,12 @@ html, body{
     left: 0;
     right: 0;
     height: 1px;
-    background-color: #B2B5DB;
+    background-color: $light-purple;
 }
 
 .date-container {
     padding: 0.25rem 0.5rem;
-    background-color: #ffffff;
+    background-color: $white;
     border-radius: 20px;
     font-size: 0.875rem;
     font-weight: 500;
@@ -144,7 +146,7 @@ html, body{
     position: relative;
     z-index: 1;
     margin: 0 auto;
-    border: 1px solid #B2B5DB;
+    border: 1px solid $light-purple;
 }
 
 .single-message-main-class {
@@ -152,7 +154,9 @@ html, body{
     flex-direction: column;
     padding: 8px 16px;
 
-
+    &:hover{
+        background-color: $white;
+    }
 
 }
 
@@ -193,7 +197,7 @@ html, body{
 .single-message-main-class:nth-of-type(odd) .message-content-class{
     
     margin: 0px 24px 0px 0px;
-    background-color: #797EF3;
+    background-color: $purple2;
     color: white;
     border-radius: 24px 0px 24px 24px;
    
@@ -202,7 +206,7 @@ html, body{
 .single-message-main-class:nth-of-type(even) .message-content-class{
    
     margin: 0px 24px 0px 24px;
-    background-color: #ECEEFE;
+    background-color: $bg-color;
     border-radius: 0px 24px 24px 24px;
 }
 
@@ -261,7 +265,7 @@ html, body{
 .single-reaction-div-class{
     border-radius: 24px;
     padding: 2px;
-    border: 1px solid #B2B5DB;
+    border: 1px solid $light-purple;
 }
 
 
