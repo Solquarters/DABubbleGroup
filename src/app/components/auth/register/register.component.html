@@ -21,8 +21,7 @@
                 <input formControlName="name" id="name" name="name" type="text" minlength="5" required
                     [placeholder]="authService.placeholderName" autocomplete="name"
                     (focus)="authService.focusNameInput()" (blur)="authService.blurNameInput('register')" />
-                @if (profileForm.controls['name'].invalid && profileForm.controls['name'].touched &&
-                authService.registerNameClicked) {
+                @if (profileForm.controls['name'].invalid && profileForm.controls['name'].touched ) {
                 <span class="error-message">Bitte schreiben Sie einen Namen</span>
                 }
 
@@ -34,8 +33,7 @@
                     [placeholder]="authService.placeholderMail" autocomplete="email" required
                     pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$" (focus)="authService.focusMailInput()"
                     (blur)="authService.blurMailInput('register')" />
-                @if (profileForm.controls['email'].invalid && profileForm.controls['email'].touched &&
-                authService.registerEmailClicked) {
+                @if (profileForm.controls['email'].invalid && profileForm.controls['email'].touched ) {
                 <span class="error-message">Bitte geben Sie eine gültige E-Mail-Adresse ein</span>
                 }
             </div>
@@ -45,8 +43,7 @@
                 <input formControlName="password" id="password" name="password" type="password" min="7" required
                     [placeholder]="authService.placeholderPw" autocomplete="email" required
                     (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput('register')" />
-                @if (profileForm.controls['password'].invalid && profileForm.controls['password'].touched &&
-                authService.registerPasswordClicked) {
+                @if (profileForm.controls['password'].invalid && profileForm.controls['password'].touched ) {
                 <span class="error-message">Bitte geben Sie ein Passwort mit mindestens 7 Zeichen ein.</span>
                 }
 
@@ -60,17 +57,16 @@
                 <span>Ich stimme der <span class="privacy-span"
                         [routerLink]="['/privacy-policy']">Datenschutzerklärung</span>
                     zu.</span>
-                @if (profileForm.controls['privacyPolicy'].invalid && profileForm.controls['privacyPolicy'].touched &&
-                authService.registerCheckboxClicked) {
+                @if (profileForm.controls['privacyPolicy'].invalid && profileForm.controls['privacyPolicy'].touched ) {
                 <span class="error-message">Bitte akzeptieren sie die Datenschutzerklärung</span>
                 }
             </label>
             <div class="button-container">
                 @if (!profileForm.valid) {
-                <button (click)="authService.formValidationWarning(profileForm.valid)"
+                <button
                     class="next-btn invalid">Weiter</button>
                 } @else {
-                <button routerLinkActive="router-link-active" type="submit"
+                <button type="submit"
                     class="next-btn">Weiter</button>
                 }
             </div>

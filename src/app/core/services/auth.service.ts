@@ -98,11 +98,4 @@ export class AuthService {
   blurPwConfirmInput() {
     this.placeholderPwConfirm = 'Neues Kennwort bestätigen';
   }
-
-  formValidationWarning(formvalid: boolean) {
-    this.registerCheckboxClicked = true;
-    this.registerNameClicked = true;
-    this.registerEmailClicked = true;
-    this.registerPasswordClicked = true;
-  }
 }

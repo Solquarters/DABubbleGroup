@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import {
   FormControl,
@@ -25,18 +25,17 @@ export class RegisterComponent {
     privacyPolicy: new FormControl(false, Validators.requiredTrue),
   });
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private router: Router) {}
 
   async onSubmit() {
     if (this.profileForm.valid) {
       console.log('Formular ist gültig:', this.profileForm.value);
       await this.createNewMember();
+      this.router.navigate(['/add-avatar']);
     } else {
       console.log('Formular ist ungültig');
     }
   }
 
-  createNewMember() {
-    
-  }
+  async createNewMember() {}
 }
