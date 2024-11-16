@@ -48,7 +48,7 @@
        
         <div class="single-message-main-class">
             <div class="chat-date-separator">
-                <span class="date-container">{{ returnDayStringOrDate(message.timestamp)}}</span>
+                <span class="date-container">{{ message.timestamp | dateSeperator }}</span>
               </div>
 
               <div class="img-messages-div">
