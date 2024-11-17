@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { environment } from '../../../environments/environments';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { User } from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -28,23 +29,26 @@ export class AuthService {
 
   profileFormFullfilled!: any;
 
+  newUser!: User;
+
   constructor() {}
 
   async createUser() {
-    console.log(this.auth, this.registerMailValue, this.registerPasswordValue);
-    createUserWithEmailAndPassword(
+    const userCredential = await createUserWithEmailAndPassword(
       this.auth,
-      this.registerMailValue,
-      this.registerPasswordValue
-    )
-      .then((userCredential: any) => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((error: any) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+      this.profileFormFullfilled.email,
+      this.profileFormFullfilled.password
+    );
+    const createdAt = new Date();
+    this.newUser = new User(
+      userCredential.user.email,
+      userCredential.user.uid,
+      this.profileFormFullfilled.name,
+      true,
+      createdAt,
+      'src/assets/basic-avatars/default-avatar.svg'
+    );
+    console.log('new User', this.newUser);
   }
 
   focusNameInput() {

@@ -9,6 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { User } from '../../../models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +31,8 @@ export class RegisterComponent {
   async onSubmit() {
     if (this.profileForm.valid) {
       console.log('Formular ist gültig:', this.profileForm.value);
-      this.createNewMember();
+      this.authService.profileFormFullfilled = this.profileForm.value;
+      this.createMemberData();
       await this.authService.createUser();
       this.router.navigate(['/add-avatar']);
     } else {
@@ -38,7 +40,13 @@ export class RegisterComponent {
     }
   }
 
-  async createNewMember() {
-    this.authService.profileFormFullfilled = this.profileForm.value;
+  createMemberData() {
+    console.log(this.authService.auth);
+
+    
+   // this.authService.newUser = new User(this.profileForm.email, this.auth);
   }
 }
+
+// diese Funktion kreiert neuen user in Authentication
+// await this.authService.createUser();
