@@ -12,12 +12,12 @@ export class CloudService implements OnDestroy {
   unsubIds;
   channels: any = [];
   members: any = [];
-  ids: any = [];
+  memberPrivate: any = [];
 
   constructor() {
     this.unsubChannels = this.subList('channels');
-    this.unsubMembers = this.subList("memberPrivate");
-    this.unsubIds = this.subList("members");
+    this.unsubMembers = this.subList('memberPrivate');
+    this.unsubIds = this.subList('members');
   }
 
   ngOnDestroy(): void {
@@ -33,7 +33,7 @@ export class CloudService implements OnDestroy {
       } else if (ref === 'memberPrivate') {
         this.members = querySnapshot.docs.map((doc) => doc.data());
       } else if (ref === 'members') {
-        this.ids = querySnapshot.docs.map((doc) => doc.data());
+        this.memberPrivate = querySnapshot.docs.map((doc) => doc.data());
       }
     });
   }
