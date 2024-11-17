@@ -17,7 +17,11 @@ export class AddAvatarComponent {
     'assets/basic-avatars/avatar3.svg',
     'assets/basic-avatars/avatar4.svg',
     'assets/basic-avatars/avatar5.svg',
-    'assets/basic-avatars/avatar6.svg'
+    'assets/basic-avatars/avatar6.svg',
   ];
   constructor(public authService: AuthService) {}
+  showProfileForm() {
+    console.log(this.authService.profileFormFullfilled);
+    
+  }
 }

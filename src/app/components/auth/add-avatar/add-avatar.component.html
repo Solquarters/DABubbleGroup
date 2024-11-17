@@ -7,7 +7,7 @@
   </header>
   <div class="login-card">
     <a (mouseover)="authService.backArrowPurple()" (mouseleave)="authService.backArrowBlack()"
-      (click)="authService.backArrowBlack()" [routerLink]="['']" class="back-arrow">
+      (click)="authService.backArrowBlack()" [routerLink]="['/register']" class="back-arrow">
       <img [src]="authService.backArrowSvg" alt="arrow back" />
     </a>
     <h2>Wähle deinen Avatar</h2>
@@ -34,13 +34,11 @@
       </div>
       <div class="storage-container">
         <span>eigenes Bild verwenden</span>
-        <a [routerLink]="['add-avatar']">
-          <button type="submit" class="storage-btn">Datei hochladen</button></a>
+        <button (click)="showProfileForm();" class="storage-btn">Datei hochladen</button>
       </div>
     </div>
     <div class="button-container">
-      <a [routerLink]="['add-avatar']">
-        <button type="submit" class="next-btn">Weiter</button></a>
+      <button class="next-btn">Weiter</button>
     </div>
   </div>
   <footer>

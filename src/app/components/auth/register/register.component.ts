@@ -37,5 +37,7 @@ export class RegisterComponent {
     }
   }
 
-  async createNewMember() {}
+  async createNewMember() {
+    this.authService.profileFormFullfilled = this.profileForm.value;
+  }
 }

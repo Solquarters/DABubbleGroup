@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { environment } from '../../../environments/environments';
 import { getAuth } from 'firebase/auth';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +27,8 @@ export class AuthService {
   registerPwValue: string = '';
   registerCheckbox: boolean = false;
 
+  profileFormFullfilled!: any;
+  
   constructor() {}
 
   focusNameInput() {
