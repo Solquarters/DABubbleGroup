@@ -31,6 +31,8 @@ export class AuthService {
   constructor() {}
 
   async createUser() {
+    console.log(this.auth, this.registerMailValue, this.registerPasswordValue);
+    
     createUserWithEmailAndPassword(
       this.auth,
       this.registerMailValue,
