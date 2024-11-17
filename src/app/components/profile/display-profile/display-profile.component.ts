@@ -32,7 +32,7 @@ export class DisplayProfileComponent {
   showData() {
     console.log("channels", this.cloudService.channels);
     console.log("members", this.cloudService.members);
-    console.log("ids", this.cloudService.ids);
+    console.log("ids", this.cloudService.memberPrivate);
   }
 
   
