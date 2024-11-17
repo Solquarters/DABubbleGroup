@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { User } from '../../../models/user.model';
+import { addDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-register',
@@ -32,19 +33,12 @@ export class RegisterComponent {
     if (this.profileForm.valid) {
       console.log('Formular ist gültig:', this.profileForm.value);
       this.authService.profileFormFullfilled = this.profileForm.value;
-      this.createMemberData();
       await this.authService.createUser();
+      await this.authService.createMemberData();
       this.router.navigate(['/add-avatar']);
     } else {
       console.log('Formular ist ungültig');
     }
-  }
-
-  createMemberData() {
-    console.log(this.authService.auth);
-
-    
-   // this.authService.newUser = new User(this.profileForm.email, this.auth);
   }
 }
 

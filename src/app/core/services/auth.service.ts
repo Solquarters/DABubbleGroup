@@ -3,6 +3,8 @@ import { initializeApp } from 'firebase/app';
 import { environment } from '../../../environments/environments';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { User } from '../../models/user.model';
+import { addDoc } from 'firebase/firestore';
+import { CloudService } from './cloud.service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +33,7 @@ export class AuthService {
 
   newUser!: User;
 
-  constructor() {}
+  constructor(private cloudService: CloudService) {}
 
   async createUser() {
     const userCredential = await createUserWithEmailAndPassword(
@@ -45,10 +47,14 @@ export class AuthService {
       userCredential.user.uid,
       this.profileFormFullfilled.name,
       true,
+      'src/assets/basic-avatars/default-avatar.svg',
       createdAt,
-      'src/assets/basic-avatars/default-avatar.svg'
+      createdAt
     );
-    console.log('new User', this.newUser);
+  }
+
+  async createMemberData() {
+    await addDoc(this.cloudService.getRef('members'), this.newUser.toJson());
   }
 
   focusNameInput() {
