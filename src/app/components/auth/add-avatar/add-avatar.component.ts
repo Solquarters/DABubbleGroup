@@ -19,9 +19,12 @@ export class AddAvatarComponent {
     'assets/basic-avatars/avatar5.svg',
     'assets/basic-avatars/avatar6.svg',
   ];
+  selectedAvatar: string = 'assets/basic-avatars/default-avatar.svg';
+
   constructor(public authService: AuthService) {}
-  showProfileForm() {
-    console.log(this.authService.profileFormFullfilled);
-    
+
+  changeSelectedPath(path: string) {
+    console.log(path);
+    this.selectedAvatar = path;
   }
 }
