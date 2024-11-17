@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { environment } from '../../../environments/environments';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  UserCredential,
+} from 'firebase/auth';
 import { User } from '../../models/user.model';
-import { addDoc } from 'firebase/firestore';
+import { addDoc, updateDoc } from 'firebase/firestore';
 import { CloudService } from './cloud.service';
 
 @Injectable({
@@ -36,11 +40,16 @@ export class AuthService {
   constructor(private cloudService: CloudService) {}
 
   async createUser() {
-    const userCredential = await createUserWithEmailAndPassword(
-      this.auth,
-      this.profileFormFullfilled.email,
-      this.profileFormFullfilled.password
-    );
+      const userCredential = await createUserWithEmailAndPassword(
+        this.auth,
+        this.profileFormFullfilled.email,
+        this.profileFormFullfilled.password
+      );
+      this.createNewUserForCollection(userCredential);
+      await this.createMemberData();
+  }
+
+  createNewUserForCollection(userCredential: UserCredential) {
     const createdAt = new Date();
     this.newUser = new User(
       userCredential.user.email,
@@ -55,6 +64,12 @@ export class AuthService {
 
   async createMemberData() {
     await addDoc(this.cloudService.getRef('members'), this.newUser.toJson());
+  }
+
+  async updateMemberAvatar(id: string, path: string) {
+    await updateDoc(this.cloudService.getSingleRef("members", id), {
+      avatarUrl: path,
+    });
   }
 
   focusNameInput() {

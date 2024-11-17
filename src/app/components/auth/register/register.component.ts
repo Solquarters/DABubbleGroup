@@ -9,8 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { User } from '../../../models/user.model';
-import { addDoc } from 'firebase/firestore';
+import { CloudService } from '../../../core/services/cloud.service';
 
 @Component({
   selector: 'app-register',
@@ -27,17 +26,24 @@ export class RegisterComponent {
     privacyPolicy: new FormControl(false, Validators.requiredTrue),
   });
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private cloudService: CloudService
+  ) {}
 
   async onSubmit() {
     if (this.profileForm.valid) {
-      console.log('Formular ist gültig:', this.profileForm.value);
+      this.cloudService.loading = true;
       this.authService.profileFormFullfilled = this.profileForm.value;
-      await this.authService.createUser();
-      await this.authService.createMemberData();
-      this.router.navigate(['/add-avatar']);
-    } else {
-      console.log('Formular ist ungültig');
+      try {
+        await this.authService.createUser();
+        this.router.navigate(['/add-avatar']);
+        console.log(this.authService.auth.currentUser);
+      } catch (error) {
+        alert(error);
+      }
+      this.cloudService.loading = false;
     }
   }
 }
