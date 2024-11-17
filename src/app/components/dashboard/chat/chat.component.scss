@@ -250,8 +250,19 @@ html, body{
 
     &:hover .emoji-comment-edit-tooltip-class {
         opacity: 1;
-        transform: translateX(-100px);
+        transform: translateX(0); /* Reset transform to slide into view */
     }
+}
+
+.single-message-main-class:nth-of-type(odd) .emoji-comment-edit-tooltip-class {
+    right: -64px; /* Position off-screen to the right */
+    transform: translateX(-140px); /* Initial position for the slide-in effect */
+}
+
+.single-message-main-class:nth-of-type(even) .emoji-comment-edit-tooltip-class {
+    right: auto; /* Override 'right' positioning */
+    left: -64px; /* Position off-screen to the left */
+    transform: translateX(140px); /* Initial position for the slide-in effect */
 }
 
 .emoji-comment-edit-tooltip-class {
@@ -261,13 +272,12 @@ html, body{
     display: flex;
     justify-content: center;
     position: absolute;
-    right: -64px; /* Start position off-screen */
-    top: 12px;
+    top: 8px;
     padding: 2px 12px;
     gap: 8px;
 
     opacity: 0; /* Initially hidden */
-    transform: translateX(-140px); /* Translate it into view on hover */
+    transform: translateX(140px); /* Set a default transform value */
     transition: opacity 0.2s ease, transform 0.2s ease; /* Smooth transition */
 
     > .hover-button-class {
@@ -295,6 +305,48 @@ html, body{
         }
     }
 }
+
+// .emoji-comment-edit-tooltip-class {
+//     background-color: white;
+//     border-radius: 24px 24px 0px 24px;
+//     border: 1px solid $light-purple;
+//     display: flex;
+//     justify-content: center;
+//     position: absolute;
+//     right: -64px; /* Start position off-screen */
+//     top: 12px;
+//     padding: 2px 12px;
+//     gap: 8px;
+
+//     opacity: 0; /* Initially hidden */
+//     transform: translateX(-140px); /* Translate it into view on hover */
+//     transition: opacity 0.2s ease, transform 0.2s ease; /* Smooth transition */
+
+//     > .hover-button-class {
+//         > svg {
+//             fill: #000000;
+//             stroke-width: 1;
+//         }
+
+//         cursor: pointer;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         width: 40px;
+//         height: 40px;
+//         border-radius: 50%;
+
+//         &:hover {
+//             background-color: $bg-color;
+//         }
+
+//         &:hover svg path {
+//             fill: $purple2;
+//             stroke-width: 0.6;
+//             stroke: $purple2;
+//         }
+//     }
+// }
 
 
 // .single-reaction-div-class {
@@ -416,6 +468,7 @@ html, body{
     padding: 16px 0px;
     display: flex;
     width: 100%;
+   
 }
 
 
@@ -430,7 +483,7 @@ html, body{
     display: flex;
     flex-direction: column;
     width: 100%;
-    gap: 8px 0px;
+    gap: 16px 0px;
 }
 
 
