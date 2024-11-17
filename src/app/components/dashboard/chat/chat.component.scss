@@ -39,7 +39,7 @@ html, body{
 .chat-content {
     flex: 1; // Allow the content to take up the remaining space
     overflow-y: auto; // Enable scrolling for the messages
-    padding: 12px 0px 64px 0px; // Ensure space for the input field
+    padding: 14px 0px 48px 0px; // Ensure space for the input field
 }
 
 
@@ -179,65 +179,11 @@ html, body{
     border: 1px solid $light-purple;
 }
 
-// .single-message-main-class {
-//     display: flex;
-//     flex-direction: column;
-//     // padding: 16px 16px;
-//     position: relative;
-//     top: 8px;
-//     cursor: pointer;
-
-//     &:hover{
-//         background-color: $bg-color;
-//     }
 
 
-// }
 
 
-// .emoji-comment-edit-tooltip-class{
-//     background-color: white;
-//     border-radius: 24px 24px 0px 24px;
-//     border: 1px solid $light-purple;
-//     // width: 200px;
-//     display: flex;
-//     justify-content: center;
-//     position: absolute;
-//     right: 32px;
-//     top: 8px;
-//     padding: 2px 12px;
-//     gap: 8px;
-
-
-//     >.hover-button-class{
-//         >svg{
-//             fill:#000000;
-//             stroke-width: 1;
-           
-//         }
-//         cursor: pointer;
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         width: 40px;
-//         height: 40px;
-//         border-radius: 50%;
-     
-       
-
-//         &:hover{
-//             background-color: $bg-color;
-//         }
-
-//         &:hover svg path{
-//             fill: $purple2;
-//             stroke-width: 0.6;
-//             stroke: $purple2;
-//         }
-
-//     }
-// }
-
+/////////////////////////////////Slide in animation 
 .single-message-main-class {
     display: flex;
     flex-direction: column;
@@ -306,72 +252,7 @@ html, body{
     }
 }
 
-// .emoji-comment-edit-tooltip-class {
-//     background-color: white;
-//     border-radius: 24px 24px 0px 24px;
-//     border: 1px solid $light-purple;
-//     display: flex;
-//     justify-content: center;
-//     position: absolute;
-//     right: -64px; /* Start position off-screen */
-//     top: 12px;
-//     padding: 2px 12px;
-//     gap: 8px;
-
-//     opacity: 0; /* Initially hidden */
-//     transform: translateX(-140px); /* Translate it into view on hover */
-//     transition: opacity 0.2s ease, transform 0.2s ease; /* Smooth transition */
-
-//     > .hover-button-class {
-//         > svg {
-//             fill: #000000;
-//             stroke-width: 1;
-//         }
-
-//         cursor: pointer;
-//         display: flex;
-//         align-items: center;
-//         justify-content: center;
-//         width: 40px;
-//         height: 40px;
-//         border-radius: 50%;
-
-//         &:hover {
-//             background-color: $bg-color;
-//         }
-
-//         &:hover svg path {
-//             fill: $purple2;
-//             stroke-width: 0.6;
-//             stroke: $purple2;
-//         }
-//     }
-// }
-
-
-// .single-reaction-div-class {
-//     position: relative;
-//     border-radius: 24px;
-//     padding: 2px 8px;
-//     border: 1px solid $light-purple;
-//     background-color: white;
-    
-//     &:hover {
-//       background-color: $bg-color;
-//     }
-  
-//     .hover-users-reactions-class {
-//       display: flex; /* Keep this as flex so it's always in the layout */
-//       opacity: 0; /* Initially hidden */
-//       visibility: hidden; /* Ensures it's not interactable when hidden */
-//       transition: opacity 0.2s ease, visibility 0.2s ease; /* Smooth transition */
-//     }
-  
-//     &:hover .hover-users-reactions-class {
-//       opacity: 1; /* Fade into view */
-//       visibility: visible; /* Make it visible */
-//     }
-//   }
+/////////////////////////////////Slide in animation 
 
 
 /////////////To cleanup odd and even ... start
