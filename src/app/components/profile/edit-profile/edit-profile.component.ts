@@ -21,9 +21,6 @@ export class EditProfileComponent {
     console.log('Profil-Bearbeitungsansicht schließen');
   }
 
-  cancelEdit() {
-    console.log('Bearbeitung abgebrochen');
-  }
 
   saveProfile() {
     console.log('Profil speichern');

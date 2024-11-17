@@ -17,7 +17,6 @@ export interface User {
   role: string;
 }
 
-
 ///Message with author data in it, easier and quicker than storing and getting userName and Url seperately each message.
 export interface Message {
   messageId: string;
@@ -29,7 +28,7 @@ export interface Message {
   timestamp: Date;
   attachments?: Attachment[];
   reactions?: Reaction[];
-  threadId?: string; 
+  threadId?: string;
 }
 
 export interface Thread {
@@ -37,7 +36,7 @@ export interface Thread {
   parentMessageId: string; // The message that the thread is attached to
   channelId: string;
   createdAt: Date;
-  createdBy: string; 
+  createdBy: string;
   attachments?: Attachment[];
   reactions?: Reaction[];
 }
@@ -64,27 +63,26 @@ import { Component } from '@angular/core';
 import { DateSeperatorPipe } from './pipes/date-seperator.pipe';
 import { GetMessageTimePipe } from './pipes/get-message-time.pipe';
 import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.pipe';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   imports: [DateSeperatorPipe, GetMessageTimePipe, ShouldShowDateSeperatorPipe],
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss', '../../../../styles.scss']
+  styleUrls: ['./chat.component.scss', '../../../../styles.scss'],
 })
-
-
 export class ChatComponent {
+  // @Input() currentChannel: { name: string } | null = null;
 
   container: any;
-  constructor(){}  
-    
-  ngAfterViewInit() {         
-    this.container = document.getElementById("chat-content-div-id");           
-    this.container.scrollTop = this.container.scrollHeight;     
-  }  
-    currentUserId: string = '';
+  constructor() {}
 
+  ngAfterViewInit() {
+    this.container = document.getElementById('chat-content-div-id');
+    this.container.scrollTop = this.container.scrollHeight;
+  }
+  currentUserId: string = '';
 
   channels: Channel[] = [
     {
@@ -103,7 +101,9 @@ export class ChatComponent {
 
   /////////////////USERS
   get channelMembers(): User[] {
-    return this.users.filter(user => this.currentChannel.memberIds.includes(user.userId));
+    return this.users.filter((user) =>
+      this.currentChannel.memberIds.includes(user.userId)
+    );
   }
 
   users: User[] = [
@@ -122,26 +122,26 @@ export class ChatComponent {
       role: 'moderator',
     },
     {
-      userId: "user45655",
-      displayName: "Noah",
+      userId: 'user45655',
+      displayName: 'Noah',
       avatarUrl: '../../../../assets/basic-avatars/avatar3.png',
       joinedAt: new Date('2024-01-06T10:00:00Z'),
       role: 'member',
     },
     {
-      userId: "user456565",
-      displayName: "Noah",
+      userId: 'user456565',
+      displayName: 'Noah',
       avatarUrl: '../../../../assets/basic-avatars/avatar3.png',
       joinedAt: new Date('2024-01-06T10:00:00Z'),
       role: 'member',
     },
     {
-      userId: "user456551",
-      displayName: "Noah",
+      userId: 'user456551',
+      displayName: 'Noah',
       avatarUrl: '../../../../assets/basic-avatars/avatar3.png',
       joinedAt: new Date('2024-01-06T10:00:00Z'),
       role: 'member',
-    }
+    },
   ];
 
   messages: Message[] = [
@@ -162,9 +162,8 @@ export class ChatComponent {
       reactions: [
         {
           emoji: '👍',
-          userIds: ['user456','user12367'],
+          userIds: ['user456', 'user12367'],
         },
-       
       ],
     },
     {
@@ -175,8 +174,8 @@ export class ChatComponent {
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar2.png',
       content: 'Hey there! Whats up how is it going, the weather is so nice',
       timestamp: new Date('2024-11-13T15:10:00Z'),
-      threadId: 'thread5252525', 
-      ///Thread messages counter here? Whenever a message in thread is added, this counter should be incremented 
+      threadId: 'thread5252525',
+      ///Thread messages counter here? Whenever a message in thread is added, this counter should be incremented
       ///or: by fetching the thread, you get the thread length. But then to get the "2 Antworten" below a message, you will need to fetch the thread data even if its not displayed yet...
     },
     {
@@ -185,18 +184,19 @@ export class ChatComponent {
       senderId: 'user123',
       senderName: 'Michael Jordan',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar3.png',
-      content: 'I´m great, thanks! After five years on the east coast... it was time to go home',
+      content:
+        'I´m great, thanks! After five years on the east coast... it was time to go home',
       timestamp: new Date('2024-11-14T15:15:00Z'),
-      threadId: 'thread26236236', 
+      threadId: 'thread26236236',
       reactions: [
         {
           emoji: '🚀',
-          userIds: ['user456','user456115','user4568888'],
+          userIds: ['user456', 'user456115', 'user4568888'],
         },
         {
           emoji: '🌟',
           userIds: ['user12367'],
-        }
+        },
       ],
     },
     {
@@ -207,7 +207,7 @@ export class ChatComponent {
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar4.png',
       content: 'How are you?',
       timestamp: new Date('2024-11-14T15:15:00Z'),
-      threadId: 'threadsfsfsfsf', 
+      threadId: 'threadsfsfsfsf',
     },
     {
       messageId: 'message43',
@@ -215,14 +215,14 @@ export class ChatComponent {
       senderId: 'user1234',
       senderName: 'Daniel Jackson',
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar4.png',
-      content: 'Given that your messages are updated frequently and data changes are dynamic, using pipes is the easiest and most straightforward approach for your situation.',
+      content:
+        'Given that your messages are updated frequently and data changes are dynamic, using pipes is the easiest and most straightforward approach for your situation.',
       timestamp: new Date('2024-11-16T15:15:00Z'),
-      threadId: 'thread116616', 
+      threadId: 'thread116616',
     },
-    
+
     // ...additional messages
   ];
-
 
   threads: Thread[] = [
     {
@@ -241,18 +241,16 @@ export class ChatComponent {
       reactions: [
         {
           emoji: '🚀',
-          userIds: ['user456','user456115','user4568888'],
+          userIds: ['user456', 'user456115', 'user4568888'],
         },
         {
           emoji: '🌟',
           userIds: ['user12367'],
-        }
+        },
       ],
     },
     // ...additional threads
   ];
-
-
 
   // //first try of adding and removing reactions
   // addReaction(message: Message, emoji: string) {
@@ -260,11 +258,11 @@ export class ChatComponent {
   //     // Prevent self-reactions
   //     return;
   //   }
-  
+
   //   const userHasReacted = Object.keys(message.reactions || {}).some(e =>
   //     (message.reactions[e] || []).includes(this.currentUserId)
   //   );
-  
+
   //   if (userHasReacted) {
   //     // User wants to change their reaction
   //     this.changeReaction(message, emoji);
@@ -276,7 +274,7 @@ export class ChatComponent {
   //     });
   //   }
   // }
-  
+
   // changeReaction(message: Message, newEmoji: string) {
   //   // Remove user from old reaction
   //   for (const [emoji, userIds] of Object.entries(message.reactions || {})) {
@@ -291,17 +289,7 @@ export class ChatComponent {
   //   // Add user to new reaction
   //   this.addReaction(message, newEmoji);
   // }
-
-
-
-
-
-
-
-
 }
-
-
 
 // //First example of Updating the messages in realtime: Attention no unsubscribe here
 // this.messageService.getMessages().subscribe((newMessages) => {
@@ -323,7 +311,6 @@ export class ChatComponent {
 //     // Since we're ordering by timestamp descending, we might want to reverse the array
 //     this.currentChannelMessages = messages.reverse();
 //   });
-
 
 //Für Antworten zu messages (threads):
 // Function to create a new thread
@@ -368,8 +355,6 @@ export class ChatComponent {
 //     });
 // }
 
-
-
 //Beispiel für Sec Rules für thread Zugriff:
 // match /messages/{messageId} {
 //   allow read, write: if isChannelMember(request.auth.uid, resource.data.channelId);
@@ -383,7 +368,6 @@ export class ChatComponent {
 //   return exists(/databases/$(database)/documents/channels/$(channelId)) &&
 //          get(/databases/$(database)/documents/channels/$(channelId)).data.memberIds.hasAny([userId]);
 // }
-
 
 ///Kreiiere einen thread wenn noch keiner vorhanden:
 // startThread(parentMessageId: string, content: string) {
