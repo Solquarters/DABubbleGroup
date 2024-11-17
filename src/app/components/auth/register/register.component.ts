@@ -30,7 +30,8 @@ export class RegisterComponent {
   async onSubmit() {
     if (this.profileForm.valid) {
       console.log('Formular ist gültig:', this.profileForm.value);
-      await this.createNewMember();
+      this.createNewMember();
+      await this.authService.createUser();
       this.router.navigate(['/add-avatar']);
     } else {
       console.log('Formular ist ungültig');

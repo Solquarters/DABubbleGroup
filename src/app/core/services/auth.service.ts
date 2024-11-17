@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { environment } from '../../../environments/environments';
-import { getAuth } from 'firebase/auth';
-import { FormGroup } from '@angular/forms';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +23,28 @@ export class AuthService {
   registerCheckboxClicked = false;
   registerNameValue: string = '';
   registerMailValue: string = '';
-  registerPwValue: string = '';
+  registerPasswordValue: string = '';
   registerCheckbox: boolean = false;
 
   profileFormFullfilled!: any;
-  
+
   constructor() {}
+
+  async createUser() {
+    createUserWithEmailAndPassword(
+      this.auth,
+      this.registerMailValue,
+      this.registerPasswordValue
+    )
+      .then((userCredential: any) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error: any) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+  }
 
   focusNameInput() {
     this.nameSvg = 'assets/icons/person-bold.svg';
