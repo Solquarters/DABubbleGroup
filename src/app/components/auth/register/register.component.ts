@@ -39,7 +39,6 @@ export class RegisterComponent {
       try {
         await this.authService.createUser();
         this.router.navigate(['/add-avatar']);
-        console.log(this.authService.auth.currentUser);
       } catch (error) {
         alert(error);
       }

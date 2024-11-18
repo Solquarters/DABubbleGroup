@@ -16,6 +16,7 @@ import { CloudService } from './cloud.service';
 export class AuthService {
   private app = initializeApp(environment);
   auth = getAuth(this.app);
+  user!: any;
   nameSvg = 'assets/icons/person.svg';
   mailSvg = 'assets/icons/mail.svg';
   passwordSvg = 'assets/icons/password.svg';
@@ -37,16 +38,21 @@ export class AuthService {
 
   newUser!: User;
 
-  constructor(private cloudService: CloudService) {}
+  constructor(private cloudService: CloudService) {
+  }
 
   async createUser() {
-      const userCredential = await createUserWithEmailAndPassword(
-        this.auth,
-        this.profileFormFullfilled.email,
-        this.profileFormFullfilled.password
-      );
-      this.createNewUserForCollection(userCredential);
-      await this.createMemberData();
+    const userCredential = await createUserWithEmailAndPassword(
+      this.auth,
+      this.profileFormFullfilled.email,
+      this.profileFormFullfilled.password
+    )
+    // login user
+    this.user = userCredential.user;
+    console.log(this.user);
+    
+    this.createNewUserForCollection(userCredential);
+    await this.createMemberData();
   }
 
   createNewUserForCollection(userCredential: UserCredential) {
@@ -67,7 +73,7 @@ export class AuthService {
   }
 
   async updateMemberAvatar(id: string, path: string) {
-    await updateDoc(this.cloudService.getSingleRef("members", id), {
+    await updateDoc(this.cloudService.getSingleRef('members', id), {
       avatarUrl: path,
     });
   }
