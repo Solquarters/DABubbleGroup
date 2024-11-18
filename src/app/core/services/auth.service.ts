@@ -34,20 +34,23 @@ export class AuthService {
   registerPasswordValue: string = '';
   registerCheckbox: boolean = false;
 
-  profileFormFullfilled!: any;
+  registerFormFullfilled!: any;
 
   newUser!: User;
 
   constructor(private cloudService: CloudService) {
   }
 
-  async createUser() {
+  async loginUser() {
+
+  }
+
+  async createAndLoginUser() {
     const userCredential = await createUserWithEmailAndPassword(
       this.auth,
-      this.profileFormFullfilled.email,
-      this.profileFormFullfilled.password
+      this.registerFormFullfilled.email,
+      this.registerFormFullfilled.password
     )
-    // login user
     this.user = userCredential.user;
     console.log(this.user);
     
@@ -60,7 +63,7 @@ export class AuthService {
     this.newUser = new User(
       userCredential.user.email,
       userCredential.user.uid,
-      this.profileFormFullfilled.name,
+      this.registerFormFullfilled.name,
       true,
       'src/assets/basic-avatars/default-avatar.svg',
       createdAt,

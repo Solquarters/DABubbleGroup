@@ -35,9 +35,9 @@ export class RegisterComponent {
   async onSubmit() {
     if (this.profileForm.valid) {
       this.cloudService.loading = true;
-      this.authService.profileFormFullfilled = this.profileForm.value;
+      this.authService.registerFormFullfilled = this.profileForm.value;
       try {
-        await this.authService.createUser();
+        await this.authService.createAndLoginUser();
         this.router.navigate(['/add-avatar']);
       } catch (error) {
         alert(error);
@@ -46,6 +46,3 @@ export class RegisterComponent {
     }
   }
 }
-
-// diese Funktion kreiert neuen user in Authentication
-// await this.authService.createUser();
