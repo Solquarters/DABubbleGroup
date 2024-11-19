@@ -15,19 +15,27 @@ import { CloudService } from '../../../core/services/cloud.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(7)]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(7),
+    ]),
   });
 
   constructor(
     public authService: AuthService,
-    private router: Router,
     private cloudService: CloudService
   ) {}
 
@@ -35,10 +43,7 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.cloudService.loading = true;
       try {
-        console.log(this.loginForm.value);
-        
-        // await this.authService.loginUser(this.loginForm.value);
-        this.router.navigate(['/dashboard']);
+        await this.authService.loginUser(this.loginForm);
       } catch (error) {
         alert(error);
       }
@@ -46,3 +51,5 @@ export class LoginComponent {
     }
   }
 }
+
+

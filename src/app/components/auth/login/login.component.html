@@ -31,7 +31,8 @@
                 <input formControlName="password" id="password" type="password" required minlength="7"
                     [placeholder]="authService.placeholderPw" autocomplete="current-password"
                     (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput('login')" />
-                @if (loginForm.controls['password'].invalid && loginForm.controls['password'].touched ) {
+                @if (loginForm.controls['password'].invalid && loginForm.controls['password'].touched ||
+                authService.passwordWrong ) {
                 <span class="error-message">Falsches Passwort oder E-Mail. Bitte noch einmal versuchen.</span>
                 }
             </div>
@@ -51,7 +52,7 @@
                 } @else {
                 <button type="submit" class="login-btn">Anmelden</button>
                 }
-                <button type="button" class="guest-login" [routerLink]="['dashboard']">
+                <button type="button" class="guest-login">
                     Gäste-Login
                 </button>
             </div>

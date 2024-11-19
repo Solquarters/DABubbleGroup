@@ -5,10 +5,13 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   UserCredential,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { User } from '../../models/user.model';
 import { addDoc, updateDoc } from 'firebase/firestore';
 import { CloudService } from './cloud.service';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +20,7 @@ export class AuthService {
   private app = initializeApp(environment);
   auth = getAuth(this.app);
   user!: any;
+  passwordWrong: boolean = false;
   nameSvg = 'assets/icons/person.svg';
   mailSvg = 'assets/icons/mail.svg';
   passwordSvg = 'assets/icons/password.svg';
@@ -38,11 +42,23 @@ export class AuthService {
 
   newUser!: User;
 
-  constructor(private cloudService: CloudService) {
-  }
+  constructor(private cloudService: CloudService, private router: Router) {}
 
-  async loginUser() {
-
+  async loginUser(loginForm: FormGroup) {
+    const email = loginForm.value.email;
+    const password = loginForm.value.password;
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        this.user = userCredential.user;
+        this.router.navigate(['/dashboard']);
+        this.passwordWrong = false;
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        this.passwordWrong = true;
+      });
   }
 
   async createAndLoginUser() {
@@ -50,10 +66,10 @@ export class AuthService {
       this.auth,
       this.registerFormFullfilled.email,
       this.registerFormFullfilled.password
-    )
+    );
     this.user = userCredential.user;
     console.log(this.user);
-    
+
     this.createNewUserForCollection(userCredential);
     await this.createMemberData();
   }
