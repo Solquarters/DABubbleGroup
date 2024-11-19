@@ -27,10 +27,10 @@ export class SidenavComponent implements OnInit {
 
   // Beispiel-Benutzerdaten
   users: { name: string; avatar: string }[] = [
-    { name: 'Benutzer 1', avatar: 'assets/basic-avatars/avatar-1.png' },
-    { name: 'Benutzer 2', avatar: 'assets/basic-avatars/avatar2.png' },
-    { name: 'Benutzer 3', avatar: 'assets/basic-avatars/avatar3.png' },
-    { name: 'Benutzer 4', avatar: 'assets/basic-avatars/avatar4.png' }
+    { name: 'Benutzer 1', avatar: 'assets/basic-avatars/avatar1.svg' },
+    { name: 'Benutzer 2', avatar: 'assets/basic-avatars/avatar2.svg' },
+    { name: 'Benutzer 3', avatar: 'assets/basic-avatars/avatar3.svg' },
+    { name: 'Benutzer 4', avatar: 'assets/basic-avatars/avatar4.svg' }
   ];
 
 
