@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { environment } from '../../../environments/environments';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  UserCredential,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import { User } from '../../models/user.model';
+import { addDoc, updateDoc } from 'firebase/firestore';
+import { CloudService } from './cloud.service';
+import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -9,6 +19,8 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 export class AuthService {
   private app = initializeApp(environment);
   auth = getAuth(this.app);
+  user!: any;
+  passwordWrong: boolean = false;
   nameSvg = 'assets/icons/person.svg';
   mailSvg = 'assets/icons/mail.svg';
   passwordSvg = 'assets/icons/password.svg';
@@ -26,25 +38,75 @@ export class AuthService {
   registerPasswordValue: string = '';
   registerCheckbox: boolean = false;
 
-  profileFormFullfilled!: any;
+  registerFormFullfilled!: any;
 
-  constructor() {}
+  newUser!: User;
 
-  async createUser() {
-    console.log(this.auth, this.registerMailValue, this.registerPasswordValue);
-    createUserWithEmailAndPassword(
-      this.auth,
-      this.registerMailValue,
-      this.registerPasswordValue
-    )
-      .then((userCredential: any) => {
-        const user = userCredential.user;
-        console.log(user);
+  constructor(private cloudService: CloudService, private router: Router) {}
+
+  async loginUser(loginForm: FormGroup) {
+    const email = loginForm.value.email;
+    const password = loginForm.value.password;
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        this.user = userCredential.user;
+        this.router.navigate(['/dashboard']);
+        this.passwordWrong = false;
       })
-      .catch((error: any) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+      .catch((error) => {
+        console.error(error.message);
+        this.passwordWrong = true;
       });
+  }
+
+  async loginGuestUser() {
+    const email = 'guest@gmail.com';
+    const password = '123test123';
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        this.user = userCredential.user;
+        this.router.navigate(['/dashboard']);
+        this.passwordWrong = false;
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
+  async createAndLoginUser() {
+    const userCredential = await createUserWithEmailAndPassword(
+      this.auth,
+      this.registerFormFullfilled.email,
+      this.registerFormFullfilled.password
+    );
+    this.user = userCredential.user;
+    console.log(this.user);
+
+    this.createNewUserForCollection(userCredential);
+    await this.createMemberData();
+  }
+
+  createNewUserForCollection(userCredential: UserCredential) {
+    const createdAt = new Date();
+    this.newUser = new User(
+      userCredential.user.email,
+      userCredential.user.uid,
+      this.registerFormFullfilled.name,
+      true,
+      'src/assets/basic-avatars/default-avatar.svg',
+      createdAt,
+      createdAt
+    );
+  }
+
+  async createMemberData() {
+    await addDoc(this.cloudService.getRef('members'), this.newUser.toJson());
+  }
+
+  async updateMemberAvatar(id: string, path: string) {
+    await updateDoc(this.cloudService.getSingleRef('members', id), {
+      avatarUrl: path,
+    });
   }
 
   focusNameInput() {
