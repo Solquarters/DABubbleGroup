@@ -111,6 +111,22 @@ header {
     }
   }
 
+  // ERROR MESSAGES
+  .error-message {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: $error-rosa;
+    font-size: 14px;
+  }
+  
+  .invalid {
+    background-color: $text-gray;
+    &:hover {
+      background-color: rgb(133, 133, 133);
+    }
+  }
+
   .forgot-password-container {
     width: 100%;
     @include dFlex();

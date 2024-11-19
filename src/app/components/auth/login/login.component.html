@@ -22,7 +22,7 @@
                     [placeholder]="authService.placeholderMail" autocomplete="email"
                     (focus)="authService.focusMailInput()" (blur)="authService.blurMailInput('login')" />
                 @if (loginForm.controls['email'].invalid && loginForm.controls['email'].touched ) {
-                <span class="error-message">Bitte geben Sie eine gültige E-Mail-Adresse ein</span>
+                <span class="error-message">Diese E-Mail-Adresse ist leider ungültig</span>
                 }
             </div>
             <div class="input-group">
@@ -32,7 +32,7 @@
                     [placeholder]="authService.placeholderPw" autocomplete="current-password"
                     (focus)="authService.focusPwInput()" (blur)="authService.blurPwInput('login')" />
                 @if (loginForm.controls['password'].invalid && loginForm.controls['password'].touched ) {
-                <span class="error-message">Bitte geben Sie ein Passwort mit mindestens 7 Zeichen ein.</span>
+                <span class="error-message">Falsches Passwort oder E-Mail. Bitte noch einmal versuchen.</span>
                 }
             </div>
             <div class="forgot-password-container">
