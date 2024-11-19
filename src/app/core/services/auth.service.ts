@@ -49,15 +49,27 @@ export class AuthService {
     const password = loginForm.value.password;
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
-        // Signed in
         this.user = userCredential.user;
         this.router.navigate(['/dashboard']);
         this.passwordWrong = false;
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.error(error.message);
         this.passwordWrong = true;
+      });
+  }
+
+  async loginGuestUser() {
+    const email = 'guest@gmail.com';
+    const password = '123test123';
+    signInWithEmailAndPassword(this.auth, email, password)
+      .then((userCredential) => {
+        this.user = userCredential.user;
+        this.router.navigate(['/dashboard']);
+        this.passwordWrong = false;
+      })
+      .catch((error) => {
+        console.log(error.message);
       });
   }
 

@@ -52,7 +52,7 @@
                 } @else {
                 <button type="submit" class="login-btn">Anmelden</button>
                 }
-                <button type="button" class="guest-login">
+                <button (click)="authService.loginGuestUser()" type="button" class="guest-login">
                     Gäste-Login
                 </button>
             </div>
