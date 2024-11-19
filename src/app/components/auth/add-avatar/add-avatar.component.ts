@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { CloudService } from '../../../core/services/cloud.service';
-import { User } from '../../../models/user.model';
+import { User } from '../../../models/user.class';
 
 @Component({
   selector: 'app-add-avatar',

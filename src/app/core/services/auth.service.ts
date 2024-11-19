@@ -7,11 +7,12 @@ import {
   UserCredential,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { User } from '../../models/user.model';
+
 import { addDoc, updateDoc } from 'firebase/firestore';
 import { CloudService } from './cloud.service';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../../models/user.class';
 
 @Injectable({
   providedIn: 'root',
