@@ -194,14 +194,13 @@ html, body{
         background-color: $bg-color;
     }
 
-    &:hover .emoji-comment-edit-tooltip-class {
-        opacity: 1;
-        transform: translateX(0); /* Reset transform to slide into view */
-    }
+    
 }
 
 .current-user-class{
-    border: 2px solid red;
+    padding: 0px 16px 0px 16px ;
+   
+
     .align-left-right-parent-class {
             justify-content: flex-start; /* Aligns content to the right */
             flex-direction: row-reverse;
@@ -220,11 +219,23 @@ html, body{
         color: white;
         border-radius: 24px 0px 24px 24px;
     }
+
+
+    .emoji-comment-edit-tooltip-class {
+        right: auto; /* Override 'right' positioning */
+        left: -64px; /* Position off-screen to the left */
+        transform: translateX(48px); /* Initial position for the slide-in effect */
+    }
+
+    &:hover .emoji-comment-edit-tooltip-class {
+        opacity: 1;
+        transform: translateX(84px); /* Reset transform to slide into view */
+    }
     
 }
 
 .other-user-class{
-    background-color:  rgba(0, 128, 0, 0.292);
+   
     padding: 0px 16px 0px 16px;
 
     &:hover .message-content-class{
@@ -248,6 +259,23 @@ html, body{
         border-radius: 0px 24px 24px 24px;
     
         
+    }
+
+
+    // .emoji-comment-edit-tooltip-class {
+    //     right: -64px; /* Position off-screen to the right */
+    //     transform: translateX(-140px); /* Initial position for the slide-in effect */
+    // }
+
+    .emoji-comment-edit-tooltip-class {
+        right: auto; /* Override 'right' positioning */
+        right: -64px; /* Position off-screen to the left */
+        transform: translateX(0px); /* Initial position for the slide-in effect */
+    }
+
+    &:hover .emoji-comment-edit-tooltip-class {
+        opacity: 1;
+        transform: translateX(-64px); /* Reset transform to slide into view */
     }
 }
 
@@ -321,25 +349,25 @@ html, body{
     
 // }
 
-.single-message-main-class:nth-of-type(even) {
-    padding: 0px 16px 0px 16px ;
+// .single-message-main-class:nth-of-type(even) {
+//     padding: 0px 16px 0px 16px ;
     
     
-}
+// }
 
 
 
 
-.single-message-main-class:nth-of-type(odd) .emoji-comment-edit-tooltip-class {
-    right: -64px; /* Position off-screen to the right */
-    transform: translateX(-140px); /* Initial position for the slide-in effect */
-}
+// .single-message-main-class:nth-of-type(odd) .emoji-comment-edit-tooltip-class {
+//     right: -64px; /* Position off-screen to the right */
+//     transform: translateX(-140px); /* Initial position for the slide-in effect */
+// }
 
-.single-message-main-class:nth-of-type(even) .emoji-comment-edit-tooltip-class {
-    right: auto; /* Override 'right' positioning */
-    left: -64px; /* Position off-screen to the left */
-    transform: translateX(140px); /* Initial position for the slide-in effect */
-}
+// .single-message-main-class:nth-of-type(even) .emoji-comment-edit-tooltip-class {
+//     right: auto; /* Override 'right' positioning */
+//     left: -64px; /* Position off-screen to the left */
+//     transform: translateX(140px); /* Initial position for the slide-in effect */
+// }
 /////////////To cleanup odd and even ... END
 
 .emoji-comment-edit-tooltip-class {
