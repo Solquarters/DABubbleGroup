@@ -1,3 +1,4 @@
+
 <div class="main-container">
     <header>
         <div class="logo">
@@ -42,7 +43,7 @@
             <div class="separator">
                 <span>ODER</span>
             </div>
-            <button type="button" class="google-login">
+            <button type="button" class="google-login" (click)="authService.loginWithGoogle()">
                 <img src="assets/logos/google-icon.svg" alt="Google Icon" />
                 Anmelden mit Google
             </button>

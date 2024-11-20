@@ -3,11 +3,17 @@ import { RouterOutlet } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CloudService } from './core/services/cloud.service';
 import { CommonModule } from '@angular/common';
+import { InfoFlyerComponent } from './components/auth/info-flyer/info-flyer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatProgressSpinnerModule, CommonModule],
+  imports: [
+    RouterOutlet,
+    MatProgressSpinnerModule,
+    CommonModule,
+    InfoFlyerComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

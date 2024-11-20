@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CloudService } from '../../../core/services/cloud.service';
+import { InfoFlyerService } from '../../../core/services/info-flyer.service';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +30,8 @@ export class RegisterComponent {
   constructor(
     public authService: AuthService,
     private router: Router,
-    private cloudService: CloudService
+    private cloudService: CloudService,
+    private flyerService: InfoFlyerService
   ) {}
 
   async onSubmit() {
@@ -38,6 +40,7 @@ export class RegisterComponent {
       this.authService.registerFormFullfilled = this.profileForm.value;
       try {
         await this.authService.createAndLoginUser();
+        this.flyerService.infos.push('Konto erfolgreich erstellt');
         this.router.navigate(['/add-avatar']);
       } catch (error) {
         alert(error);
