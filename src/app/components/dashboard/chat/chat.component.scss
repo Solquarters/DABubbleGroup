@@ -218,12 +218,12 @@ html, body{
     .emoji-comment-edit-tooltip-class {
         right: auto; /* Override 'right' positioning */
         left: -64px; /* Position off-screen to the left */
-        transform: translateX(48px); /* Initial position for the slide-in effect */
+        transform: translateX(80px); /* Initial position for the slide-in effect */
     }
 
     &:hover .emoji-comment-edit-tooltip-class {
         opacity: 1;
-        transform: translateX(84px); /* Reset transform to slide into view */
+        transform: translateX(110px); /* Reset transform to slide into view */
     }
     
 }
@@ -251,12 +251,12 @@ html, body{
     .emoji-comment-edit-tooltip-class {
         right: auto; /* Override 'right' positioning */
         right: -64px; /* Position off-screen to the left */
-        transform: translateX(0px); /* Initial position for the slide-in effect */
+        transform: translateX(-80px); /* Initial position for the slide-in effect */
     }
 
     &:hover .emoji-comment-edit-tooltip-class {
         opacity: 1;
-        transform: translateX(-64px); /* Reset transform to slide into view */
+        transform: translateX(-110px); /* Reset transform to slide into view */
     }
 }
 
