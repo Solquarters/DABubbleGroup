@@ -15,10 +15,12 @@ import { InfoFlyerComponent } from './components/auth/info-flyer/info-flyer.comp
     InfoFlyerComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'], 
 })
+
 export class AppComponent {
-  title = 'dabubble';
+  title = 'dabubble'; 
 
   constructor(public cloudService: CloudService) {}
 }
+

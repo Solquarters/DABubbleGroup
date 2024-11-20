@@ -64,6 +64,7 @@ import { GetMessageTimePipe } from './pipes/get-message-time.pipe';
 import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.pipe';
 import { CommonModule } from '@angular/common';
 import { Input } from '@angular/core';
+import { ChatService } from '../../../core/services/chat.service';
 
 @Component({
   selector: 'app-chat',
@@ -77,7 +78,7 @@ export class ChatComponent {
   // @Input() currentChannel: { name: string } | null = null;
 
   container: any;
-  constructor(){}  
+  constructor(private chatService: ChatService) {}
     
   ngAfterViewInit() {         
     this.container = document.getElementById("chat-content-div-id");           

@@ -11,7 +11,6 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { CloudService } from '../../../core/services/cloud.service';
-import { InfoFlyerComponent } from '../info-flyer/info-flyer.component';
 
 @Component({
   selector: 'app-login',
