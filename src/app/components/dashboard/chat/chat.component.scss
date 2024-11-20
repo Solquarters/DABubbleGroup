@@ -200,6 +200,136 @@ html, body{
     }
 }
 
+.current-user-class{
+    border: 2px solid red;
+    .align-left-right-parent-class {
+            justify-content: flex-start; /* Aligns content to the right */
+            flex-direction: row-reverse;
+        }
+    .messages-text-div-class{
+        align-items: flex-end; /* Aligns content to the right */
+        margin: 0px 24px 0px 0px ;
+    }
+
+    .name-posted-timestamp{
+        flex-direction: row-reverse;
+    }
+
+    .message-content-class{
+        background-color: $purple2;
+        color: white;
+        border-radius: 24px 0px 24px 24px;
+    }
+    
+}
+
+.other-user-class{
+    background-color:  rgba(0, 128, 0, 0.292);
+    padding: 0px 16px 0px 16px;
+
+    &:hover .message-content-class{
+        background-color: white;
+    }
+    
+    
+
+    .align-left-right-parent-class {
+        justify-content: flex-start; /* Aligns content to the left */
+    }
+    .messages-text-div-class{
+        align-items: flex-start; /* Aligns content to the left */
+        margin: 0px 0px 0px 24px;
+    }
+
+    .message-content-class{
+   
+   
+        background-color: $bg-color;
+        border-radius: 0px 24px 24px 24px;
+    
+        
+    }
+}
+
+/////////////////////////////////Slide in animation 
+
+
+/////////////To cleanup odd and even ... start
+// .single-message-main-class:nth-of-type(odd) >.align-left-right-parent-class {
+//     justify-content: flex-start; /* Aligns content to the left */
+// }
+
+// .single-message-main-class:nth-of-type(even) .align-left-right-parent-class {
+//     justify-content: flex-start; /* Aligns content to the right */
+//     flex-direction: row-reverse;
+// }
+
+
+
+// .single-message-main-class:nth-of-type(odd) .messages-text-div-class{
+//     align-items: flex-start; /* Aligns content to the left */
+//     margin: 0px 0px 0px 24px;
+    
+// }
+
+// .single-message-main-class:nth-of-type(even) .messages-text-div-class{
+//     align-items: flex-end; /* Aligns content to the right */
+//     margin: 0px 24px 0px 0px ;
+// }
+
+
+// .single-message-main-class:nth-of-type(even) .name-posted-timestamp{
+//     flex-direction: row-reverse;
+    
+// }
+
+// .single-message-main-class:nth-of-type(even) .name-posted-timestamp{
+   
+    
+// }
+
+
+// .single-message-main-class:nth-of-type(even) .message-content-class{
+    
+ 
+//     background-color: $purple2;
+//     color: white;
+//     border-radius: 24px 0px 24px 24px;
+
+   
+   
+// }
+
+// .single-message-main-class:nth-of-type(odd) .message-content-class{
+   
+   
+//     background-color: $bg-color;
+//     border-radius: 0px 24px 24px 24px;
+
+    
+// }
+
+
+
+// .single-message-main-class:nth-of-type(odd) {
+//     padding: 0px 16px 0px 16px;
+
+//     &:hover .message-content-class{
+//         background-color: white;
+//     }
+    
+    
+// }
+
+.single-message-main-class:nth-of-type(even) {
+    padding: 0px 16px 0px 16px ;
+    
+    
+}
+
+
+
+
 .single-message-main-class:nth-of-type(odd) .emoji-comment-edit-tooltip-class {
     right: -64px; /* Position off-screen to the right */
     transform: translateX(-140px); /* Initial position for the slide-in effect */
@@ -210,6 +340,7 @@ html, body{
     left: -64px; /* Position off-screen to the left */
     transform: translateX(140px); /* Initial position for the slide-in effect */
 }
+/////////////To cleanup odd and even ... END
 
 .emoji-comment-edit-tooltip-class {
     background-color: white;
@@ -252,86 +383,7 @@ html, body{
     }
 }
 
-/////////////////////////////////Slide in animation 
 
-
-/////////////To cleanup odd and even ... start
-.single-message-main-class:nth-of-type(odd) >.align-left-right-parent-class {
-    justify-content: flex-start; /* Aligns content to the left */
-    
-    
-}
-
-.single-message-main-class:nth-of-type(even) .align-left-right-parent-class {
-    justify-content: flex-start; /* Aligns content to the right */
-    flex-direction: row-reverse;
-    
-}
-
-
-
-.single-message-main-class:nth-of-type(odd) .messages-text-div-class{
-    align-items: flex-start; /* Aligns content to the left */
-    margin: 0px 0px 0px 24px;
-    
-}
-
-.single-message-main-class:nth-of-type(even) .messages-text-div-class{
-    align-items: flex-end; /* Aligns content to the right */
-    margin: 0px 24px 0px 0px ;
-}
-
-
-.single-message-main-class:nth-of-type(even) .name-posted-timestamp{
-    flex-direction: row-reverse;
-    
-}
-
-// .single-message-main-class:nth-of-type(even) .name-posted-timestamp{
-   
-    
-// }
-
-
-.single-message-main-class:nth-of-type(even) .message-content-class{
-    
- 
-    background-color: $purple2;
-    color: white;
-    border-radius: 24px 0px 24px 24px;
-
-   
-   
-}
-
-.single-message-main-class:nth-of-type(odd) .message-content-class{
-   
-   
-    background-color: $bg-color;
-    border-radius: 0px 24px 24px 24px;
-
-    
-}
-
-
-
-.single-message-main-class:nth-of-type(odd) {
-    padding: 0px 16px 0px 16px;
-
-    &:hover .message-content-class{
-        background-color: white;
-    }
-    
-    
-}
-
-.single-message-main-class:nth-of-type(even) {
-    padding: 0px 16px 0px 16px ;
-    
-    
-}
-
-/////////////To cleanup odd and even ... END
 
 
 .message-content-class{

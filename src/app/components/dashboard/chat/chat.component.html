@@ -47,7 +47,8 @@
 
     @for (message of messages; let index = $index;  track message.messageId) {
        
-        <div class="single-message-main-class">
+        <div class="single-message-main-class"  
+        [ngClass]="{ 'current-user-class': message.senderId === this.currentUserId,'other-user-class': message.senderId !== this.currentUserId }" >
          
           <div class="emoji-comment-edit-tooltip-class">
             <div class="hover-button-class"> 👏</div>
@@ -82,16 +83,12 @@
               <span class="date-container">{{ message.timestamp | dateSeperator }}</span>
             </div>
           }
-            
-
               <div class="img-messages-div">
 
                 <div class="align-left-right-parent-class">
                     <div class="avatar-div-class">
                       <img src="{{message.senderAvatarUrl}}" alt="">
                     </div>
-                  
-                  
                   <div class="messages-text-div-class">
                       <div class="name-posted-timestamp">
                           <p>{{message.senderName}}</p><p>{{ message.timestamp | getMessageTime}}</p>
@@ -104,28 +101,19 @@
   
                         </div>
                         
-                        
                       </div>
-
                       <div class="reactions-div-class">
-                        
                         @for(reaction of message.reactions; track reaction.emoji){
                           <div class="single-reaction-div-class">
                             {{reaction.emoji}}{{reaction.userIds.length}}
-
-
                             <div class="hover-users-reactions-class">
                               <span>{{reaction.emoji}}</span>
                               @for(userId of reaction.userIds; track userId){
                                 <span>{{userId}}</span>
                               }
-                              
                               <!-- here the users who reacted with the same emoji in a stapled list -->
                             </div>
-
                           </div>   
-                          
-
                         }
                         @if(message.reactions?.length){
                            <!-- Add reaction svg -->
@@ -136,16 +124,11 @@
                     </div>
                   
                         }
-                    
                       </div>
-                     
                   </div>
-
                 </div>
-                
               </div>
         </div>
-      
       }
 <!-- FOR LOOP CHAT CONTENT END//////////////////////////////////////// -->
 </div>
