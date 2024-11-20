@@ -261,14 +261,7 @@ html, body{
         
     }
 
-
-    // .emoji-comment-edit-tooltip-class {
-    //     right: -64px; /* Position off-screen to the right */
-    //     transform: translateX(-140px); /* Initial position for the slide-in effect */
-    // }
-
     .emoji-comment-edit-tooltip-class {
-        right: auto; /* Override 'right' positioning */
         right: -64px; /* Position off-screen to the left */
         transform: translateX(0px); /* Initial position for the slide-in effect */
     }
