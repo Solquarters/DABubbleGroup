@@ -16,8 +16,6 @@ export interface User {
   joinedAt: Date;
   role: string;
 }
-
-
 ///Message with author data in it, easier and quicker than storing and getting userName and Url seperately each message.
 export interface Message {
   messageId: string;
@@ -73,7 +71,6 @@ import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.
   styleUrls: ['./chat.component.scss', '../../../../styles.scss']
 })
 
-
 export class ChatComponent {
 
   container: any;
@@ -84,7 +81,6 @@ export class ChatComponent {
     this.container.scrollTop = this.container.scrollHeight;     
   }  
     currentUserId: string = '';
-
 
   channels: Channel[] = [
     {
@@ -223,7 +219,6 @@ export class ChatComponent {
     // ...additional messages
   ];
 
-
   threads: Thread[] = [
     {
       ///thread should look nearly identical to a message object, just without further threads... or ?
@@ -251,7 +246,6 @@ export class ChatComponent {
     },
     // ...additional threads
   ];
-
 
 
   // //first try of adding and removing reactions
@@ -291,17 +285,7 @@ export class ChatComponent {
   //   // Add user to new reaction
   //   this.addReaction(message, newEmoji);
   // }
-
-
-
-
-
-
-
-
 }
-
-
 
 // //First example of Updating the messages in realtime: Attention no unsubscribe here
 // this.messageService.getMessages().subscribe((newMessages) => {
@@ -323,7 +307,6 @@ export class ChatComponent {
 //     // Since we're ordering by timestamp descending, we might want to reverse the array
 //     this.currentChannelMessages = messages.reverse();
 //   });
-
 
 //Für Antworten zu messages (threads):
 // Function to create a new thread
@@ -368,8 +351,6 @@ export class ChatComponent {
 //     });
 // }
 
-
-
 //Beispiel für Sec Rules für thread Zugriff:
 // match /messages/{messageId} {
 //   allow read, write: if isChannelMember(request.auth.uid, resource.data.channelId);
@@ -383,7 +364,6 @@ export class ChatComponent {
 //   return exists(/databases/$(database)/documents/channels/$(channelId)) &&
 //          get(/databases/$(database)/documents/channels/$(channelId)).data.memberIds.hasAny([userId]);
 // }
-
 
 ///Kreiiere einen thread wenn noch keiner vorhanden:
 // startThread(parentMessageId: string, content: string) {
