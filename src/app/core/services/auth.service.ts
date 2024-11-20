@@ -6,8 +6,9 @@ import {
   createUserWithEmailAndPassword,
   UserCredential,
   signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from 'firebase/auth';
-
 import { addDoc, updateDoc } from 'firebase/firestore';
 import { CloudService } from './cloud.service';
 import { FormGroup } from '@angular/forms';
@@ -38,7 +39,7 @@ export class AuthService {
   registerMailValue: string = '';
   registerPasswordValue: string = '';
   registerCheckbox: boolean = false;
-
+  provider = new GoogleAuthProvider();
   registerFormFullfilled!: any;
 
   newUser!: User;
@@ -71,6 +72,31 @@ export class AuthService {
       })
       .catch((error) => {
         console.log(error.message);
+      });
+  }
+
+  async loginWithGoogle() {
+    await signInWithPopup(this.auth, this.provider)
+      .then((result) => {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        // const token = credential.accessToken;
+        // The signed-in user info.
+        const user = result.user;
+        // IdP data available using getAdditionalUserInfo(result)
+        // ...
+        this.router.navigate(['/dashboard']);
+        this.passwordWrong = false;
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.customData.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        // ...
       });
   }
 
