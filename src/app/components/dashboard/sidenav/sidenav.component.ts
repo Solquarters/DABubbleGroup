@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateChannelComponent } from '../../channel/create-channel/create-channel.component';
-import { DashboardComponent } from '../dashboard.component';
-import { ChannelService } from '../../../shared/channel.service';
+import { CreateChannelComponent } from '../../channel/create-channel/create-channel.component'; 
+import { ChannelService } from '../../../core/services/channel.service';
+import { CloudService } from '../../../core/services/cloud.service';
 
 @Component({
   standalone: true,
@@ -13,9 +13,12 @@ import { ChannelService } from '../../../shared/channel.service';
   providers: [ChannelService],  
 })
 export class SidenavComponent implements OnInit {
-  channels$;
+  channels$; 
+  channels: { name: string }[] = [];
+    
+  @Output() channelSelected = new EventEmitter<{ name: string }>();
 
-  constructor(private channelService: ChannelService) {
+  constructor(private channelService: ChannelService, public cloudService: CloudService) {
     this.channels$ = this.channelService.channels$;
   }
 
@@ -25,14 +28,13 @@ export class SidenavComponent implements OnInit {
 
   // Beispiel-Benutzerdaten
   users: { name: string; avatar: string }[] = [
-    { name: 'Benutzer 1', avatar: 'assets/basic-avatars/avatar-1.png' },
-    { name: 'Benutzer 2', avatar: 'assets/basic-avatars/avatar2.png' },
-    { name: 'Benutzer 3', avatar: 'assets/basic-avatars/avatar3.png' },
-    { name: 'Benutzer 4', avatar: 'assets/basic-avatars/avatar4.png' }
+    { name: 'Benutzer 1', avatar: 'assets/basic-avatars/avatar1.svg' },
+    { name: 'Benutzer 2', avatar: 'assets/basic-avatars/avatar2.svg' },
+    { name: 'Benutzer 3', avatar: 'assets/basic-avatars/avatar3.svg' },
+    { name: 'Benutzer 4', avatar: 'assets/basic-avatars/avatar4.svg' }
   ];
 
-  // Kanalliste, die durch den Service abgerufen wird
-  channels: { name: string }[] = [];
+
 
   // Methode zur Umschaltung der Direktnachrichten-Sichtbarkeit
   toggleDirectMessages() {
@@ -46,14 +48,18 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
     // Abonnieren Sie den ChannelService und aktualisieren Sie die Kanäle in der Sidebar
-    this.channelService.channels$.subscribe((channels) => {
-      this.channels = channels;
-    });
+    // this.channelService.channels$.subscribe((channels) => {
+      this.channels = this.cloudService.channels;
+   // });
   }
 
 
   // Beispiel-Methode zum Erstellen eines neuen Kanals
   async addChannel(name: string) {
     await this.channelService.createChannel(name, 'Default description');
+  }
+
+  selectChannel(channel: any) {
+    this.channelSelected.emit(channel);
   }
 }

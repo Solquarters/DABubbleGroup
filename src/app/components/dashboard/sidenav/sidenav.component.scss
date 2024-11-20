@@ -90,7 +90,7 @@ h2 {
         color: #535af1; 
       }
       button {
-        background-color: $purple-bg-reaction;
+        background-color: $bg-color;
       }
     }
   }
@@ -132,9 +132,10 @@ li {
         background-color: $bg-color;
         border-radius: 30px;
         padding: 10px;  
+        color: #535af1;
   
         .expand-icon {
-          color: $purple-bg-reaction;  
+          color: $bg-color;  
         }
       }
     }
@@ -162,7 +163,7 @@ li {
     }
  
     span {
-      color: $purple-bg-reaction;
+      color: $bg-color;
     }
   }
 
@@ -190,7 +191,7 @@ li {
     display: inline-flex;
     flex-direction: row;
     align-items: center;
-    border-radius: 50%;
+    border-radius: 50px;
     gap: 10px;
     margin-top: 10px; 
     padding: 10px;
@@ -198,7 +199,7 @@ li {
 
     &:hover {
       background-color: $bg-color;
-      border-radius: 30px; 
+      border-radius: 50px;
 }
 }
 

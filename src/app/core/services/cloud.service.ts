@@ -1,23 +1,24 @@
 import { inject, Injectable, OnDestroy } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
-import { collection, doc, onSnapshot } from 'firebase/firestore';
+import { collection, doc, onSnapshot, QuerySnapshot } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CloudService implements OnDestroy {
   firestore: Firestore = inject(Firestore);
+  loading: boolean = false;
   unsubChannels;
   unsubMembers;
   unsubIds;
   channels: any = [];
   members: any = [];
-  ids: any = [];
+  memberPrivate: any = [];
 
   constructor() {
     this.unsubChannels = this.subList('channels');
-    this.unsubMembers = this.subList("memberPrivate");
-    this.unsubIds = this.subList("members");
+    this.unsubMembers = this.subList('memberPrivate');
+    this.unsubIds = this.subList('members');
   }
 
   ngOnDestroy(): void {
@@ -30,11 +31,21 @@ export class CloudService implements OnDestroy {
     return onSnapshot(this.getRef(ref), (querySnapshot) => {
       if (ref === 'channels') {
         this.channels = querySnapshot.docs.map((doc) => doc.data());
-      } else if (ref === 'memberPrivate') {
-        this.members = querySnapshot.docs.map((doc) => doc.data());
       } else if (ref === 'members') {
-        this.ids = querySnapshot.docs.map((doc) => doc.data());
+        this.members = querySnapshot.docs.map((doc) => doc.data());
+      } else if (ref === 'memberPrivate') {
+        this.memberPrivate = querySnapshot.docs.map((doc) => doc.data());
       }
+    });
+  }
+
+  addCollectionIdToData(querySnapshot: QuerySnapshot) {
+    return querySnapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        ...data, // Alle existierenden Felder des Dokuments
+        collectionId: doc.id, // Die Firestore-Dokument-ID wird als collectionId gespeichert
+      };
     });
   }
 

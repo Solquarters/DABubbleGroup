@@ -127,11 +127,22 @@ header {
     }
   }
 
+  // ERROR MESSAGES
+  .error-message {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: $error-rosa;
+    font-size: 14px;
+  }
+
   .button-container {
     @include dFlex($fd: row, $jc: flex-end);
+    z-index: 2;
   }
 
   .next-btn {
+    z-index: 1;
     padding: 12px 25px;
     height: 49px;
     background-color: $purple1;
@@ -146,21 +157,74 @@ header {
       background-color: #444df2bd;
     }
   }
+
+  .invalid {
+    background-color: $text-gray;
+    &:hover {
+      background-color: rgb(133, 133, 133);
+    }
+  }
 }
 
 .privacy-container {
+  position: relative;
   @include dFlex($fd: row, $jc: flex-start);
   margin-bottom: 30px;
   font-size: 16px;
   color: #42526e;
-  cursor: pointer;
-  input {
+  max-width: max-content;
+  .checkbox-container {
+    padding: 6px;
     margin-right: 8px;
+    border-radius: 50px;
+    transition: all 125ms ease-in-out;
+    @include dFlex();
+    cursor: pointer;
+    &:hover {
+      background-color: $bg-color;
+    }
+  }
+
+
+  input[type="checkbox"] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    /* Remove most all native input styles */
+    appearance: none;
+    /* For iOS < 15 */
+    background-color: var(--form-background);
+    /* Not removed via appearance */
+    margin: 0;
+    width: 1.35em;
+    height: 1.35em;
+    border: 0.15em solid $purple1;
+    border-radius: 0.15em;
+    display: grid;
+    place-content: center;
     cursor: pointer;
   }
+
+  input[type="checkbox"]::before {
+    content: "";
+    width: 0.85em;
+    height: 0.85em;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    border-radius: 40px;
+    transform-origin: bottom left;
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 0.5em 0.5em $purple1;
+    background-color: CanvasText;
+  }
+
+  input[type="checkbox"]:checked::before {
+    transform: scale(1);
+  }
+
   .privacy-span {
     color: $purple1;
-    font-size: 18px;
+    font-size: 18px; 
+      cursor: pointer;
   }
 }
 
