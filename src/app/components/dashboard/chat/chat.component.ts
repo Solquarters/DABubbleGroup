@@ -16,7 +16,6 @@ export interface User {
   joinedAt: Date;
   role: string;
 }
-
 ///Message with author data in it, easier and quicker than storing and getting userName and Url seperately each message.
 export interface Message {
   messageId: string;
@@ -72,17 +71,20 @@ import { Input } from '@angular/core';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss', '../../../../styles.scss'],
 })
+
 export class ChatComponent {
   // @Input() currentChannel: { name: string } | null = null;
 
   container: any;
-  constructor() {}
-
-  ngAfterViewInit() {
-    this.container = document.getElementById('chat-content-div-id');
-    this.container.scrollTop = this.container.scrollHeight;
-  }
-  currentUserId: string = '';
+  constructor(){}  
+    
+  ngAfterViewInit() {         
+    this.container = document.getElementById("chat-content-div-id");           
+    this.container.scrollTop = this.container.scrollHeight;     
+  }  
+  
+  currentUserId: string = 'user123';
+   
 
   channels: Channel[] = [
     {
@@ -249,6 +251,7 @@ export class ChatComponent {
     },
     // ...additional threads
   ];
+
 
   // //first try of adding and removing reactions
   // addReaction(message: Message, emoji: string) {
