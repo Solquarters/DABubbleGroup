@@ -80,7 +80,9 @@ export class ChatComponent {
     this.container = document.getElementById("chat-content-div-id");           
     this.container.scrollTop = this.container.scrollHeight;     
   }  
-    currentUserId: string = '';
+  
+  currentUserId: string = 'user123';
+   
 
   channels: Channel[] = [
     {
