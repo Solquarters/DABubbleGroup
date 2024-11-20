@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateChannelComponent } from '../../channel/create-channel/create-channel.component'; 
 import { ChannelService } from '../../../core/services/channel.service';
+import { CloudService } from '../../../core/services/cloud.service';
 
 @Component({
   standalone: true,
@@ -17,7 +18,7 @@ export class SidenavComponent implements OnInit {
     
   @Output() channelSelected = new EventEmitter<{ name: string }>();
 
-  constructor(private channelService: ChannelService) {
+  constructor(private channelService: ChannelService, public cloudService: CloudService) {
     this.channels$ = this.channelService.channels$;
   }
 
@@ -47,9 +48,9 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
     // Abonnieren Sie den ChannelService und aktualisieren Sie die Kanäle in der Sidebar
-    this.channelService.channels$.subscribe((channels) => {
-      this.channels = channels;
-    });
+    // this.channelService.channels$.subscribe((channels) => {
+      this.channels = this.cloudService.channels;
+   // });
   }
 
 

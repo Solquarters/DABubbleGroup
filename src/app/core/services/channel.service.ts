@@ -3,7 +3,6 @@ import { Firestore, collection, addDoc, getDocs } from '@angular/fire/firestore'
 import { BehaviorSubject } from 'rxjs';
 import { Channel } from '../../models/channel.model.class';
 
-
 @Injectable({
   providedIn: 'root',
 })

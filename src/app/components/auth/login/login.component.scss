@@ -23,9 +23,6 @@ header {
 
 .logo {
   @include dFlex($fd: row, $g: 16px);
-  img {
-
-  }
   span {
     font-size: 38px;
     color: #000000;
