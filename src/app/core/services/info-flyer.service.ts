@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class InfoFlyerService {
-  infos: string[] = [];
+  info: string[] = [];
 
   constructor() {
     this.startInterval();
@@ -12,7 +12,7 @@ export class InfoFlyerService {
 
   startInterval() {
     setInterval(() => {
-      this.infos.splice(0, 1);
+      this.info.splice(0, 1);
     }, 5000);
   }
 }

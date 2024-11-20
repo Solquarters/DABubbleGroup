@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -8,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { addDoc, updateDoc } from 'firebase/firestore';
 import { CloudService } from './cloud.service';
@@ -47,14 +47,31 @@ export class AuthService {
 
   newUser!: User;
 
-  constructor(private cloudService: CloudService, private router: Router, private flyerService: InfoFlyerService) {}
+  constructor(
+    private cloudService: CloudService,
+    private router: Router,
+    private infoService: InfoFlyerService
+  ) {}
+
+  async resetPassword(forgotPasswordForm: FormGroup) {
+    const email = forgotPasswordForm.value.email;
+    sendPasswordResetEmail(this.auth, email)
+      .then(() => {
+        this.infoService.info.push('Email wurde versendet');
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // ..
+      });
+  }
 
   async loginUser(loginForm: FormGroup) {
     const email = loginForm.value.email;
     const password = loginForm.value.password;
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
-        this.flyerService.infos.push("Sie wurden erfolgreich Angemeldet");
+        this.infoService.info.push('Sie wurden erfolgreich Angemeldet');
         this.user = userCredential.user;
         this.router.navigate(['/dashboard']);
         this.passwordWrong = false;
@@ -70,7 +87,7 @@ export class AuthService {
     const password = '123test123';
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
-        this.flyerService.infos.push("Sie wurden erfolgreich Angemeldet");
+        this.infoService.info.push('Sie wurden erfolgreich Angemeldet');
         this.user = userCredential.user;
         this.router.navigate(['/dashboard']);
         this.passwordWrong = false;

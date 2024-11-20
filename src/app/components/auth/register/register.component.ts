@@ -40,7 +40,7 @@ export class RegisterComponent {
       this.authService.registerFormFullfilled = this.profileForm.value;
       try {
         await this.authService.createAndLoginUser();
-        this.flyerService.infos.push('Konto erfolgreich erstellt');
+        this.flyerService.info.push('Konto erfolgreich erstellt');
         this.router.navigate(['/add-avatar']);
       } catch (error) {
         alert(error);
