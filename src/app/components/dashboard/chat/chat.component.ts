@@ -27,7 +27,7 @@ export interface Message {
   timestamp: Date;
   attachments?: Attachment[];
   reactions?: Reaction[];
-  threadId?: string; 
+  threadId?: string;
 }
 
 export interface Thread {
@@ -35,7 +35,7 @@ export interface Thread {
   parentMessageId: string; // The message that the thread is attached to
   channelId: string;
   createdAt: Date;
-  createdBy: string; 
+  createdBy: string;
   attachments?: Attachment[];
   reactions?: Reaction[];
 }
@@ -63,19 +63,22 @@ import { DateSeperatorPipe } from './pipes/date-seperator.pipe';
 import { GetMessageTimePipe } from './pipes/get-message-time.pipe';
 import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.pipe';
 import { CommonModule } from '@angular/common';
+import { Input } from '@angular/core';
+import { ChatService } from '../../../core/services/chat.service';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
   imports: [DateSeperatorPipe, GetMessageTimePipe, ShouldShowDateSeperatorPipe, CommonModule],
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss', '../../../../styles.scss']
+  styleUrls: ['./chat.component.scss', '../../../../styles.scss'],
 })
 
 export class ChatComponent {
+  // @Input() currentChannel: { name: string } | null = null;
 
   container: any;
-  constructor(){}  
+  constructor(private chatService: ChatService) {}
     
   ngAfterViewInit() {         
     this.container = document.getElementById("chat-content-div-id");           
@@ -102,7 +105,9 @@ export class ChatComponent {
 
   /////////////////USERS
   get channelMembers(): User[] {
-    return this.users.filter(user => this.currentChannel.memberIds.includes(user.userId));
+    return this.users.filter((user) =>
+      this.currentChannel.memberIds.includes(user.userId)
+    );
   }
 
   users: User[] = [
@@ -140,7 +145,7 @@ export class ChatComponent {
       avatarUrl: '../../../../assets/basic-avatars/avatar3.svg',
       joinedAt: new Date('2024-01-06T10:00:00Z'),
       role: 'member',
-    }
+    },
   ];
 
   messages: Message[] = [
@@ -161,9 +166,8 @@ export class ChatComponent {
       reactions: [
         {
           emoji: '👍',
-          userIds: ['user456','user12367'],
+          userIds: ['user456', 'user12367'],
         },
-       
       ],
     },
     {
@@ -174,8 +178,8 @@ export class ChatComponent {
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar2.svg',
       content: 'Hey there! Whats up how is it going, the weather is so nice',
       timestamp: new Date('2024-11-13T15:10:00Z'),
-      threadId: 'thread5252525', 
-      ///Thread messages counter here? Whenever a message in thread is added, this counter should be incremented 
+      threadId: 'thread5252525',
+      ///Thread messages counter here? Whenever a message in thread is added, this counter should be incremented
       ///or: by fetching the thread, you get the thread length. But then to get the "2 Antworten" below a message, you will need to fetch the thread data even if its not displayed yet...
     },
     {
@@ -186,16 +190,16 @@ export class ChatComponent {
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar3.svg',
       content: 'I´m great, thanks! After five years on the east coast... it was time to go home',
       timestamp: new Date('2024-11-14T15:15:00Z'),
-      threadId: 'thread26236236', 
+      threadId: 'thread26236236',
       reactions: [
         {
           emoji: '🚀',
-          userIds: ['user456','user456115','user4568888'],
+          userIds: ['user456', 'user456115', 'user4568888'],
         },
         {
           emoji: '🌟',
           userIds: ['user12367'],
-        }
+        },
       ],
     },
     {
@@ -206,7 +210,7 @@ export class ChatComponent {
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar4.svg',
       content: 'How are you?',
       timestamp: new Date('2024-11-14T15:15:00Z'),
-      threadId: 'threadsfsfsfsf', 
+      threadId: 'threadsfsfsfsf',
     },
     {
       messageId: 'message43',
@@ -216,9 +220,9 @@ export class ChatComponent {
       senderAvatarUrl: '../../../../assets/basic-avatars/avatar4.svg',
       content: 'Given that your messages are updated frequently and data changes are dynamic, using pipes is the easiest and most straightforward approach for your situation.',
       timestamp: new Date('2024-11-16T15:15:00Z'),
-      threadId: 'thread116616', 
+      threadId: 'thread116616',
     },
-    
+
     // ...additional messages
   ];
 
@@ -239,12 +243,12 @@ export class ChatComponent {
       reactions: [
         {
           emoji: '🚀',
-          userIds: ['user456','user456115','user4568888'],
+          userIds: ['user456', 'user456115', 'user4568888'],
         },
         {
           emoji: '🌟',
           userIds: ['user12367'],
-        }
+        },
       ],
     },
     // ...additional threads
@@ -257,11 +261,11 @@ export class ChatComponent {
   //     // Prevent self-reactions
   //     return;
   //   }
-  
+
   //   const userHasReacted = Object.keys(message.reactions || {}).some(e =>
   //     (message.reactions[e] || []).includes(this.currentUserId)
   //   );
-  
+
   //   if (userHasReacted) {
   //     // User wants to change their reaction
   //     this.changeReaction(message, emoji);
@@ -273,7 +277,7 @@ export class ChatComponent {
   //     });
   //   }
   // }
-  
+
   // changeReaction(message: Message, newEmoji: string) {
   //   // Remove user from old reaction
   //   for (const [emoji, userIds] of Object.entries(message.reactions || {})) {
