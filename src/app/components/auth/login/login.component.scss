@@ -123,7 +123,7 @@ header {
   .invalid {
     background-color: $text-gray !important;
     &:hover {
-      background-color: rgb(133, 133, 133);
+      background-color: rgb(133, 133, 133) !important;
     }
   }
 

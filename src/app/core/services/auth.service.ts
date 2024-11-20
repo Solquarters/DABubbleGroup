@@ -14,6 +14,7 @@ import { CloudService } from './cloud.service';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.class';
+import { InfoFlyerService } from './info-flyer.service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,7 @@ export class AuthService {
   placeholderPw = 'Passwort';
   placeholderPwConfirm = 'Neues Kennwort bestätigen';
   backArrowSvg = 'assets/icons/back-arrow.svg';
+  flyerMessage: string = 'No information to display :)';
   registerNameClicked = false;
   registerEmailClicked = false;
   registerPasswordClicked = false;
@@ -44,13 +46,14 @@ export class AuthService {
 
   newUser!: User;
 
-  constructor(private cloudService: CloudService, private router: Router) {}
+  constructor(private cloudService: CloudService, private router: Router, private flyerService: InfoFlyerService) {}
 
   async loginUser(loginForm: FormGroup) {
     const email = loginForm.value.email;
     const password = loginForm.value.password;
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
+        this.flyerService.infos.push("Sie wurden erfolgreich Angemeldet");
         this.user = userCredential.user;
         this.router.navigate(['/dashboard']);
         this.passwordWrong = false;
@@ -66,6 +69,7 @@ export class AuthService {
     const password = '123test123';
     signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
+        this.flyerService.infos.push("Sie wurden erfolgreich Angemeldet");
         this.user = userCredential.user;
         this.router.navigate(['/dashboard']);
         this.passwordWrong = false;
@@ -105,8 +109,6 @@ export class AuthService {
       this.registerFormFullfilled.password
     );
     this.user = userCredential.user;
-    console.log(this.user);
-
     this.createNewUserForCollection(userCredential);
     await this.createMemberData();
   }
