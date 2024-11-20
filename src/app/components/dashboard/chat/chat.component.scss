@@ -196,6 +196,12 @@ html, body{
 
     
 }
+.messages-text-div-class {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px 0px;
+}
 
 .current-user-class{
     padding: 0px 16px 0px 16px ;
@@ -206,6 +212,7 @@ html, body{
             flex-direction: row-reverse;
         }
     .messages-text-div-class{
+        text-align: end;
         align-items: flex-end; /* Aligns content to the right */
         margin: 0px 24px 0px 0px ;
     }
@@ -218,6 +225,7 @@ html, body{
         background-color: $purple2;
         color: white;
         border-radius: 24px 0px 24px 24px;
+        width: auto;
     }
 
 
@@ -351,12 +359,6 @@ html, body{
     border-radius: 50%;
 }
 
-.messages-text-div-class {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 16px 0px;
-}
 
 
 .name-posted-timestamp {
