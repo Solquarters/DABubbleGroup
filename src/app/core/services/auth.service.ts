@@ -84,7 +84,6 @@ export class AuthService {
         // The signed-in user info.
         const user = result.user;
         // IdP data available using getAdditionalUserInfo(result)
-        // ...
         this.router.navigate(['/dashboard']);
         this.passwordWrong = false;
       })
@@ -96,7 +95,6 @@ export class AuthService {
         const email = error.customData.email;
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
   }
 
