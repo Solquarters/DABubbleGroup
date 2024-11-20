@@ -27,3 +27,12 @@ export const routes: Routes = [
 //   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
 //   { path: '**', redirectTo: '/dashboard' }
 // ];
+
+
+
+
+export const ameerRouts: Routes = [
+  
+  { path: '', redirectTo: '/profile', pathMatch: 'full' },
+  { path: 'profile', component: ProfileComponent }
+];
