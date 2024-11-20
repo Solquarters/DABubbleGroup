@@ -62,12 +62,13 @@ import { Component } from '@angular/core';
 import { DateSeperatorPipe } from './pipes/date-seperator.pipe';
 import { GetMessageTimePipe } from './pipes/get-message-time.pipe';
 import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.pipe';
+import { CommonModule } from '@angular/common';
 import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [DateSeperatorPipe, GetMessageTimePipe, ShouldShowDateSeperatorPipe],
+  imports: [DateSeperatorPipe, GetMessageTimePipe, ShouldShowDateSeperatorPipe, CommonModule],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss', '../../../../styles.scss'],
 })
@@ -83,9 +84,9 @@ export class ChatComponent {
     this.container.scrollTop = this.container.scrollHeight;     
   }  
   
-  currentUserId: string = 'user123';
+  ///Need logic for implementing current user check. 
+  currentUserId: string = 'user1234';
    
-
   channels: Channel[] = [
     {
       channelId: 'channel01',
@@ -94,7 +95,7 @@ export class ChatComponent {
       createdBy: 'adminUserId',
       createdAt: new Date('2024-01-01T12:00:00Z'),
       updatedAt: new Date('2024-11-13T12:00:00Z'),
-      memberIds: ['user123', 'user456', 'user45655'],
+      memberIds: ['user123', 'user456', 'user45655', 'user1234'],
     },
     // ...additional channels
   ];
