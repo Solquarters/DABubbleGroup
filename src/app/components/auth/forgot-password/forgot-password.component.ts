@@ -27,7 +27,6 @@ export class ForgotPasswordComponent {
     public authService: AuthService,
     private router: Router,
     private cloudService: CloudService,
-    private infoService: InfoFlyerService
   ) {}
 
   async onSubmit() {
