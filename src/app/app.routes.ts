@@ -7,21 +7,18 @@ import { PrivacyPolicyComponent } from './shared/privacy-policy/privacy-policy.c
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './components/auth/reset-password/reset-password.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { StartAnimationComponent } from './components/start-animation/start-animation.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: StartAnimationComponent },  
+  { path: 'login', component: LoginComponent },   
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'dashboard', component: DashboardComponent },  
   { path: 'imprint', component: ImprintComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
-  {path: 'profile', component: ProfileComponent}
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
-
-// export const appRoutes: Routes = [
-//   { path: 'dashboard', component: DashboardComponent },
-//   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
-//   { path: '**', redirectTo: '/dashboard' }
-// ];

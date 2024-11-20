@@ -48,7 +48,8 @@ export interface Reaction {
 
 
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { Input } from '@angular/core';  
+import { ChatService } from '../../../core/services/chat.service';
 
 
 @Component({
@@ -61,8 +62,19 @@ import { Input } from '@angular/core';
 
 
 export class ChatComponent {
-  @Input() currentChannel: { name: string } | null = null;
+  @Input() currentChannel: { name: string } | null = null; 
+  newMessage: string = ''; // Neue Nachricht
+
+
+  channelMembers: any[] = [];
+
+  constructor(private chatService: ChatService) {}
+
+  ngOnInit() { 
+  } 
+
 }
+
   
 /** 
   channels: Channel[] = [
