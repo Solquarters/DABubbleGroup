@@ -109,7 +109,7 @@
                           <div class="single-reaction-div-class">
                             {{reaction.emoji}}{{reaction.userIds.length}}
                             <div class="hover-users-reactions-class">
-                              <span>{{reaction.emoji}}</span>
+                              <span>{{reaction.emoji}}</span> 
                               @for(userId of reaction.userIds; track userId){
                                 <span>{{userId}}</span>
                               }
@@ -126,10 +126,25 @@
                     </div>
                   
                         }
+
+
                       </div>
+                      @if(message.threadId){
+                        <div class="name-posted-timestamp">
+                          <p>{{ message.threadMessageCount }} Antworten</p>
+                          @if(message.lastThreadMessage){
+                            <p>Letzte Antwort: {{message.lastThreadMessage | dateSeperator }}</p>
+                          }
+                          
+                      </div>
+                      }
                   </div>
+                  
                 </div>
+
+                
               </div>
+              
         </div>
       }
 <!-- FOR LOOP CHAT CONTENT END//////////////////////////////////////// -->
