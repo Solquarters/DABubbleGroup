@@ -6,6 +6,8 @@ import { ShouldShowDateSeperatorPipe } from '../chat/pipes/should-show-date-sepe
 import { ChatService } from '../../../core/services/chat.service';
 import { Message } from '../../../models/interfaces/message.interface';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../core/services/user.service';
+import { ChannelService } from '../../../core/services/channel.service';
 
 @Component({
   selector: 'app-thread-bar',
@@ -27,11 +29,17 @@ import { CommonModule } from '@angular/common';
 })
 export class ThreadBarComponent {
 
+  currentUserId: string= '';
   messages: Message[]= [];
+  currentChannel: any;
 
   @Output() close = new EventEmitter<void>();
 
-  constructor(public chatService: ChatService) {}
+  constructor(public chatService: ChatService, public userService: UserService, public channelService: ChannelService) {
+
+    this.currentUserId = this.userService.currentUserId;
+    this.currentChannel = this.channelService.channels[0];
+  }
 
 
   ngOnInit(): void {

@@ -1,13 +1,4 @@
-///INTERFACES
-export interface Channel {
-  channelId: string;
-  name: string;
-  description: string;
-  createdBy: string;
-  createdAt: Date;
-  updatedAt: Date;
-  memberIds: string[];
-}
+
 export interface User {
   userId: string;
   displayName: string;
@@ -15,11 +6,6 @@ export interface User {
   joinedAt: Date;
   role: string;
 }
-
-
-
-
-
 
 
 ///INTERFACES END
@@ -32,10 +18,12 @@ import { CommonModule } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChatService } from '../../../core/services/chat.service';
 import { Message } from '../../../models/interfaces/message.interface';
-import { Reaction } from '../../../models/interfaces/reaction.interface';
-import { Attachment } from '../../../models/interfaces/attachment.interface';
+
 import { Thread } from '../../../models/interfaces/thread.interface';
 import { UserService } from '../../../core/services/user.service';
+
+import { ChannelService } from '../../../core/services/channel.service';
+
 
 @Component({
   selector: 'app-chat',
@@ -47,16 +35,27 @@ import { UserService } from '../../../core/services/user.service';
 
 export class ChatComponent {
   messages: Message[]= [];
+  currentUserId: string= '';
+  currentChannel: any;
+
   @Output() openThreadBar = new EventEmitter<void>();
 
   container: any;
-  constructor(public chatService: ChatService, public userService: UserService) {}
+  constructor(public chatService: ChatService, public userService: UserService, public channelService: ChannelService) {}
+
+  ngOnInit(): void {
+    this.messages = this.chatService.messages;
+    this.currentUserId = this.userService.currentUserId;
+    
+    this.currentChannel = this.channelService.channels[0];
+  }
+
     
   ngAfterViewInit() {         
     this.container = document.getElementById("chat-content-div-id");           
     this.container.scrollTop = this.container.scrollHeight;  
     
-    this.messages = this.chatService.messages;
+    
   }  
   
   
@@ -66,24 +65,15 @@ export class ChatComponent {
 
 
   ///Need logic for implementing current user check. 
-  currentUserId: string = 'user1234';
+  // currentUserId: string = 'user1234';
+
+  
    
-  channels: Channel[] = [
-    {
-      channelId: 'channel01',
-      name: 'Entwicklerteam',
-      description: 'Main channel for general discussion',
-      createdBy: 'adminUserId',
-      createdAt: new Date('2024-01-01T12:00:00Z'),
-      updatedAt: new Date('2024-11-13T12:00:00Z'),
-      memberIds: ['user123', 'user456', 'user45655', 'user1234'],
-    },
-    // ...additional channels
-  ];
+  
 
   ///Die current channel variable muss von der sidebar durch Klicken in diese Component übergeben werden
   // @Input() currentChannel: { name: string } | null = null;
-  currentChannel: Channel = this.channels[0];
+ 
 
   ///Hilfsfunktion für frontend offline development, voraussichtlich nicht mehr notwendig, wenn die memberIds anhand channel daten gefetcht werden
   get channelMembers(): User[] {
