@@ -1,6 +1,6 @@
 @import '../../../../mixins.scss';
 @import '../../../../styles.scss';
-
+@import '../chat/chat.component.scss';
 
 
 
@@ -11,7 +11,7 @@ html, body{
 }
 .main-threadbar-class{
     width: 100%;
-    min-height: 100%;
+    // min-height: 100%;
     background-color: $white;
     border-radius: 30px;
 
