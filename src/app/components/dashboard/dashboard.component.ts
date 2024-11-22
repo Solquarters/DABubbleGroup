@@ -19,8 +19,6 @@ import { trigger, transition, style, animate } from '@angular/animations';
     SidenavComponent,
     ChatComponent,
     ThreadBarComponent,
-    
-   
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
@@ -44,10 +42,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
       ]),
     ])
   ],
-
-
-  
 })
+
 export class DashboardComponent implements OnInit {
   selectedChannel: { name: string } | null = null;
   isSidebarVisible = true;
