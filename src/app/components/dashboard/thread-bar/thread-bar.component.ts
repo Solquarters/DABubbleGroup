@@ -1,10 +1,13 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { DateSeperatorPipe } from '../chat/pipes/date-seperator.pipe';
+import { GetMessageTimePipe } from '../chat/pipes/get-message-time.pipe';
+import { ShouldShowDateSeperatorPipe } from '../chat/pipes/should-show-date-seperator.pipe';
 
 @Component({
   selector: 'app-thread-bar',
   standalone: true,
-  imports: [],
+  imports: [DateSeperatorPipe, GetMessageTimePipe, ShouldShowDateSeperatorPipe],
   templateUrl: './thread-bar.component.html',
   styleUrls: ['./thread-bar.component.scss'],
   animations: [
