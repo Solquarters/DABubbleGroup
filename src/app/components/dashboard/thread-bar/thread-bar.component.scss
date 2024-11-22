@@ -1,0 +1,17 @@
+@import '../../../../mixins.scss';
+@import '../../../../styles.scss';
+
+html, body{
+    height: 100%;
+    
+    
+}
+.main-threadbar-class{
+    width: 100%;
+    min-height: 100%;
+    background-color: $white;
+    border-radius: 30px;
+
+    display: flex;
+
+}
