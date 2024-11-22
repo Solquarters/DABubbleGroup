@@ -6,7 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './thread-bar.component.html',
-  styleUrl: './thread-bar.component.scss',
+  styleUrls: ['./thread-bar.component.scss'],
   animations: [
     trigger('slideInOut', [
       transition(':enter', [

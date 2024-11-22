@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -18,10 +19,22 @@ import { trigger, transition, style, animate } from '@angular/animations';
     SidenavComponent,
     ChatComponent,
     ThreadBarComponent,
+    
    
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('150ms ease-in-out', style({ transform: 'translateX(0%)' })),
+      ]),
+      transition(':leave', [
+        animate('150ms ease-in-out', style({ transform: 'translateX(100%)' })),
+      ]),
+    ]),
+  ],
 
 })
 export class DashboardComponent implements OnInit {
@@ -55,13 +68,12 @@ export class DashboardComponent implements OnInit {
   }
 
   onOpenThreadBar() {
-    this.isThreadBarVisible = true;
+    this.isThreadBarVisible = !this.isThreadBarVisible;
   }
-
+  
   onCloseThreadBar() {
     this.isThreadBarVisible = false;
   }
-
 
 
   

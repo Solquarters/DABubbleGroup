@@ -27,11 +27,17 @@
 	  
 	 
 	 
-	  <app-thread-bar  *ngIf="isThreadBarVisible" 
+	  <!-- <app-thread-bar  *ngIf="isThreadBarVisible"  @slideInOut
 	  (close)="onCloseThreadBar()"  >
-		</app-thread-bar>
-
-
+		</app-thread-bar> -->
+		<!-- <div *ngIf="isThreadBarVisible" [@slideInOut]>
+			<app-thread-bar (close)="onCloseThreadBar()"></app-thread-bar>
+		  </div> -->
+		  <app-thread-bar
+		  *ngIf="isThreadBarVisible"
+		  @slideInOut
+		  (close)="onCloseThreadBar()"
+		></app-thread-bar>
 
 		
 	</div>

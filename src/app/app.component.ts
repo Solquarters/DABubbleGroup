@@ -4,6 +4,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CloudService } from './core/services/cloud.service';
 import { CommonModule } from '@angular/common';
 import { InfoFlyerComponent } from './components/auth/info-flyer/info-flyer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { InfoFlyerComponent } from './components/auth/info-flyer/info-flyer.comp
     MatProgressSpinnerModule,
     CommonModule,
     InfoFlyerComponent,
+    
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'], 
