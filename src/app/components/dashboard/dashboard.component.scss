@@ -28,20 +28,23 @@
 }
 
 app-sidenav {
-  flex: 1 1 20%;  
-  padding: 20px;
+  flex: 1 1 16%;  
+  padding: 16px;
   height: 100%;
+
+  max-width: 400px;
+  min-width: 360px;
 }
 
 app-chat {
   flex: 1 1 60%;  
-  padding: 20px;
+  padding: 16px;
   height: 100%;
 }
 
 app-thread-bar {
-  flex: 1 1 20%; 
-  padding: 20px;
+  flex: 1 1 24%; 
+  padding: 16px;
   height: 100%;
 
  
