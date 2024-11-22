@@ -23,8 +23,10 @@
 	  *ngIf="isSidebarVisible"
 	  (channelSelected)="onChannelSelected($event)">
 	  </app-sidenav>
-	  <app-chat></app-chat>
-	  <app-thread-bar></app-thread-bar>
+	  <app-chat (openThreadBar)="onOpenThreadBar()"></app-chat>
+	  <app-thread-bar *ngIf="isThreadBarVisible" 
+	  (close)="onCloseThreadBar()">
+		</app-thread-bar>
 	</div>
   </div>
   

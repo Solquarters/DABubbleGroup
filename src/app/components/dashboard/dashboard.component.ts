@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   selectedChannel: { name: string } | null = null;
   isSidebarVisible = true;
   isHovered = false;
+  isThreadBarVisible = false;
   channels$: Observable<{ channelId: string; name: string }[]>;
 
   constructor(private channelService: ChannelService) {
@@ -47,5 +48,13 @@ export class DashboardComponent implements OnInit {
 
   onChannelSelected(channel: any) {
     this.selectedChannel = channel;
+  }
+
+  onOpenThreadBar() {
+    this.isThreadBarVisible = true;
+  }
+
+  onCloseThreadBar() {
+    this.isThreadBarVisible = false;
   }
 }
