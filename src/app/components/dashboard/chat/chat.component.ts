@@ -82,6 +82,12 @@ export class ChatComponent {
     this.container.scrollTop = this.container.scrollHeight;     
   }  
   
+  
+  openThreadSidebar(){
+
+  }
+
+
   ///Need logic for implementing current user check. 
   currentUserId: string = 'user1234';
    

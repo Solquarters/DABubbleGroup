@@ -358,6 +358,26 @@ html, body{
     }
 }
 
+.thread-info-class {
+ 
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+
+    &:hover p:first-child {
+        color: $purple3;
+        font-weight: 600;
+    }
+
+    
+    > p:nth-child(2) {
+        font-size: 14px;
+        color: $text-gray;
+    }
+}
+
+
 .reactions-div-class{
     position: relative;
     display: flex;
