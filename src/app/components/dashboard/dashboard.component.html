@@ -19,10 +19,15 @@
 	</div>
   
 	<div class="dashboard-container-class">
+
+
 	  <app-sidenav 
 	  *ngIf="isSidebarVisible"
+	  @slideInOut2
 	  (channelSelected)="onChannelSelected($event)">
 	  </app-sidenav>
+
+
 	  <app-chat (openThreadBar)="onOpenThreadBar()"></app-chat>
 	  
 	 

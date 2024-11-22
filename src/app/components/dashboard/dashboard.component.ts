@@ -34,6 +34,15 @@ import { trigger, transition, style, animate } from '@angular/animations';
         animate('150ms ease-in-out', style({ transform: 'translateX(100%)' })),
       ]),
     ]),
+    trigger('slideInOut2', [
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)' }),
+        animate('150ms ease-in-out', style({ transform: 'translateX(0%)' })),
+      ]),
+      transition(':leave', [
+        animate('150ms ease-in-out', style({ transform: 'translateX(-100%)' })),
+      ]),
+    ])
   ],
 
 
