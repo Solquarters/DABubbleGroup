@@ -1,10 +1,13 @@
 @import '../../../../mixins.scss';
 @import '../../../../styles.scss';
 
+
+
+
 html, body{
     height: 100%;
     
-    
+   
 }
 .main-threadbar-class{
     width: 100%;
@@ -15,3 +18,16 @@ html, body{
     display: flex;
 
 }
+
+// .main-threadbar-class {
+//     position: fixed;
+//     top: 0;
+//     right: 0;
+//     bottom: 0;
+//     width: 300px; // Adjust as needed
+//     background-color: $white;
+//     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+//     display: flex;
+//     flex-direction: column;
+//     z-index: 1000; // Ensure it overlays other content
+//   }

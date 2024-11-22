@@ -16,6 +16,12 @@ body {
   font-weight: 400;
 }
 
+
+////Achtung: Overflow hidden ist hier notwendig für die SlideIn Animation der Thread Bar, beim responsive müssten wir das evtl. ausklammern, damit man potentielle overflow erkennt.
+html, body {
+  overflow-x: hidden;
+}
+
 .d-none {
   display: none;
 }

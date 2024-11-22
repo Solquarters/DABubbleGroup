@@ -6,6 +6,8 @@ import { ChatComponent } from './chat/chat.component';
 import { ThreadBarComponent } from './thread-bar/thread-bar.component';
 import { ChannelService } from '../../core/services/channel.service';
 import { Observable } from 'rxjs'; 
+import { trigger, transition, style, animate } from '@angular/animations';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -15,10 +17,12 @@ import { Observable } from 'rxjs';
     HeaderComponent,
     SidenavComponent,
     ChatComponent,
-    ThreadBarComponent
+    ThreadBarComponent,
+   
   ],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+
 })
 export class DashboardComponent implements OnInit {
   selectedChannel: { name: string } | null = null;
@@ -57,4 +61,8 @@ export class DashboardComponent implements OnInit {
   onCloseThreadBar() {
     this.isThreadBarVisible = false;
   }
+
+
+
+  
 }

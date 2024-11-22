@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -5,7 +6,18 @@ import { Component, EventEmitter, Output } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './thread-bar.component.html',
-  styleUrl: './thread-bar.component.scss'
+  styleUrl: './thread-bar.component.scss',
+  animations: [
+    trigger('slideInOut', [
+      transition(':enter', [
+        style({ transform: 'translateX(100%)' }),
+        animate('150ms ease-in-out', style({ transform: 'translateX(0%)' })),
+      ]),
+      transition(':leave', [
+        animate('150ms ease-in-out', style({ transform: 'translateX(100%)' })),
+      ]),
+    ]),
+  ],
 })
 export class ThreadBarComponent {
   @Output() close = new EventEmitter<void>();
