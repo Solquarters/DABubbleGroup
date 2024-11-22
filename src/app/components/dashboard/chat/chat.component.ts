@@ -55,7 +55,7 @@ export interface Reaction {
 
 ///INTERFACES END
 
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DateSeperatorPipe } from './pipes/date-seperator.pipe';
 import { GetMessageTimePipe } from './pipes/get-message-time.pipe';
 import { ShouldShowDateSeperatorPipe } from './pipes/should-show-date-seperator.pipe';
@@ -73,6 +73,7 @@ import { ChatService } from '../../../core/services/chat.service';
 
 export class ChatComponent {
  
+  @Output() openThreadBar = new EventEmitter<void>();
 
   container: any;
   constructor(private chatService: ChatService) {}
@@ -83,8 +84,8 @@ export class ChatComponent {
   }  
   
   
-  openThreadSidebar(){
-
+  onOpenThreadBar(){
+    this.openThreadBar.emit();
   }
 
 
