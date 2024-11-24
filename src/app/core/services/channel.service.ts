@@ -11,6 +11,11 @@ export class ChannelService {
   private channelsSubject = new BehaviorSubject<Channel[]>([]);
   channels$ = this.channelsSubject.asObservable();
 
+
+  ///Neu von Roman
+  private currentChannelSubject = new BehaviorSubject<Channel | null>(null);
+  currentChannel$ = this.currentChannelSubject.asObservable();
+
   ////for offline rendering...
   channels: any;
 
@@ -82,8 +87,10 @@ export class ChannelService {
 
 
 
-
-
+  //Neu von Roman
+  setCurrentChannel(channel: Channel) {
+    this.currentChannelSubject.next(channel);
+  }
 
   
 }
