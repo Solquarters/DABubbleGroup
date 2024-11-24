@@ -14,7 +14,7 @@ export class ChannelService {
 
   ///Neu von Roman
   private currentChannelSubject = new BehaviorSubject<Channel | null>(null);
-  currentChannel$ = this.currentChannelSubject.asObservable();
+currentChannel$ = this.currentChannelSubject.asObservable();
 
   ////for offline rendering...
   channels: any;
@@ -86,10 +86,14 @@ export class ChannelService {
 
 
 
-
-  //Neu von Roman
-  setCurrentChannel(channel: Channel) {
-    this.currentChannelSubject.next(channel);
+  //neu Roman
+  setCurrentChannel(channelId: string) {
+    const channel = this.channelsSubject.value.find(c => c.channelId === channelId);
+    if (channel) {
+      this.currentChannelSubject.next(channel);
+    } else {
+      console.error(`Channel with ID ${channelId} not found.`);
+    }
   }
 
   

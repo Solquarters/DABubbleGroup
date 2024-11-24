@@ -16,7 +16,7 @@ export class SidenavComponent implements OnInit {
   channels$; 
   channels: { name: string }[] = [];
     
-  @Output() channelSelected = new EventEmitter<{ name: string }>();
+  @Output() channelSelected = new EventEmitter<string >();
 
   constructor(private channelService: ChannelService, public cloudService: CloudService) {
     this.channels$ = this.channelService.channels$;
@@ -59,7 +59,7 @@ export class SidenavComponent implements OnInit {
     await this.channelService.createChannel(name, 'Default description');
   }
 
-  selectChannel(channel: any) {
-    this.channelSelected.emit(channel);
+  selectChannel(channelId: string) {
+    this.channelService.setCurrentChannel(channelId);
   }
 }

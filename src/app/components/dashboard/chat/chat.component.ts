@@ -23,6 +23,7 @@ import { Thread } from '../../../models/interfaces/thread.interface';
 import { UserService } from '../../../core/services/user.service';
 
 import { ChannelService } from '../../../core/services/channel.service';
+import { Channel } from '../../../models/interfaces/channel.interace';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class ChatComponent {
   messages: Message[]= [];
   currentUserId: string= '';
   currentChannel: any;
+  // currentChannel: Channel | null = null;
 
   @Output() openThreadBar = new EventEmitter<void>();
 
@@ -48,6 +50,15 @@ export class ChatComponent {
     this.currentUserId = this.userService.currentUserId;
     
     this.currentChannel = this.channelService.channels[0];
+
+
+    // this.channelService.currentChannel$.subscribe(channel => {
+    //   this.currentChannel = channel;
+    //   if (channel) {
+    //     // Optionally, load messages for the selected channel
+    //     // this.chatService.loadMessagesForChannel(channel.channelId);
+    //   }
+    // });
   }
 
     
