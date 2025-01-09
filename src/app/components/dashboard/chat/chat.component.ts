@@ -114,7 +114,7 @@ export class ChatComponent
   currentUserId: string = '';
   currentChannel: any;
 
-  isEditMembersPopupOpen: boolean = false;
+  // isEditMembersPopupOpen: boolean = false;
 
   /** @private Flag for controlling scroll behavior */
   shouldScrollToBottom = false;
@@ -174,6 +174,10 @@ export class ChatComponent
       .subscribe(() => {
         this.focusTextareaFunction();
       });
+
+
+
+
   }
 
   trackByUserId(index: number, user: any): string {

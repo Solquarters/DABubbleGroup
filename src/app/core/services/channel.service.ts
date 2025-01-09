@@ -203,9 +203,10 @@ export class ChannelService implements OnDestroy {
               )
             ) {
               await this.addUserToWelcomeTeamChannelInFirestore();
-            } else {
-              this.setCurrentChannel(welcomeTeamChannel.channelId);
-            }
+            } 
+            // else {
+            //   this.setCurrentChannel(welcomeTeamChannel.channelId);
+            // }
           } else {
             await this.addUserToWelcomeTeamChannelInFirestore();
           }
@@ -232,7 +233,7 @@ export class ChannelService implements OnDestroy {
       await updateDoc(channelRef, {
         memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
       });
-      this.setCurrentChannel(channelId);
+      // this.setCurrentChannel(channelId);
     } catch (error) {
       console.error('Error updating Welcome Team channel:', error);
     }

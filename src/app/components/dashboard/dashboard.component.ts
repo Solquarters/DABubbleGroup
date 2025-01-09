@@ -1,11 +1,11 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { ChatComponent } from './chat/chat.component';
 import { ThreadBarComponent } from './thread-bar/thread-bar.component';
 import { ChannelService } from '../../core/services/channel.service';
-import { Observable, Subscription } from 'rxjs';
+import { filter, first, Observable, Subject, Subscription, takeUntil } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -50,7 +50,9 @@ import { Router } from '@angular/router';
     ]),
   ],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
+private destroy$ = new Subject<void>();
+
   private closeThreadBarSubscription: Subscription = new Subscription();
 
   selectedChannel: { name: string } | null = null;
@@ -100,6 +102,40 @@ export class DashboardComponent implements OnInit {
       this.channelService.closeThreadBarEvent.subscribe(() => {
         this.onCloseThreadBar();
       });
+
+
+      // Subscribe to auth state changes
+    onAuthStateChanged(this.authService.auth, async (user) => {
+      if (user) {
+        // Wait for channels to be loaded
+        this.channels$.pipe(
+          filter(channels => channels.length > 0),
+          first(),
+          takeUntil(this.destroy$)
+        ).subscribe(() => {
+          setTimeout(() => {
+            this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+            console.log('calling: ngAfterViewInit channelService.setCurrentChannel');
+          }, 1800);
+        });
+      }
+    });
+
+
+    
+    // setTimeout(() => {
+    //   this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+    //   console.log('calling: ngAfterViewInit channelService.setCurrentChannel');
+    // }, 1800);
+    
+  }
+
+  ngAfterViewInit(){
+    // if(this.channelService.currentChannelIdSubject.value !== 'Sce57acZnV7DDXMRasdf'){
+    //   this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+    //   console.log('calling:ngAfterViewInit channelService.setCurrentChannel')
+    // }
+    
   }
 
   ngOnDestroy() {

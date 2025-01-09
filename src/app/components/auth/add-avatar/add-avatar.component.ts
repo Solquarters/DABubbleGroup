@@ -93,11 +93,14 @@ export class AddAvatarComponent {
     try {
       this.cloudService.loading = true;
       await this.updateMemberAvatar(userId);
-      this.router.navigate(['/dashboard']);
-      this.infoService.createInfo('Avatar erfolgreich geändert', false);
+      
     } catch {
       this.infoService.createInfo('Avatar konnte nicht geändert werden', true);
     }
+    finally{
+      this.infoService.createInfo('Avatar erfolgreich geändert', false);
+      this.router.navigate(['/dashboard']);
+      }
   }
 
   /**
