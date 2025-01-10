@@ -28,6 +28,7 @@ import {
   distinctUntilChanged,
   filter,
   first,
+  firstValueFrom,
   map,
   Observable,
   shareReplay,
@@ -63,14 +64,16 @@ export class ChannelService implements OnDestroy {
   /** @public Event emitter for autofocus inside chat component textarea on channel change */
   channelChanged = new EventEmitter<void>();
 
+
+///New 
+  private channelsInitialized = new BehaviorSubject<boolean>(false);
+
+
   /**
    * @public Observable combining channels and current channel ID
    * Emits the currently selected channel with real-time updates for member, channel name or description changes
    */
-  currentChannel$ = combineLatest([
-    this.channels$,
-    this.currentChannelId$,
-  ]).pipe(
+  currentChannel$ = combineLatest([this.channels$,this.currentChannelId$,]).pipe(
     map(([channels, currentChannelId]) => {
       if (!channels.length || !currentChannelId) return null;
       if (currentChannelId === 'newMessage') {
@@ -91,23 +94,41 @@ export class ChannelService implements OnDestroy {
     shareReplay(1)
   );
 
+  //new
   constructor(public authService: AuthService) {
-    onAuthStateChanged(this.authService.auth, (user) => {
+    onAuthStateChanged(this.authService.auth, async (user) => {
       if (user) {
-        this.destroy$ = new Subject<void>(); // Reset destroy$ whenever logging in
-
-        // Wait for currentUserId before proceeding
-        this.authService.getCurrentUserId().then((userId) => {
-          if (userId) {
-            this.loadChannels(userId);
-            this.checkWelcomeTeamChannel();
-          }
-        });
+        this.destroy$ = new Subject<void>();
+        const userId = await this.authService.getCurrentUserId();
+        if (userId) {
+          await this.initializeChannels(userId);
+        }
       } else {
         this.channelsSubject.next([]);
+        this.channelsInitialized.next(false);
         this.destroy$.next();
       }
     });
+  }
+
+ //new
+  private async initializeChannels(userId: string): Promise<void> {
+    try {
+      // First, load channels
+      await this.loadChannels(userId);
+      
+      // Then, ensure Welcome Team channel membership
+      await this.ensureWelcomeTeamChannel();
+      
+      // Mark channels as initialized
+      this.channelsInitialized.next(true);
+      
+      // Set Welcome Team as current channel
+      this.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+    } catch (error) {
+      console.error('Error initializing channels:', error);
+      this.channelsInitialized.next(false);
+    }
   }
 
   ngOnDestroy(): void {
@@ -120,37 +141,35 @@ export class ChannelService implements OnDestroy {
    * Includes error handling for permission issues and maintains a sorted list of channels.
    * @private
    */
-  private loadChannels(currentUserId: string): void {
-    const channelsCollection = collection(this.firestore, 'channels');
+  private async loadChannels(currentUserId: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const channelsCollection = collection(this.firestore, 'channels');
+      const channelsQuery = query(
+        channelsCollection,
+        where('memberIds', 'array-contains', currentUserId)
+      );
 
-    // Create a query to filter channels where currentUserId is in memberIds
-    const channelsQuery = query(
-      channelsCollection,
-      where('memberIds', 'array-contains', currentUserId)
-    );
+      const channelsObservable = collectionData(channelsQuery, {
+        idField: 'channelId',
+        snapshotListenOptions: { includeMetadataChanges: true },
+      }) as Observable<Channel[]>;
 
-    const channelsObservable = collectionData(channelsQuery, {
-      idField: 'channelId',
-      snapshotListenOptions: { includeMetadataChanges: true },
-    }) as Observable<Channel[]>;
-
-    channelsObservable
-      .pipe(
-        map((channels) => this.sortChannels(channels)),
-        takeUntil(this.destroy$)
-      )
-      .subscribe({
-        next: (finalSortedChannels) => {
-          this.channelsSubject.next(finalSortedChannels);
-        },
-        error: (error) => {
-          if (error.code === 'permission-denied') {
-            console.warn('Permission denied for fetching channels');
-          } else {
+      channelsObservable
+        .pipe(
+          map((channels) => this.sortChannels(channels)),
+          takeUntil(this.destroy$)
+        )
+        .subscribe({
+          next: (finalSortedChannels) => {
+            this.channelsSubject.next(finalSortedChannels);
+            resolve();
+          },
+          error: (error) => {
             console.error('Error fetching channels:', error);
-          }
-        },
-      });
+            reject(error);
+          },
+        });
+    });
   }
 
   /**
@@ -183,38 +202,17 @@ export class ChannelService implements OnDestroy {
    * If not, adds the user to the channel.
    * @private
    */
-  private checkWelcomeTeamChannel(): void {
-    this.channels$
-      .pipe(
-        // Wait until we actually have channels loaded
-        first((channels) => channels.length > 0),
-        // Add error handling
-        takeUntil(this.destroy$)
-      )
-      .subscribe({
-        next: async (channels) => {
-          const welcomeTeamChannel = channels.find(
-            (ch) => ch.name === 'Welcome Team!'
-          );
-          if (welcomeTeamChannel) {
-            if (
-              !welcomeTeamChannel.memberIds?.includes(
-                this.authService.currentUserData.publicUserId
-              )
-            ) {
-              await this.addUserToWelcomeTeamChannelInFirestore();
-            } 
-            // else {
-            //   this.setCurrentChannel(welcomeTeamChannel.channelId);
-            // }
-          } else {
-            await this.addUserToWelcomeTeamChannelInFirestore();
-          }
-        },
-        error: (error) => {
-          console.error('Error checking Welcome Team channel:', error);
-        },
-      });
+  private async ensureWelcomeTeamChannel(): Promise<void> {
+    const channels = await firstValueFrom(this.channels$);
+    const welcomeTeamChannel = channels.find((ch) => ch.name === 'Welcome Team!');
+    
+    if (welcomeTeamChannel) {
+      if (!welcomeTeamChannel.memberIds?.includes(this.authService.currentUserData.publicUserId)) {
+        await this.addUserToWelcomeTeamChannelInFirestore();
+      }
+    } else {
+      await this.addUserToWelcomeTeamChannelInFirestore();
+    }
   }
 
   /**
@@ -223,7 +221,7 @@ export class ChannelService implements OnDestroy {
    * @returns {Promise<void>}
    * @private
    */
-  private async addUserToWelcomeTeamChannelInFirestore(): Promise<void> {
+   private async addUserToWelcomeTeamChannelInFirestore(): Promise<void> {
     if (!this.authService.currentUserData.publicUserId) return;
 
     const channelId = 'Sce57acZnV7DDXMRasdf';
@@ -233,9 +231,9 @@ export class ChannelService implements OnDestroy {
       await updateDoc(channelRef, {
         memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
       });
-      // this.setCurrentChannel(channelId);
     } catch (error) {
       console.error('Error updating Welcome Team channel:', error);
+      throw error;
     }
   }
 

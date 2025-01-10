@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
@@ -50,7 +50,7 @@ import { Router } from '@angular/router';
     ]),
   ],
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 private destroy$ = new Subject<void>();
 
   private closeThreadBarSubscription: Subscription = new Subscription();
@@ -98,51 +98,49 @@ private destroy$ = new Subject<void>();
     this.profileService.closePopup();
     this.checkMobileView();
 
-    this.closeThreadBarSubscription =
-      this.channelService.closeThreadBarEvent.subscribe(() => {
-        this.onCloseThreadBar();
-      });
+    this.channelService.closeThreadBarEvent.pipe(
+      takeUntil(this.destroy$)
+  ).subscribe(() => {
+      this.onCloseThreadBar();
+  });
 
 
       // Subscribe to auth state changes
-    onAuthStateChanged(this.authService.auth, async (user) => {
-      if (user) {
-        // Wait for channels to be loaded
-        this.channels$.pipe(
-          filter(channels => channels.length > 0),
-          first(),
-          takeUntil(this.destroy$)
-        ).subscribe(() => {
-          setTimeout(() => {
-            this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
-            console.log('calling: ngAfterViewInit channelService.setCurrentChannel');
-          }, 1800);
-        });
-      }
-    });
+    // onAuthStateChanged(this.authService.auth, async (user) => {
+    //   if (user) {
+    //     // Wait for channels to be loaded
+    //     this.channels$.pipe(
+    //       filter(channels => channels.length > 0),
+    //       first(),
+    //       takeUntil(this.destroy$)
+    //     ).subscribe(() => {
+    //       setTimeout(() => {
+    //         this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+    //         console.log('calling: onAuthStateChanged channelService.setCurrentChannel');
+    //       }, 1800);
+    //     });
+    //   }
+    // });
 
-
-    
-    // setTimeout(() => {
-    //   this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
-    //   console.log('calling: ngAfterViewInit channelService.setCurrentChannel');
-    // }, 1800);
-    
-  }
-
-  ngAfterViewInit(){
-    // if(this.channelService.currentChannelIdSubject.value !== 'Sce57acZnV7DDXMRasdf'){
-    //   this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
-    //   console.log('calling:ngAfterViewInit channelService.setCurrentChannel')
-    // }
+// Subscribe to channels$ and wait for data
+this.channelService.channels$.pipe(
+  filter(channels => channels.length > 0),
+  first(),
+  takeUntil(this.destroy$)
+).subscribe(() => {
+  // Channel data is loaded, now set Welcome Team channel
+  this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+});
     
   }
+
+  
 
   ngOnDestroy() {
     // Unsubscribe to avoid memory leaks
-    if (this.closeThreadBarSubscription) {
-      this.closeThreadBarSubscription.unsubscribe();
-    }
+    // Emit and complete the subject
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   // Neu Mike
