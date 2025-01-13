@@ -5,7 +5,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { ChatComponent } from './chat/chat.component';
 import { ThreadBarComponent } from './thread-bar/thread-bar.component';
 import { ChannelService } from '../../core/services/channel.service';
-import { filter, first, Observable, Subject, Subscription, takeUntil } from 'rxjs';
+import { filter, first, Observable, Subject, Subscription, switchMap, takeUntil } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ProfileService } from '../../core/services/profile.service';
 import { AuthService } from '../../core/services/auth.service';
@@ -77,63 +77,44 @@ private destroy$ = new Subject<void>();
   ) {
     // We initialize the channels$ observable by assigning the service observable
     this.channels$ = this.channelService.channels$;
-    this.startAuthStateDetection();
+    // this.startAuthStateDetection();
+
+    //Claude suggestion............................................................................................
+    // Listen for auth state changes
+    // this.authService.authState$
+    //   .pipe(takeUntil(this.destroy$))
+    //   .subscribe((user) => {
+    //     if (!user) {
+    //       // Reset local component state when user logs out
+    //       this.selectedChannel = null;
+    //       this.currentThreadId = null;
+    //     }
+    //   });
   }
 
-  /**
-   * Starts the authentication state detection to navigate the user based on authentication status.
-   * If a user is authenticated, it navigates to the dashboard. Otherwise, it navigates to the login page.
-   */
-  startAuthStateDetection() {
-    onAuthStateChanged(this.authService.auth, (user) => {
-      if (user) {
-        this.router.navigate(['/dashboard']);
-      } else {
-        this.router.navigate(['/login']);
-      }
-    });
-  }
 
-  async ngOnInit() {
-    this.profileService.closePopup();
-    this.checkMobileView();
+async ngOnInit() {
+  this.profileService.closePopup();
+  this.checkMobileView();
 
-    this.channelService.closeThreadBarEvent.pipe(
+  this.channelService.closeThreadBarEvent.pipe(
       takeUntil(this.destroy$)
   ).subscribe(() => {
       this.onCloseThreadBar();
   });
 
-
-      // Subscribe to auth state changes
-    // onAuthStateChanged(this.authService.auth, async (user) => {
-    //   if (user) {
-    //     // Wait for channels to be loaded
-    //     this.channels$.pipe(
-    //       filter(channels => channels.length > 0),
-    //       first(),
-    //       takeUntil(this.destroy$)
-    //     ).subscribe(() => {
-    //       setTimeout(() => {
-    //         this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
-    //         console.log('calling: onAuthStateChanged channelService.setCurrentChannel');
-    //       }, 1800);
-    //     });
-    //   }
-    // });
-
-// Subscribe to channels$ and wait for data
-this.channelService.channels$.pipe(
-  filter(channels => channels.length > 0),
-  first(),
-  takeUntil(this.destroy$)
-).subscribe(() => {
-  // Channel data is loaded, now set Welcome Team channel
-  this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
-});
-    
-  }
-
+  // Wait for channel initialization and then set current channel
+  this.channelService.channelsInitialized.pipe(
+      filter(initialized => initialized),
+      switchMap(() => this.channelService.channels$),
+      filter(channels => channels.length > 0),
+      first(),
+      takeUntil(this.destroy$)
+  ).subscribe(channels => {
+      // console.log('Setting Welcome Team channel in dashboard');
+      this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+  });
+}
   
 
   ngOnDestroy() {

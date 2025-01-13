@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { ProfileService } from '../../../core/services/profile.service';
 import { CommonModule } from '@angular/common';
+import { ChannelService } from '../../../core/services/channel.service';
 
 @Component({
   selector: 'app-logout-display',
@@ -16,7 +17,8 @@ export class LogoutDisplayComponent {
   touchEndY: number = 0;
   constructor(
     public profileService: ProfileService,
-    public authService: AuthService
+    public authService: AuthService,
+    public channelService: ChannelService
   ) {}
 
   /** Handles the touch start event and stores the starting Y position of the touch.
@@ -38,5 +40,11 @@ export class LogoutDisplayComponent {
     if (swipeDistance > 35) {
       this.profileService.closePopup();
     }
+  }
+
+  async logoutAndResetChannelService(){
+    await this.channelService.resetServiceState();
+    await this.authService.logoutCurrentUser();
+    
   }
 }

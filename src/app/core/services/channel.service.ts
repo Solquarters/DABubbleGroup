@@ -37,7 +37,7 @@ import {
 } from 'rxjs';
 import { Channel } from '../../models/channel.model.class';
 import { AuthService } from './auth.service';
-import { onAuthStateChanged } from '@angular/fire/auth';
+import { onAuthStateChanged, User } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -66,7 +66,7 @@ export class ChannelService implements OnDestroy {
 
 
 ///New 
-  private channelsInitialized = new BehaviorSubject<boolean>(false);
+  public channelsInitialized = new BehaviorSubject<boolean>(false);
 
 
   /**
@@ -94,46 +94,74 @@ export class ChannelService implements OnDestroy {
     shareReplay(1)
   );
 
-  //new
+  // constructor(public authService: AuthService) {
+  //   console.log('ChannelService constructor called');
+  //   this.authService.authState$
+  //     .pipe(
+  //       distinctUntilChanged((prev, curr) => 
+  //         prev?.uid === curr?.uid
+  //       )
+  //     )
+  //     .subscribe(async (user: User | null) => {
+  //       console.log('Auth state changed:', user?.uid);
+  //       if (!user) {
+  //         this.resetServiceState();
+  //       } else {
+  //         console.log('Initializing channels for user:', user.uid);
+  //         await this.initializeChannels(this.authService.currentUserData.publicUserId);
+  //       }
+  //     });
+  // }
   constructor(public authService: AuthService) {
-    onAuthStateChanged(this.authService.auth, async (user) => {
-      if (user) {
-        this.destroy$ = new Subject<void>();
-        const userId = await this.authService.getCurrentUserId();
-        if (userId) {
-          await this.initializeChannels(userId);
+    this.authService.userReady$
+      .pipe(
+        filter(user => user !== null),
+        distinctUntilChanged((prev, curr) => prev?.uid === curr?.uid)
+      )
+      .subscribe(async (user) => {
+        if (!user) {
+          this.resetServiceState();
+        } else {
+          await this.initializeChannels(this.authService.currentUserData.publicUserId);
         }
-      } else {
-        this.channelsSubject.next([]);
-        this.channelsInitialized.next(false);
-        this.destroy$.next();
-      }
-    });
+      });
   }
 
- //new
-  private async initializeChannels(userId: string): Promise<void> {
-    try {
-      // First, load channels
-      await this.loadChannels(userId);
-      
-      // Then, ensure Welcome Team channel membership
-      await this.ensureWelcomeTeamChannel();
-      
-      // Mark channels as initialized
-      this.channelsInitialized.next(true);
-      
-      // Set Welcome Team as current channel
-      this.setCurrentChannel('Sce57acZnV7DDXMRasdf');
-    } catch (error) {
-      console.error('Error initializing channels:', error);
-      this.channelsInitialized.next(false);
-    }
+public resetServiceState(): void {
+   this.destroy$.next();
+  this.destroy$.complete();
+  this.destroy$ = new Subject<void>();
+ 
+  this.channelsSubject.next([]);
+  this.currentChannelIdSubject.next(null);
+  this.channelsInitialized.next(false);
+
+}
+
+
+private async initializeChannels(userId: string): Promise<void> {
+  console.log('Starting initializeChannels for userId:', userId);
+  // Ensure we're starting fresh
+  this.channelsInitialized.next(false);
+  this.channelsSubject.next([]);
+  this.currentChannelIdSubject.next(null);
+
+  try {
+    await this.loadChannels(userId);
+    await this.ensureWelcomeTeamChannel();
+    
+    console.log('Channel initialization complete');
+    this.channelsInitialized.next(true);
+    
+    this.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+  } catch (error) {
+    console.error('Error initializing channels:', error);
+    this.channelsInitialized.next(false);
   }
+}
 
   ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.resetServiceState();
   }
 
   /**
@@ -142,33 +170,30 @@ export class ChannelService implements OnDestroy {
    * @private
    */
   private async loadChannels(currentUserId: string): Promise<void> {
+    console.log('Loading channels for userId:', currentUserId);
     return new Promise((resolve, reject) => {
       const channelsCollection = collection(this.firestore, 'channels');
       const channelsQuery = query(
         channelsCollection,
         where('memberIds', 'array-contains', currentUserId)
       );
-
-      const channelsObservable = collectionData(channelsQuery, {
+  
+      collectionData(channelsQuery, {
         idField: 'channelId',
-        snapshotListenOptions: { includeMetadataChanges: true },
-      }) as Observable<Channel[]>;
-
-      channelsObservable
-        .pipe(
-          map((channels) => this.sortChannels(channels)),
-          takeUntil(this.destroy$)
-        )
-        .subscribe({
-          next: (finalSortedChannels) => {
-            this.channelsSubject.next(finalSortedChannels);
-            resolve();
-          },
-          error: (error) => {
-            console.error('Error fetching channels:', error);
-            reject(error);
-          },
-        });
+      }).pipe(
+        map(channels => this.sortChannels(channels as Channel[])),
+        takeUntil(this.destroy$)
+      ).subscribe({
+        next: (sortedChannels: any) => {
+          console.log('Received sorted channels:', sortedChannels);
+          this.channelsSubject.next(sortedChannels);
+          resolve();
+        },
+        error: (error: any) => {
+          console.error('Error fetching channels:', error);
+          reject(error);
+        }
+      });
     });
   }
 
@@ -202,7 +227,7 @@ export class ChannelService implements OnDestroy {
    * If not, adds the user to the channel.
    * @private
    */
-  private async ensureWelcomeTeamChannel(): Promise<void> {
+  public async ensureWelcomeTeamChannel(): Promise<void> {
     const channels = await firstValueFrom(this.channels$);
     const welcomeTeamChannel = channels.find((ch) => ch.name === 'Welcome Team!');
     
@@ -221,21 +246,43 @@ export class ChannelService implements OnDestroy {
    * @returns {Promise<void>}
    * @private
    */
-   private async addUserToWelcomeTeamChannelInFirestore(): Promise<void> {
-    if (!this.authService.currentUserData.publicUserId) return;
+  //  private async addUserToWelcomeTeamChannelInFirestore(): Promise<void> {
+  //   if (!this.authService.currentUserData.publicUserId) return;
 
-    const channelId = 'Sce57acZnV7DDXMRasdf';
-    const channelRef = doc(this.firestore, 'channels', channelId);
+  //   const channelId = 'Sce57acZnV7DDXMRasdf';
+  //   const channelRef = doc(this.firestore, 'channels', channelId);
 
+  //   try {
+  //     await updateDoc(channelRef, {
+  //       memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
+  //     });
+  //   } catch (error) {
+  //     console.error('Error updating Welcome Team channel:', error);
+  //     throw error;
+  //   }
+  // }
+  private async addUserToWelcomeTeamChannelInFirestore(): Promise<void> {
     try {
-      await updateDoc(channelRef, {
-        memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
-      });
+        // Wait for user data to be available
+        if (!this.authService.currentUserData?.publicUserId) {
+            await this.authService.loadCurrentUserDataFromLocalStorage();
+        }
+        
+        if (!this.authService.currentUserData?.publicUserId) {
+            throw new Error('User data not available');
+        }
+
+        const channelId = 'Sce57acZnV7DDXMRasdf';
+        const channelRef = doc(this.firestore, 'channels', channelId);
+
+        await updateDoc(channelRef, {
+            memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
+        });
     } catch (error) {
-      console.error('Error updating Welcome Team channel:', error);
-      throw error;
+        console.error('Error updating Welcome Team channel:', error);
+        throw error;
     }
-  }
+}
 
   /**
    * Creates a new channel with the specified name and description.

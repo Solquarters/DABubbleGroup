@@ -15,11 +15,13 @@ import { ChannelService } from '../../../core/services/channel.service';
 import { ProfileService } from '../../../core/services/profile.service';
 import { HeaderComponent } from '../header/header.component';
 import { User } from '../../../models/interfaces/user.interface';
-import { Subject, takeUntil } from 'rxjs';
+import { debounceTime, delayWhen, filter, retry, Subject, switchMap, takeUntil, timer } from 'rxjs';
 import { SearchComponent } from '../search/search.component';
 import { MobileControlService } from '../../../core/services/mobile-control.service';
 import { InfoFlyerService } from '../../../core/services/info-flyer.service';
 import { SearchService } from '../../../core/services/search.service';
+import { onAuthStateChanged } from '@angular/fire/auth';
+import { AuthService } from '../../../core/services/auth.service';
 
 /**
  * @class SidenavComponent
@@ -91,8 +93,13 @@ export class SidenavComponent implements OnInit, OnDestroy {
     public profileService: ProfileService,
     public mobileService: MobileControlService,
     private inforService: InfoFlyerService,
-    public searchService: SearchService
-  ) {}
+    public searchService: SearchService,
+    public authService: AuthService
+  ) {
+
+  }
+
+
 
   /**
    * Updates the `isMobileView` state on window resize.
@@ -102,34 +109,77 @@ export class SidenavComponent implements OnInit, OnDestroy {
     this.isMobileView = window.innerWidth <= 950;
   }
 
-  /**
-   * Initializes the component and subscribes to channel data from the service.
-   */
-  // ngOnInit(): void {
-  //   this.channelService.channels$.subscribe((channels) => {
-  //     this.channelsWithId = channels.map((channel) => ({
-  //       id: channel.channelId,
-  //       name: channel.name,
-  //       members: channel.memberIds || [],
-  //     }));
-  //   });
-  // }
-  ///subscription life cycle wird beendet, um Memory Leaks zu verhindern.
-  ngOnInit(): void {
-    this.channelService.channels$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((channels) => {
-        this.channelsWithId = channels.map((channel) => ({
-          id: channel.channelId,
-          name: channel.name,
-          members: channel.memberIds || [],
-        }));
-      });
-  }
+ 
+// ngOnInit(): void {
+//   console.log('sidenav called ng oninit');
+//   // Subscribe once on init
+//   this.subscribeToChannels();
+
+//   // ALSO watch for user changes and re-subscribe if a new user logs in
+//   this.authService.authState$
+//     .pipe(takeUntil(this.destroy$))
+//     .subscribe(user => {
+//       if (!user) {
+//         // user is logged out => you could clear channelsWithId here if desired
+//       } else {
+//         // new user => force re-subscribe or re-initialize
+//         this.subscribeToChannels();
+//       }
+//     });
+// }
+ngOnInit(): void {
+  console.log('Sidenav OnInit called');
+  this.channelService.channelsInitialized
+    .pipe(
+      filter(initialized => initialized),
+      takeUntil(this.destroy$)
+    )
+    .subscribe(() => {
+      console.log('Channels initialized, subscribing to channels');
+      this.subscribeToChannels();
+    });
+}
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+    // console.log('sidenav called ngOnDestroy')
+  }
+
+  // private subscribeToChannels() {
+  //   this.destroy$.next();
+  //   this.destroy$.complete();
+  //   this.destroy$ = new Subject<void>();
+  
+  //   // do NOT complete() here. Or if you do, then reassign `destroy$ = new Subject<void>()`
+  //   this.channelService.channels$
+  //     .pipe(takeUntil(this.destroy$))
+  //     .subscribe(channels => {
+  //       this.channelsWithId = channels.map(ch => ({
+  //         id: ch.channelId,
+  //         name: ch.name,
+  //         members: ch.memberIds || []
+  //       }));
+  //     });
+  // }
+  private subscribeToChannels(): void {
+    console.log('Starting subscribeToChannels');
+    // Clear existing channels
+    this.channelsWithId = [];
+    
+    this.channelService.channels$
+      .pipe(
+        takeUntil(this.destroy$),
+        filter(channels => Array.isArray(channels)) // Ensure we have valid data
+      )
+      .subscribe(channels => {
+        console.log('Received channels:', channels);
+        this.channelsWithId = channels.map(ch => ({
+          id: ch.channelId,
+          name: ch.name,
+          members: ch.memberIds || []
+        }));
+      });
   }
 
   /**

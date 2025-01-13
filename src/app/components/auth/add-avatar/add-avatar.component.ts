@@ -7,6 +7,7 @@ import { InfoFlyerService } from '../../../core/services/info-flyer.service';
 import { updateDoc } from '@angular/fire/firestore';
 import { AuthStyleService } from '../../../core/services/auth-style.service';
 import { ProfileService } from '../../../core/services/profile.service';
+import { ChannelService } from '../../../core/services/channel.service';
 
 @Component({
   selector: 'app-add-avatar',
@@ -36,7 +37,8 @@ export class AddAvatarComponent {
     public cloudService: CloudService,
     private router: Router,
     private infoService: InfoFlyerService,
-    public profileService: ProfileService
+    public profileService: ProfileService,
+    public channelService: ChannelService
   ) {}
 
   /**
@@ -93,6 +95,7 @@ export class AddAvatarComponent {
     try {
       this.cloudService.loading = true;
       await this.updateMemberAvatar(userId);
+      await this.channelService.ensureWelcomeTeamChannel();
       
     } catch {
       this.infoService.createInfo('Avatar konnte nicht geändert werden', true);

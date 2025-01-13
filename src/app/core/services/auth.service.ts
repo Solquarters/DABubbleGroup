@@ -14,8 +14,11 @@ import {
   deleteUser,
   Auth,
   sendEmailVerification,
+  onAuthStateChanged,
+  User,
 } from '@angular/fire/auth';
 import { addDoc, DocumentReference, updateDoc } from '@angular/fire/firestore';
+import { BehaviorSubject, combineLatest, distinctUntilChanged, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +35,22 @@ export class AuthService {
   registerFormName: string = '';
   isRegistering = false;
 
+
+    // NEW: single centralized BehaviorSubject for user
+    public authStateSubject = new BehaviorSubject<User | null>(null);
+    public authState$ = this.authStateSubject.asObservable();
+
+    private userDataReady = new BehaviorSubject<boolean>(false);
+
+    public userReady$ = combineLatest([
+      this.authState$,
+      this.userDataReady
+    ]).pipe(
+      map(([user, dataReady]) => user && dataReady ? user : null),
+      distinctUntilChanged()
+    );
+
+
   constructor(
     private cloudService: CloudService,
     private router: Router,
@@ -40,18 +59,39 @@ export class AuthService {
     auth: Auth
   ) {
     this.auth = auth;
+
+    // SINGLE subscription to Firebase auth changes
+    onAuthStateChanged(this.auth, (user) => {
+      // push the user (or null) into our BehaviorSubject
+      this.authStateSubject.next(user);
+    });
   }
 
   /**
    * Checks if the user is logged in by verifying the current user's authentication state.
    * @returns {boolean} True if the user is logged in, false otherwise.
    */
-  isLoggedIn(): boolean {
-    if (this.auth.currentUser != null) {
+  // isLoggedIn(): boolean {
+  //   if (this.auth.currentUser !== null) {
+  //     console.log(this.auth.currentUser);
+  //     return true;
+  //   } else {
+  //     console.log(this.auth.currentUser);
+  //     return false;
+  //   }
+  // }
+  public isLoggedIn(): boolean {
+    // 1) If local storage says we have user data, we consider them "logged in"
+    const userDataString = localStorage.getItem('currentUserData');
+    if (userDataString) {
       return true;
-    } else {
-      return false;
     }
+  
+    // 2) Fallback: check Firebase's currentUser
+    if (this.auth.currentUser !== null) {
+      return true;
+    }
+    return false;
   }
 
   /**
@@ -132,22 +172,36 @@ export class AuthService {
    * Loads the current user's data from localStorage and updates the local state.
    * If no data is found, a warning is displayed and the user is logged out.
    */
-  async loadCurrentUserDataFromLocalStorage() {
-    const userDataString = localStorage.getItem('currentUserData');
-    if (userDataString !== null) {
-      this.currentUserData = JSON.parse(userDataString);
-    } else {
-      console.warn('No user data found in localStorage.');
-      this.infoService.createInfo(
-        'Es wurden keine Benutzerdaten gefunden',
-        true
-      );
-      if (this.isRegistering) {
-        this.deleteUserCall();
-      }
-      await this.logoutCurrentUser();
-    }
+  // async loadCurrentUserDataFromLocalStorage() {
+  //   const userDataString = localStorage.getItem('currentUserData');
+    
+  //   if (userDataString !== null) {
+  //     this.currentUserData = JSON.parse(userDataString);
+  //   } else {
+  //     console.warn('No user data found in localStorage.');
+  //     this.infoService.createInfo(
+  //       'Es wurden keine Benutzerdaten gefunden',
+  //       true
+  //     );
+  //     if (this.isRegistering) {
+  //       this.deleteUserCall();
+  //     }
+  //     // await this.logoutCurrentUser();
+  //   }
+  // }
+  // Update in your loadCurrentUserDataFromLocalStorage method
+async loadCurrentUserDataFromLocalStorage() {
+  const userDataString = localStorage.getItem('currentUserData');
+  
+  if (userDataString !== null) {
+    this.currentUserData = JSON.parse(userDataString);
+    this.userDataReady.next(true);
+  } else {
+    this.userDataReady.next(false);
+    console.warn('No user data found in localStorage.');
+    // ... rest of your error handling
   }
+}
 
   /**
    * Registers and logs in the user with the provided login form data.
@@ -336,18 +390,39 @@ export class AuthService {
   /**
    * Logs out the current user and updates their online status to offline.
    */
+  // async logoutCurrentUser() {
+  //   this.cloudService.loading = true;
+  //   await this.changeOnlineStatus('offline');
+  //   try {
+  //     await this.auth.signOut();
+  //     this.router.navigate(['/login']);
+  //     this.infoService.createInfo('Sie wurden erfolgreich abgemeldet', false);
+  //   } catch (error) {
+  //     this.infoService.createInfo('Etwas ist schiefgelaufen', true);
+  //   }
+  //   this.cloudService.loading = false;
+  // }
   async logoutCurrentUser() {
     this.cloudService.loading = true;
-    await this.changeOnlineStatus('offline');
     try {
+      // Mark offline
+      await this.changeOnlineStatus('offline');
+      // Clear local storage
+      localStorage.removeItem('currentUserData');
+      // Actually sign out
       await this.auth.signOut();
+      
+      // Navigate
       this.router.navigate(['/login']);
       this.infoService.createInfo('Sie wurden erfolgreich abgemeldet', false);
     } catch (error) {
       this.infoService.createInfo('Etwas ist schiefgelaufen', true);
+      console.error(error);
+    } finally {
+      this.cloudService.loading = false;
     }
-    this.cloudService.loading = false;
   }
+
 
   /**
    * Creates new member data for the user and stores it in the database.
