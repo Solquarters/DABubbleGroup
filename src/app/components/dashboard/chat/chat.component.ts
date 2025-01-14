@@ -56,6 +56,11 @@ import { InfoFlyerService } from '../../../core/services/info-flyer.service';
 import { MobileControlService } from '../../../core/services/mobile-control.service';
 import { DummyDataService } from '../../../core/services/dummy-data.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { TestingFunctionsDialogComponent } from './dialogs/testing-functions-dialog/testing-functions-dialog.component';
+import { MatButtonModule } from '@angular/material/button';
+import {MatChipsModule} from '@angular/material/chips';
+
 @Component({
   selector: 'app-chat',
   standalone: true,
@@ -73,6 +78,8 @@ import { DummyDataService } from '../../../core/services/dummy-data.service';
     EditChannelPopupComponent,
     DirectSearchComponent,
     MembersSearchComponent,
+    MatButtonModule,
+    MatChipsModule
   ],
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss', '../../../../styles.scss'],
@@ -161,7 +168,8 @@ export class ChatComponent
     public memberService: MemberService,
     public infoService: InfoFlyerService,
     public mobileService: MobileControlService,
-    public dummyDataService: DummyDataService
+    public dummyDataService: DummyDataService,
+    private dialog: MatDialog,
   ) {
     this.currentChannel$ = this.channelService.currentChannel$;
     this.usersCollectionData$ = this.userService.publicUsers$;
@@ -178,6 +186,13 @@ export class ChatComponent
 
 
 
+  }
+
+  openTestingDialog() {
+    this.dialog.open(TestingFunctionsDialogComponent, {
+     
+      position: { top: '100px' }
+    });
   }
 
   trackByUserId(index: number, user: any): string {

@@ -1,0 +1,53 @@
+<!-- testing-functions-dialog.component.html -->
+<!-- <div mat-dialog-title>Testing Functions</div> -->
+
+<div mat-dialog-content>
+  <h3>Testing Functions</h3>
+  <h4>Push to see dummy data changes in real time.</h4>
+  <div class="dialog-buttons">
+    <div class="reset-button-and-info-class ">
+      <mat-chip (click)="populateDummyChannels()" >
+        Reset Channel Data
+      </mat-chip>
+      <span
+        >Deletes all channels and recreates default channels collection.</span
+      >
+    </div>
+
+    <div class="reset-button-and-info-class">
+      <mat-chip (click)="resetPublicUserData()"> Reset User Data </mat-chip>
+      <span
+        >Resets all user data to default state - Only activate when you are
+        logged in as guest.</span
+      >
+    </div>
+
+    <div class="reset-button-and-info-class">
+      <mat-chip (click)="populateDummyChannelsWithDummyMembers()">
+        Repopulate Channels
+      </mat-chip>
+      <span
+        >Deletes all members from all channels and randomly distributes current
+        registered users to existing public channels.</span
+      >
+    </div>
+
+    <div class="reset-button-and-info-class">
+      <mat-chip (click)="createMessagesCollection()">
+        Create messages
+      </mat-chip>
+      <span>Resets all messages to default state.</span>
+    </div>
+
+    <div class="reset-button-and-info-class">
+      <mat-chip (click)="createThreadMessages()">
+        Create thread messages
+      </mat-chip>
+      <span>Resets all thread messages to default state.</span>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions align="end">
+  <mat-chip (click)="dialogRef.close()">Close </mat-chip>
+</div>
