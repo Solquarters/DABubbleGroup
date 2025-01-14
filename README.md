@@ -1,6 +1,6 @@
 # DA Bubble Gr  
 
-Dieses Projekt ist eine **Chat-Messenger-App**, die sich an beliebten Plattformen wie **Slack** oder **Discord** orientiert. Sie wurde in einem **4-Personen-Entwicklungsteam** erstellt und bietet eine benutzerfreundliche Oberfläche für Kommunikation und Zusammenarbeit.  
+Dieses Projekt ist eine **Chat-Messenger-App**, die sich an beliebten Plattformen wie **Slack** oder **Discord** orientiert. Sie wurde in einem **3-Personen-Entwicklungsteam** erstellt und bietet eine benutzerfreundliche Oberfläche für Kommunikation und Zusammenarbeit.  
 
 ## Features  
 - Echtzeit-Chat mit Firebase als Backend  
