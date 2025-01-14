@@ -99,7 +99,7 @@ async ngOnInit() {
       first(),
       takeUntil(this.destroy$)
   ).subscribe(channels => {
-      // console.log('Setting Welcome Team channel in dashboard');
+
       this.channelService.setCurrentChannel('Sce57acZnV7DDXMRasdf');
   });
 }

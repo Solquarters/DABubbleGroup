@@ -79,7 +79,7 @@ export class ChannelListComponent implements OnDestroy{
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-    console.log('destroyed channel list');
+   
   }
 
   /**
