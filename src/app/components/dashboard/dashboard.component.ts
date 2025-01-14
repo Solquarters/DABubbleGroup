@@ -59,7 +59,7 @@ private destroy$ = new Subject<void>();
   isHovered = false;
 
   isMobileView = window.innerWidth <= 768;
-  channels$: Observable<{ channelId: string; name: string }[]>;
+  // channels$: Observable<{ channelId: string; name: string }[]>;
   currentThreadId: string | null = null;
 
 
@@ -75,21 +75,9 @@ private destroy$ = new Subject<void>();
     public authService: AuthService,
     public router: Router
   ) {
-    // We initialize the channels$ observable by assigning the service observable
-    this.channels$ = this.channelService.channels$;
-    // this.startAuthStateDetection();
+ 
+    // this.channels$ = this.channelService.channels$;
 
-    //Claude suggestion............................................................................................
-    // Listen for auth state changes
-    // this.authService.authState$
-    //   .pipe(takeUntil(this.destroy$))
-    //   .subscribe((user) => {
-    //     if (!user) {
-    //       // Reset local component state when user logs out
-    //       this.selectedChannel = null;
-    //       this.currentThreadId = null;
-    //     }
-    //   });
   }
 
 

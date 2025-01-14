@@ -1,9 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ChannelService } from '../../../../core/services/channel.service';
-import { Observable } from 'rxjs';
+import { combineLatest, filter, map, Observable, Subject, takeUntil } from 'rxjs';
 import { Channel } from '../../../../models/channel.model.class';
 import { MobileControlService } from '../../../../core/services/mobile-control.service';
+import { AuthService } from '../../../../core/services/auth.service';
 
 /**
  * @class ChannelListComponent
@@ -16,7 +17,9 @@ import { MobileControlService } from '../../../../core/services/mobile-control.s
   templateUrl: './channel-list.component.html',
   styleUrls: ['./channel-list.component.scss'],
 })
-export class ChannelListComponent {
+export class ChannelListComponent implements OnDestroy{
+
+  private destroy$ = new Subject<void>();
   /** Indicates whether the arrow icon is hovered */
   isArrowHovered: boolean = true;
 
@@ -47,14 +50,36 @@ export class ChannelListComponent {
   /** Description of the channel to be created */
   channelDescription: string = '';
 
+  channelsWithId: { id: string; name: string; members: string[] }[] = [];
+
   /** Observable for the list of channels */
   channels$: Observable<Channel[]>;
-
+ 
   constructor(
     public channelService: ChannelService,
+    public authService: AuthService,
     public mobileService: MobileControlService
   ) {
-    this.channels$ = this.channelService.channels$;
+   // Initialize channels$ based on auth state and channel initialization
+   this.channels$ = combineLatest([
+    this.authService.userReady$,
+    this.channelService.channels$,
+    this.channelService.channelsInitialized
+  ]).pipe(
+    takeUntil(this.destroy$),
+    map(([user, channels, initialized]) => {
+      if (!user || !initialized) {
+        return [];
+      }
+      return channels;
+    })
+  );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+    console.log('destroyed channel list');
   }
 
   /**

@@ -68,6 +68,8 @@ export class ChannelService implements OnDestroy {
 ///New 
   public channelsInitialized = new BehaviorSubject<boolean>(false);
 
+  private globalDestroy$ = new Subject<void>(); // For the constructor-level subscription
+  private channelsQueryDestroy$ = new Subject<void>();
 
   /**
    * @public Observable combining channels and current channel ID
@@ -112,9 +114,25 @@ export class ChannelService implements OnDestroy {
   //       }
   //     });
   // }
+  // constructor(public authService: AuthService) {
+  //   this.authService.userReady$
+  //     .pipe(
+  //       filter(user => user !== null),
+  //       distinctUntilChanged((prev, curr) => prev?.uid === curr?.uid)
+  //     )
+  //     .subscribe(async (user) => {
+  //       if (!user) {
+  //         this.resetServiceState();
+  //       } else {
+  //         await this.initializeChannels(this.authService.currentUserData.publicUserId);
+  //       }
+  //     });
+  // }
   constructor(public authService: AuthService) {
+    // This subscription uses globalDestroy$
     this.authService.userReady$
       .pipe(
+        takeUntil(this.globalDestroy$), 
         filter(user => user !== null),
         distinctUntilChanged((prev, curr) => prev?.uid === curr?.uid)
       )
@@ -122,20 +140,36 @@ export class ChannelService implements OnDestroy {
         if (!user) {
           this.resetServiceState();
         } else {
-          await this.initializeChannels(this.authService.currentUserData.publicUserId);
+          await this.initializeChannels(
+            await this.authService.getCurrentUserId()
+          );
         }
       });
   }
 
-public resetServiceState(): void {
-   this.destroy$.next();
-  this.destroy$.complete();
-  this.destroy$ = new Subject<void>();
+// public resetServiceState(): void {
+//    this.destroy$.next();
+//   // this.destroy$.complete();
+//   this.destroy$ = new Subject<void>();
  
+//   this.channelsSubject.next([]);
+//   this.currentChannelIdSubject.next(null);
+//   this.channelsInitialized.next(false);
+
+// }
+public async resetServiceState(): Promise<void> {
+  // Unsubscribe only Firestore queries, but NOT the constructor subscription:
+  this.channelsQueryDestroy$.next();
+  this.channelsQueryDestroy$.complete();
+  this.channelsQueryDestroy$ = new Subject<void>();
+
+  // Clear local state
   this.channelsSubject.next([]);
   this.currentChannelIdSubject.next(null);
   this.channelsInitialized.next(false);
 
+
+  
 }
 
 
@@ -160,8 +194,17 @@ private async initializeChannels(userId: string): Promise<void> {
   }
 }
 
+  // ngOnDestroy(): void {
+  //   this.resetServiceState();
+  // }
   ngOnDestroy(): void {
-    this.resetServiceState();
+    // Cleanup everything (called once in the lifetime of the service):
+    this.globalDestroy$.next();
+    this.globalDestroy$.complete();
+
+    // Also cleanup any outstanding Firestore subscriptions:
+    this.channelsQueryDestroy$.next();
+    this.channelsQueryDestroy$.complete();
   }
 
   /**
@@ -169,7 +212,35 @@ private async initializeChannels(userId: string): Promise<void> {
    * Includes error handling for permission issues and maintains a sorted list of channels.
    * @private
    */
-  private async loadChannels(currentUserId: string): Promise<void> {
+  // private async loadChannels(currentUserId: string): Promise<void> {
+  //   console.log('Loading channels for userId:', currentUserId);
+  //   return new Promise((resolve, reject) => {
+  //     const channelsCollection = collection(this.firestore, 'channels');
+  //     const channelsQuery = query(
+  //       channelsCollection,
+  //       where('memberIds', 'array-contains', currentUserId)
+  //     );
+  
+  //     collectionData(channelsQuery, {
+  //       idField: 'channelId',
+  //     }).pipe(
+  //       map(channels => this.sortChannels(channels as Channel[])),
+  //       takeUntil(this.destroy$)
+  //     ).subscribe({
+  //       next: (sortedChannels: any) => {
+  //         console.log('Received sorted channels:', sortedChannels);
+  //         this.channelsSubject.next(sortedChannels);
+  //         resolve();
+  //       },
+  //       error: (error: any) => {
+  //         console.error('Error fetching channels:', error);
+  //         reject(error);
+  //       }
+  //     });
+  //   });
+  // }
+   // Firestore subscription uses channelsQueryDestroy$
+   private async loadChannels(currentUserId: string): Promise<void> {
     console.log('Loading channels for userId:', currentUserId);
     return new Promise((resolve, reject) => {
       const channelsCollection = collection(this.firestore, 'channels');
@@ -180,22 +251,25 @@ private async initializeChannels(userId: string): Promise<void> {
   
       collectionData(channelsQuery, {
         idField: 'channelId',
-      }).pipe(
-        map(channels => this.sortChannels(channels as Channel[])),
-        takeUntil(this.destroy$)
-      ).subscribe({
-        next: (sortedChannels: any) => {
-          console.log('Received sorted channels:', sortedChannels);
-          this.channelsSubject.next(sortedChannels);
-          resolve();
-        },
-        error: (error: any) => {
-          console.error('Error fetching channels:', error);
-          reject(error);
-        }
-      });
+      })
+        .pipe(
+          map(channels => this.sortChannels(channels as Channel[])),
+          takeUntil(this.channelsQueryDestroy$)
+        )
+        .subscribe({
+          next: (sortedChannels: Channel[]) => {
+            console.log('Received sorted channels:', sortedChannels);
+            this.channelsSubject.next(sortedChannels);
+            resolve();
+          },
+          error: (error: any) => {
+            console.error('Error fetching channels:', error);
+            reject(error);
+          }
+        });
     });
   }
+
 
   /**
    * Sorts channels by creation date and ensures the Welcome Team channel appears first.
@@ -278,6 +352,9 @@ private async initializeChannels(userId: string): Promise<void> {
         await updateDoc(channelRef, {
             memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
         });
+
+        // await this.resetServiceState();
+        // await this.loadChannels(await this.authService.getCurrentUserId());
     } catch (error) {
         console.error('Error updating Welcome Team channel:', error);
         throw error;

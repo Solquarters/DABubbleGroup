@@ -128,16 +128,16 @@ export class SidenavComponent implements OnInit, OnDestroy {
 //     });
 // }
 ngOnInit(): void {
-  console.log('Sidenav OnInit called');
-  this.channelService.channelsInitialized
-    .pipe(
-      filter(initialized => initialized),
-      takeUntil(this.destroy$)
-    )
-    .subscribe(() => {
-      console.log('Channels initialized, subscribing to channels');
-      this.subscribeToChannels();
-    });
+  // console.log('Sidenav OnInit called');
+  // this.channelService.channelsInitialized
+  //   .pipe(
+  //     filter(initialized => initialized),
+  //     takeUntil(this.destroy$)
+  //   )
+  //   .subscribe(() => {
+  //     console.log('Channels initialized, subscribing to channels');
+  //     this.subscribeToChannels();
+  //   });
 }
 
   ngOnDestroy(): void {
@@ -167,19 +167,19 @@ ngOnInit(): void {
     // Clear existing channels
     this.channelsWithId = [];
     
-    this.channelService.channels$
-      .pipe(
-        takeUntil(this.destroy$),
-        filter(channels => Array.isArray(channels)) // Ensure we have valid data
-      )
-      .subscribe(channels => {
-        console.log('Received channels:', channels);
-        this.channelsWithId = channels.map(ch => ({
-          id: ch.channelId,
-          name: ch.name,
-          members: ch.memberIds || []
-        }));
-      });
+    // this.channelService.channels$
+    //   .pipe(
+    //     takeUntil(this.destroy$),
+    //     filter(channels => Array.isArray(channels)) // Ensure we have valid data
+    //   )
+    //   .subscribe(channels => {
+    //     console.log('Received channels:', channels);
+    //     this.channelsWithId = channels.map(ch => ({
+    //       id: ch.channelId,
+    //       name: ch.name,
+    //       members: ch.memberIds || []
+    //     }));
+    //   });
   }
 
   /**
