@@ -163,7 +163,7 @@ ngOnInit(): void {
   //     });
   // }
   private subscribeToChannels(): void {
-    console.log('Starting subscribeToChannels');
+ 
     // Clear existing channels
     this.channelsWithId = [];
     

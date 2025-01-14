@@ -167,36 +167,54 @@ public async resetServiceState(): Promise<void> {
   this.channelsSubject.next([]);
   this.currentChannelIdSubject.next(null);
   this.channelsInitialized.next(false);
-
-
-  
 }
 
 
+// private async initializeChannels(userId: string): Promise<void> {
+
+//   // Ensure we're starting fresh
+//   this.channelsInitialized.next(false);
+//   this.channelsSubject.next([]);
+//   this.currentChannelIdSubject.next(null);
+
+//   try {
+//     await this.loadChannels(userId);
+//     await this.ensureWelcomeTeamChannel();
+    
+   
+//     this.channelsInitialized.next(true);
+    
+//     this.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+//   } catch (error) {
+//     console.error('Error initializing channels:', error);
+//     this.channelsInitialized.next(false);
+//   }
+// }
 private async initializeChannels(userId: string): Promise<void> {
-  console.log('Starting initializeChannels for userId:', userId);
   // Ensure we're starting fresh
   this.channelsInitialized.next(false);
   this.channelsSubject.next([]);
   this.currentChannelIdSubject.next(null);
 
   try {
-    await this.loadChannels(userId);
-    await this.ensureWelcomeTeamChannel();
-    
-    console.log('Channel initialization complete');
-    this.channelsInitialized.next(true);
-    
-    this.setCurrentChannel('Sce57acZnV7DDXMRasdf');
+      await this.loadChannels(userId);
+      await this.ensureWelcomeTeamChannel();
+      
+      // Mark channels as initialized after everything is set up
+      this.channelsInitialized.next(true);
+      
+      // Set Welcome Team as current channel
+      this.setCurrentChannel('Sce57acZnV7DDXMRasdf');
   } catch (error) {
-    console.error('Error initializing channels:', error);
-    this.channelsInitialized.next(false);
+      console.error('Error initializing channels:', error);
+      this.channelsInitialized.next(false);
   }
 }
 
   // ngOnDestroy(): void {
   //   this.resetServiceState();
   // }
+
   ngOnDestroy(): void {
     // Cleanup everything (called once in the lifetime of the service):
     this.globalDestroy$.next();
@@ -240,35 +258,66 @@ private async initializeChannels(userId: string): Promise<void> {
   //   });
   // }
    // Firestore subscription uses channelsQueryDestroy$
-   private async loadChannels(currentUserId: string): Promise<void> {
-    console.log('Loading channels for userId:', currentUserId);
-    return new Promise((resolve, reject) => {
-      const channelsCollection = collection(this.firestore, 'channels');
-      const channelsQuery = query(
-        channelsCollection,
-        where('memberIds', 'array-contains', currentUserId)
-      );
+   
+   
+  //  private async loadChannels(currentUserId: string): Promise<void> {
+
+  //   return new Promise((resolve, reject) => {
+  //     const channelsCollection = collection(this.firestore, 'channels');
+  //     const channelsQuery = query(
+  //       channelsCollection,
+  //       where('memberIds', 'array-contains', currentUserId)
+  //     );
   
-      collectionData(channelsQuery, {
-        idField: 'channelId',
-      })
-        .pipe(
-          map(channels => this.sortChannels(channels as Channel[])),
-          takeUntil(this.channelsQueryDestroy$)
-        )
-        .subscribe({
-          next: (sortedChannels: Channel[]) => {
-            console.log('Received sorted channels:', sortedChannels);
-            this.channelsSubject.next(sortedChannels);
-            resolve();
-          },
-          error: (error: any) => {
-            console.error('Error fetching channels:', error);
-            reject(error);
-          }
-        });
+  //     collectionData(channelsQuery, {
+  //       idField: 'channelId',
+  //     })
+  //       .pipe(
+  //         map(channels => this.sortChannels(channels as Channel[])),
+  //         takeUntil(this.channelsQueryDestroy$)
+  //       )
+  //       .subscribe({
+  //         next: (sortedChannels: Channel[]) => {
+       
+  //           this.channelsSubject.next(sortedChannels);
+  //           resolve();
+  //         },
+  //         error: (error: any) => {
+  //           console.error('Error fetching channels:', error);
+  //           reject(error);
+  //         }
+  //       });
+  //   });
+  // }
+  private async loadChannels(currentUserId: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+        const channelsCollection = collection(this.firestore, 'channels');
+        const channelsQuery = query(
+            channelsCollection,
+            where('memberIds', 'array-contains', currentUserId)
+        );
+  
+        collectionData(channelsQuery, {
+            idField: 'channelId',
+        })
+            .pipe(
+                map(channels => this.sortChannels(channels as Channel[])),
+                takeUntil(this.channelsQueryDestroy$)
+            )
+            .subscribe({
+                next: (sortedChannels: Channel[]) => {
+                    // Update the channels subject with new data
+                    this.channelsSubject.next(sortedChannels);
+                    resolve();
+                },
+                error: (error: any) => {
+                    console.error('Error fetching channels:', error);
+                    reject(error);
+                }
+            });
     });
-  }
+}
+
 
 
   /**
@@ -335,30 +384,61 @@ private async initializeChannels(userId: string): Promise<void> {
   //     throw error;
   //   }
   // }
-  private async addUserToWelcomeTeamChannelInFirestore(): Promise<void> {
-    try {
-        // Wait for user data to be available
-        if (!this.authService.currentUserData?.publicUserId) {
-            await this.authService.loadCurrentUserDataFromLocalStorage();
-        }
+//   private async addUserToWelcomeTeamChannelInFirestore(): Promise<void> {
+//     try {
+//         // Wait for user data to be available
+//         if (!this.authService.currentUserData?.publicUserId) {
+//             await this.authService.loadCurrentUserDataFromLocalStorage();
+//         }
         
-        if (!this.authService.currentUserData?.publicUserId) {
-            throw new Error('User data not available');
-        }
+//         if (!this.authService.currentUserData?.publicUserId) {
+//             throw new Error('User data not available');
+//         }
 
-        const channelId = 'Sce57acZnV7DDXMRasdf';
-        const channelRef = doc(this.firestore, 'channels', channelId);
+//         const channelId = 'Sce57acZnV7DDXMRasdf';
+//         const channelRef = doc(this.firestore, 'channels', channelId);
 
-        await updateDoc(channelRef, {
-            memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
-        });
+//         await updateDoc(channelRef, {
+//             memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
+//         });
 
-        // await this.resetServiceState();
-        // await this.loadChannels(await this.authService.getCurrentUserId());
-    } catch (error) {
-        console.error('Error updating Welcome Team channel:', error);
-        throw error;
-    }
+//         // await this.resetServiceState();
+//         // await this.loadChannels(await this.authService.getCurrentUserId());
+//     } catch (error) {
+//         console.error('Error updating Welcome Team channel:', error);
+//         throw error;
+//     }
+// }
+private async addUserToWelcomeTeamChannelInFirestore(): Promise<void> {
+  try {
+      // Wait for user data to be available
+      if (!this.authService.currentUserData?.publicUserId) {
+          await this.authService.loadCurrentUserDataFromLocalStorage();
+      }
+      
+      if (!this.authService.currentUserData?.publicUserId) {
+          throw new Error('User data not available');
+      }
+
+      const channelId = 'Sce57acZnV7DDXMRasdf';
+      const channelRef = doc(this.firestore, 'channels', channelId);
+
+      await updateDoc(channelRef, {
+          memberIds: arrayUnion(this.authService.currentUserData.publicUserId),
+      });
+
+      // After updating the Welcome Team channel, reload all channels
+      await this.loadChannels(this.authService.currentUserData.publicUserId);
+      
+      // Set Welcome Team as current channel
+      this.setCurrentChannel(channelId);
+      
+      // Mark channels as initialized
+      this.channelsInitialized.next(true);
+  } catch (error) {
+      console.error('Error updating Welcome Team channel:', error);
+      throw error;
+  }
 }
 
   /**
